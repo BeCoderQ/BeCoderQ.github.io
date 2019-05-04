@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
                         </li>
 							
 						
@@ -185,14 +185,42 @@
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
                 <p>昨天建好了这个博客，目前还是个前端小白，我平时的习惯是有问题记在txt文档里，但想想，自己动手建个博客，技术上遇到的问题放在上面，不是更好？虽然利用这些便利的工具建自己的博客没有多少的技术含量，不过看到自己的第一个博客在输入网址后渲染在页面上还是很开心！</p>
-<h2 id="MarkDown的基本语法"><a href="#MarkDown的基本语法" class="headerlink" title="MarkDown的基本语法"></a>MarkDown的基本语法</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p><strong>分段</strong>   两个回车<br><strong>换行</strong>   两个空格 + 回车<br><strong>标题</strong>   # ~ ######，#号的个数表示几级标题，即表示一级标题到六级标题<br><strong>强调</strong>   *<em>文字** ， _<em>文字__ ， \</em>文字_ ， \</em>文字<em> ， 文字<br><strong>引用</strong>   &gt; 注意后面紧跟个空格<br><strong>表格</strong>   - 和 | 分割行和列 ， : 控制对其方式<br><strong>代码</strong>   四个空格 开头或， 使用&#180;&#180;&#180; 代码内容 &#180;&#180;&#180;<br><strong>链接</strong>   &#91;文字&#93;(链接地址)<br><strong>图片</strong>   !&#91;图片说明&#93;(图片地址) ，地址可以是本地路劲，也可以是网络地址<br><strong>列表</strong>   </em> ， + ， - ， 1. ，选其中之一，注意后面紧跟个空格</p>
+<h2 id="MarkDown的基本语法"><a href="#MarkDown的基本语法" class="headerlink" title="MarkDown的基本语法"></a>MarkDown的基本语法</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p><strong>分段</strong>   两个回车<br><strong>换行</strong>   两个空格 + 回车<br><strong>标题</strong>   # ~ ######，#号的个数表示几级标题，即表示一级标题到六级标题<br><strong>引用</strong>   > 注意后面紧跟个空格<br><strong>表格</strong>   - 和 | 分割行和列 ， : 控制对其方式<br><strong>代码</strong>   四个空格 开头或， 使用&#180;&#180;&#180; 代码内容 &#180;&#180;&#180;最好用&#180;&#180;&#180;分行将代码包裹<br><strong>链接</strong>   &#91;文字&#93;(链接地址)<br><strong>图片</strong>   !&#91;图片说明&#93;(图片地址) ，地址可以是本地路劲，也可以是网络地址<br><strong>列表</strong>   <em> ， + ， - ， 1. ，选其中之一，注意后面紧跟个空格<br><strong>强调</strong>   **文字** ， _<em>文字__ ， \</em>文字_ ， \</em>文字* ， 文字</p>
 <h2 id="MarkDown图片的坑"><a href="#MarkDown图片的坑" class="headerlink" title="MarkDown图片的坑"></a>MarkDown图片的坑</h2><p>导入图片弄了一个半小时了，还是没弄好！post_asset_folder也改成了true,hexo-asset-image也装了，还他娘的是不行。我的hexo是放在二级文件夹blog里的，生成的图片路径总是多了这个blog，实际上我试了一下去掉这个blog图片就能做出显示。技术渣实在搞不懂怎么解决了。只能明天在搞了。 </p>
 <h2 id="其实是自己太坑"><a href="#其实是自己太坑" class="headerlink" title="其实是自己太坑"></a>其实是自己太坑</h2><p>洗澡前发现_config.yml的url多写了个/blog路径。。自己太坑了！！！<img src="/BeCoderQ.github.io/2019/05/03/第一篇文章/eat.gif" alt="じゃね"> </p>
+<h2 id="使用hexo-github搭建blog的总结"><a href="#使用hexo-github搭建blog的总结" class="headerlink" title="使用hexo+github搭建blog的总结"></a>使用hexo+github搭建blog的总结</h2><h3 id="hexo文章图片路径问题"><a href="#hexo文章图片路径问题" class="headerlink" title="hexo文章图片路径问题"></a>hexo文章图片路径问题</h3><ul>
+<li><p>将 <strong>_config.yml</strong>文件中的<strong>post_asset_folder</strong>改为true,注意冒号后一定要有一个空格。</p>
+</li>
+<li><p>git命令下载hexo-asset-image</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ npm install https://github.com/CodeFalling/hexo-asset-image -- save</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载后你下一次执行创建文章命令时，你会发现_posts文件中多了一个文章名的文件，图片就可以放进去啦！在对应的md文件中引用:<img src="/BeCoderQ.github.io/2019/05/03/第一篇文章/图片名.格式" alt="图片"></li>
+</ul>
+<h3 id="categories与tags"><a href="#categories与tags" class="headerlink" title="categories与tags"></a>categories与tags</h3><p>一些主题默认是没有这两个文件的，要自己通过命令生成：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new tags or categories</span><br></pre></td></tr></table></figure>
+<p>在生成文件后，如果点击网页上的categories与tags还是没反应，那么打开对应的.md文件，在里面加上layout: categories或者tags，关闭保存，<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure></p>
+<h3 id="更换github域名"><a href="#更换github域名" class="headerlink" title="更换github域名"></a>更换github域名</h3><p>虽然更换域名可以但没必要，不过正好我之前买过域名，就用上吧！更换步骤也很简单：</p>
+<ul>
+<li><p>进入你的github点击Settings找到GitHub Pages，将Custom domain改为自己的域名，比如我的是<a href="www.toosimple.xyz">www.toosimple.xyz</a>，这里就只用写<a href="toosimple.xyz">toosimple.xyz</a>就OK了。记得点旁边的save</p>
+</li>
+<li><p>到你的code页，你会发现多了一个CNAME文件，里面的内容就是你刚才填写的域名。但这里有一点要提一下，如果是这样改域名的话，下次执行hexo clean命令后，CNAME文件就没了，因此建议自己在blog本地文件的source里建一个CNAME</p>
+</li>
+<li><p>接下来就是去你域名购买的网站操作了，我是用的阿里云，因此去阿里云解析域名，将CNAME记录值改为xxxx.github.io，xxxx是自己的github用户名</p>
+</li>
+<li><p>等待吧，我等了十来分钟就好了。另外在刚才的GitHub Pages那里可以开启HTTPS协议，直接打钩就好了，一开始选了可能左上角没有小锁，需要等一下证书，我的一个小时左右就好了</p>
+</li>
+</ul>
 
                 <hr>
                 
 
                 <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2019/05/04/历史级的季后赛/" data-toggle="tooltip" data-placement="top" title="历史级的季后赛">&larr; Previous Post</a>
+                    </li>
                     
                     
                     <li class="next">
@@ -215,7 +243,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MarkDown的基本语法"><span class="toc-text">MarkDown的基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本语法"><span class="toc-text">基本语法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MarkDown图片的坑"><span class="toc-text">MarkDown图片的坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其实是自己太坑"><span class="toc-text">其实是自己太坑</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MarkDown的基本语法"><span class="toc-text">MarkDown的基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本语法"><span class="toc-text">基本语法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MarkDown图片的坑"><span class="toc-text">MarkDown图片的坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其实是自己太坑"><span class="toc-text">其实是自己太坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用hexo-github搭建blog的总结"><span class="toc-text">使用hexo+github搭建blog的总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo文章图片路径问题"><span class="toc-text">hexo文章图片路径问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#categories与tags"><span class="toc-text">categories与tags</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更换github域名"><span class="toc-text">更换github域名</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>

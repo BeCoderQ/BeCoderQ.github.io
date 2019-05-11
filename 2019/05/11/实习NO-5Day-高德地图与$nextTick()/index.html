@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        实习NO-4Day-localStorage存储与JSON数组处理｜Chow&#39;s blog
+        实习NO-5Day-高德地图与$nextTick()｜Chow&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/05/09/实习NO-4Day-localStorage存储与JSON数组处理/">
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/05/11/实习NO-5Day-高德地图与$nextTick()/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
@@ -152,21 +152,21 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>实习NO-4Day-localStorage存储与JSON数组处理</h1>
+                    <h1>实习NO-5Day-高德地图与$nextTick()</h1>
                     
                     <span class="meta">
                          作者 Chow
                         <span>
-                          日期 2019-05-09
+                          日期 2019-05-11
                          </span>
                     </span>
                     <div class="tags text-center">
                         
                         <a class="tag" href="/BeCoderQ.github.io/tags/#实习" title="实习">实习</a>
                         
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#localStorage" title="localStorage">localStorage</a>
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#vue-amap" title="vue-amap">vue-amap</a>
                         
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#JSON" title="JSON">JSON</a>
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#$nextTick" title="$nextTick">$nextTick</a>
                         
                     </div>
                 </div>
@@ -175,7 +175,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            实习NO-4Day-localStorage存储与JSON数组处理
+            实习NO-5Day-高德地图与$nextTick()
         </span>
     </div>
 </header>
@@ -186,41 +186,34 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="实习第四天"><a href="#实习第四天" class="headerlink" title="实习第四天"></a>实习第四天</h2><p>今天主要完成了项目两个页面和另一个板块的搜索功能，需求是在页面一输入关键字搜索后跳转到页面二，显示出搜索结果，如果用户在页面一没有输入有效内容(比如就打了几个空格)，那么点击搜索后进入页面二会有个历史记录列表，点击右侧X可删。也就是说输入了有效关键字，显示搜索结果，反之则显示搜索记录。</p>
-<h3 id="具体需求对应算法"><a href="#具体需求对应算法" class="headerlink" title="具体需求对应算法"></a>具体需求对应算法</h3><ul>
-<li><p>首先判断用户输入的内容是否合法，我就用了一个正则表达式去掉空格，判断用户输入的字符串在去掉空格后的长度是否大于等于1？</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (this.Collection.replace(/\s+/g, &quot;&quot;).length &gt;= 1)&#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>既然是存在localStorage中那么页面v-for的渲染肯定是以localStorage.getItem(..)为遍历对象，那么就有新的问题了，如果用户是第一次搜索，当前本地缓存内没有值呢？既然没有值，那么去取的时候就会是null，下面是我的解决办法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">data()&#123;</span><br><span class="line">    return&#123;</span><br><span class="line">      // 以对象形式保存用户新输入的一条</span><br><span class="line">      newHistoryRec: &#123;&#125;,</span><br><span class="line">      // 以数组形式将每条输入信息存入并以此数组存入localStorage</span><br><span class="line">      historyRec: [],</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (localStorage.getItem(&quot;history&quot;) !== null)&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;else &#123;</span><br><span class="line">    // 如果当前缓存没有历史记录的数据，即为null 那么直接把当前输入的那一条以数组的形式存入</span><br><span class="line">    localStorage.setItem(&quot;history&quot;, JSON.stringify(this.historyRec));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>为什么要以数组形式存入呢？因为对象行驶的话push、unshift等方法是用不了的，也就是说后面有新的历史纪录后就不好操作了。另外说一下以JSON.stringify()形式存入的原因，因为如果直接存入数组对象的话，你取出直接用localStorage.getItem(xxx)给你的结果是”[object Object],[object Object],[object Object]”这种，显然是没用的，用JSON.parse方法会直接报错uncaught syntaxerror,我直翻一下大概是未捕获的语法错误，所以我用了JSON.stringify()。</p>
+                <h2 id="实习第五天"><a href="#实习第五天" class="headerlink" title="实习第五天"></a>实习第五天</h2><p>其实是昨天了，下班回家玩了几个小时NBA2K19，今天才写第五天的工作记录。昨天的话基本没遇到什么问题，主要是现阶段还只是在布局，相关操作逻辑也还比较简单。老实说这个项目的总体难度我觉得都不大。这里的话就说一下项目用的高德地图。</p>
+<h3 id="vue-amap高德地图"><a href="#vue-amap高德地图" class="headerlink" title="vue-amap高德地图"></a>vue-amap高德地图</h3><p>这个组件我用下来觉得挺好用的，官方文档也详细。我这几天负责的模块其实并没有要引入地图的地方，主要是同事引入地图某些插件的时候出了点问题，正好那天下午自己的东西也做得差不多了，我就去看了一下vue-amap的官方文档。</p>
 <ul>
-<li>如果假设用户输入关键字合法，但是有个关键字输入了四五遍，那么总不能重复存入四五遍该历史记录吧？我的解决方式是将输入的关键字与当前localStorage中的所有历史关键字比较，使用了map方法，不过我觉得我这种方法只适合单个数据的去重<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">data()&#123;</span><br><span class="line">    return&#123;</span><br><span class="line">      // 以对象形式保存用户新输入的一条</span><br><span class="line">      newHistoryRec: &#123;&#125;,</span><br><span class="line">      // 以数组形式将每条输入信息存入并以此数组存入localStorage</span><br><span class="line">      historyRec: [],</span><br><span class="line">      // 用于判断重复输入保存当前localStorage中实际输入内容的数组</span><br><span class="line">      historyContent: []</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    var newList = [];</span><br><span class="line">      // 获取当前缓存中的历史搜索内容</span><br><span class="line">      const getLocalStorage = JSON.parse(localStorage.getItem(&quot;history&quot;));</span><br><span class="line">      // 把新的一条历史纪录设置为对象形式&#123; record: &apos;xxx&apos; &#125;</span><br><span class="line">      this.newHistoryRec.record = this.Collection;</span><br><span class="line">      this.historyRec.unshift(this.newHistoryRec);</span><br><span class="line">      // 判断用户是否只输入了空格</span><br><span class="line">      if (this.Collection.replace(/\s+/g, &quot;&quot;).length &gt;= 1) &#123;</span><br><span class="line">        // 判断当前是否有历史缓存信息</span><br><span class="line">        if (localStorage.getItem(&quot;history&quot;) !== null) &#123;</span><br><span class="line">          this.historyContent = getLocalStorage.map(item =&gt; item.record);</span><br><span class="line">          newList = getLocalStorage;</span><br><span class="line">          newList.unshift(this.newHistoryRec);</span><br><span class="line">          // 只保存最新的10条记录</span><br><span class="line">          if (newList.length &gt; 6) newList.length = 10;</span><br><span class="line">          // 如果输入内容在保存搜索值的数组中存在</span><br><span class="line">          if (this.historyContent.indexOf(this.Collection) === -1)</span><br><span class="line">            localStorage.setItem(&quot;history&quot;, JSON.stringify(newList));</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          localStorage.setItem(&quot;history&quot;, JSON.stringify(this.historyRec));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+<li><p>项目有个需求要在地图上显示某个区域目标点的集合，那么正好高德地图有点聚合这个东西，直接就可以使用了，下面是官方的代码。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;amap-page-container&quot;&gt;</span><br><span class="line">      &lt;el-amap</span><br><span class="line">        vid=&quot;amapDemo&quot;  </span><br><span class="line">        :center=&quot;center&quot;</span><br><span class="line">        :zoom=&quot;zoom&quot;</span><br><span class="line">        class=&quot;amap-demo&quot;</span><br><span class="line">        :events=&quot;events&quot;&gt;</span><br><span class="line">        &lt;el-amap-marker v-for=&quot;marker in markers&quot; :position=&quot;marker.position&quot; :content=&quot;marker.content&quot; :events=&quot;marker.events&quot;&gt;&lt;/el-amap-marker&gt;</span><br><span class="line">      &lt;/el-amap&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/template&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>样式部分,一定要设置一个高度，不然高度为0啥都没有</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  .amap-demo &#123;</span><br><span class="line">    height: 300px;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>js代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  &lt;script&gt;</span><br><span class="line">    module.exports = &#123;</span><br><span class="line">      data: function() &#123;</span><br><span class="line">        let self = this;</span><br><span class="line">        return &#123;</span><br><span class="line">          zoom: 12,</span><br><span class="line">          center: [121.59996, 31.197646],</span><br><span class="line">          markers: [],</span><br><span class="line">          markerRefs: [],</span><br><span class="line">          events: &#123;</span><br><span class="line">            init(o) &#123;</span><br><span class="line">              setTimeout(() =&gt; &#123;</span><br><span class="line">                console.log(self.markerRefs);</span><br><span class="line">                let cluster = new AMap.MarkerClusterer(o, self.markerRefs,&#123;</span><br><span class="line">                  gridSize: 80,</span><br><span class="line">                  renderCluserMarker: self._renderCluserMarker</span><br><span class="line">                &#125;);</span><br><span class="line">                console.log(cluster);</span><br><span class="line">              &#125;, 1000);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      created() &#123;</span><br><span class="line">        let self = this;</span><br><span class="line">        let markers = [];</span><br><span class="line">        let index = 0;</span><br><span class="line">        // 这个是点聚合的位置</span><br><span class="line">        let basePosition = [121.59996, 31.197646];</span><br><span class="line"></span><br><span class="line">        while (++index &lt;= 30) &#123;</span><br><span class="line">          markers.push(&#123;</span><br><span class="line">            position: [basePosition[0] + 0.01 * index, basePosition[1]],</span><br><span class="line">            content: &apos;&lt;div style=&quot;text-align:center; background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;&quot;&gt;&lt;/div&gt;&apos;,</span><br><span class="line">            events: &#123;</span><br><span class="line">              init(o) &#123;</span><br><span class="line">                self.markerRefs.push(o);</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        this.markers = markers;</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      methods: &#123;</span><br><span class="line">        _renderCluserMarker(context) &#123;</span><br><span class="line">          const count = this.markers.length;</span><br><span class="line">          let factor = Math.pow(context.count/count, 1/18)</span><br><span class="line">          let div = document.createElement(&apos;div&apos;);</span><br><span class="line">          let Hue = 180 - factor* 180;</span><br><span class="line">          let bgColor = &apos;hsla(&apos;+Hue+&apos;,100%,50%,0.7)&apos;;</span><br><span class="line">          let fontColor = &apos;hsla(&apos;+Hue+&apos;,100%,20%,1)&apos;;</span><br><span class="line">          let borderColor = &apos;hsla(&apos;+Hue+&apos;,100%,40%,1)&apos;;</span><br><span class="line">          let shadowColor = &apos;hsla(&apos;+Hue+&apos;,100%,50%,1)&apos;;</span><br><span class="line">          div.style.backgroundColor = bgColor</span><br><span class="line">          let size = Math.round(30 + Math.pow(context.count/count,1/5) * 20);</span><br><span class="line">          div.style.width = div.style.height = size+&apos;px&apos;;</span><br><span class="line">          div.style.border = &apos;solid 1px &apos;+ borderColor;</span><br><span class="line">          div.style.borderRadius = size/2 + &apos;px&apos;;</span><br><span class="line">          div.style.boxShadow = &apos;0 0 1px &apos;+ shadowColor;</span><br><span class="line">          div.innerHTML = context.count;</span><br><span class="line">          div.style.lineHeight = size+&apos;px&apos;;</span><br><span class="line">          div.style.color = fontColor;</span><br><span class="line">          div.style.fontSize = &apos;14px&apos;;</span><br><span class="line">          div.style.textAlign = &apos;center&apos;;</span><br><span class="line">          context.marker.setOffset(new AMap.Pixel(-size/2,-size/2));</span><br><span class="line">          context.marker.setContent(div)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>感觉真的不难，就是自己基础不太扎实，用不出简单的办法，老是声明很多其他的数组，最后写的很复杂。另外还有删除历史记录，也不难，拿到用户点击的删除的那条记录的索引就能完成后续操作了，毕竟是以unshift推入的，因此历史记录列表的索引与在本地缓存中的索引是一样的。</p>
-<h3 id="记点其他的"><a href="#记点其他的" class="headerlink" title="记点其他的"></a>记点其他的</h3><ul>
-<li>因为是手机app开发，所以左上角一般有个返回，我都是用的this.$router.back(-1)方法返回，暂时也还不知道这个方法有没有坑。</li>
-<li>echarts很好用，但是同事电脑上老是运行不了，明天去查查原因。</li>
-<li>最近还接触了less，在css中使用变量和嵌套确实挺方便，后续继续学习less的使用。</li>
-<li>有一段时间没有看JavaScript了，前端的核心就是JavaScript，这周末一定要好好看看。</li>
-<li>每天下班回家六点半多，吃完饭差不多快七点了，这几天还在改论文，每天博客也要更，虽然只有自己看，但是我希望能坚持下去，能一步一步看到自己技术上有进步是再好不过了。</li>
+<p>简单粗暴复制粘贴后，并没有出效果，点到console看了下报了错，大概是说AMap.MarkerClusterer is not a constructor 这个东西不是一个构造函数。</p>
+<ul>
+<li>我开始以为是包没引好，然后去main.js看了下，然后看了这个<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">VueAMap.initAMapApiLoader(&#123;</span><br><span class="line">  key: &apos;YOUR_KEY&apos;,</span><br><span class="line">  plugin: [&apos;AMap.Scale&apos;, &apos;AMap.OverView&apos;, &apos;AMap.ToolBar&apos;, &apos;AMap.MapType&apos;,...],</span><br><span class="line">  v: &apos;1.4.4&apos;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+<p>好吧，问题很快就解决了，把’AMap.MarkerClusterer’这东西加进plugin里就行了。。。</p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/BeCoderQ.github.io/2019/05/11/实习NO-5Day-高德地图与$nextTick()/" data-toggle="tooltip" data-placement="top" title="实习NO-5Day-高德地图与$nextTick()">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/BeCoderQ.github.io/2019/05/08/实习NO-3Day-v-for传递索引与同步渲染搜索结果-md/" data-toggle="tooltip" data-placement="top" title="实习NO-3Day-v-for传递索引与同步渲染搜索结果.md">Next Post &rarr;</a>
+                        <a href="/BeCoderQ.github.io/2019/05/09/实习NO-4Day-localStorage存储与JSON数组处理/" data-toggle="tooltip" data-placement="top" title="实习NO-4Day-localStorage存储与JSON数组处理">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -239,7 +232,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实习第四天"><span class="toc-text">实习第四天</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#具体需求对应算法"><span class="toc-text">具体需求对应算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#记点其他的"><span class="toc-text">记点其他的</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实习第五天"><span class="toc-text">实习第五天</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue-amap高德地图"><span class="toc-text">vue-amap高德地图</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -263,9 +256,9 @@
                         
                         <a class="tag" href="/BeCoderQ.github.io/tags/#实习" title="实习">实习</a>
                         
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#localStorage" title="localStorage">localStorage</a>
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#vue-amap" title="vue-amap">vue-amap</a>
                         
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#JSON" title="JSON">JSON</a>
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#$nextTick" title="$nextTick">$nextTick</a>
                         
                     </div>
                 </section>

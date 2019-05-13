@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Chow&#39;s blog
+        实习NO-6Day-闭包与高德地图点聚合事件｜Chow&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/tags/v-for/">
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/05/13/实习NO-6Day-闭包与高德地图点聚合事件/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="false" data-istags="true
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="true" data-istags="false
 " data-ishome="false">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -132,190 +132,152 @@
 
 <!-- Main Content -->
 
+<!--only post-->
 
-<!-- Page Header -->
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
-    <div class="row">
-        <header class="intro-header">
-            <div class="container">
-                <div class="site-heading text-center">
-                    <div class="about-me">
-                        <!--移动端头部显示-->
-                        <img src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
-                        <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
-                        <p>在前端的路上</p>
+
+<img class="wechat-title-img" src="https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>实习NO-6Day-闭包与高德地图点聚合事件</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2019-05-13
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#实习" title="实习">实习</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#vue-amap" title="vue-amap">vue-amap</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#闭包" title="闭包">闭包</a>
+                        
                     </div>
                 </div>
             </div>
-        </header>
-    </div>
-</div>
-<!-- Main Content -->
-<div class="container custom-haojen-container">
-    <!-- Post Container -->
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
-            <!-- Main Content -->
-
-
-
-<div class="post-preview " style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
-    <a href="/BeCoderQ.github.io/2019/05/08/实习NO-3Day-v-for传递索引与同步渲染搜索结果-md/">
-        <h2 class="post-title">
-            实习NO-3Day-v-for传递索引与同步渲染搜索结果.md
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-05-08
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                实习第三天其实是昨天了，今天5月8日，在学校度过，下午才坐动车回家，总结一下昨天的工作情况吧。
-昨日总结昨天把我负责项目的消息页与消息详情页的布局、部分动态效果以及基本操作交互做完了，其中遇到的主要问题是
-
-给最外层绑定v-for的元素绑定一个click事件后，点击一次会响应N次，这个N等于那个..
-            </p>
         </div>
-    </a>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            实习NO-6Day-闭包与高德地图点聚合事件
+        </span>
+    </div>
+</header>
 
-</div>
-
-<hr>
-
-
-
-
-<!-- 翻页 pager -->
-
-<ul class="pager">
-    
-    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="实习第六天"><a href="#实习第六天" class="headerlink" title="实习第六天"></a>实习第六天</h2><p>今天又被vue-amap高德地图卡了，而且老实说到现在有个问题都没解决</p>
+<h3 id="今天遇到的问题"><a href="#今天遇到的问题" class="headerlink" title="今天遇到的问题"></a>今天遇到的问题</h3><p>点聚合，这个我之前也说过，是项目里的需求，今天才和另一个老哥开始做这块，结果发现不好做。官方的点聚合点一次后会放大地图，比如之前目标点是五个，点一下放大地图变成两个目标点。现在的需求是，在默认是显示五个目标点时点击那个图标会弹出那个五个点的信息。先不谈点开后怎么获取信息，我们连绑定事件都绑不了。有几点疑问：</p>
+<ul>
+<li>我用原生2级dom addEventListener绑定click事件，在chrome的EventListener中也确实看到绑定成功了，但是点击后无效，在控制台用脚本运行，即绑定事件的元素.click()那么就可以正常运行，why?</li>
+<li>使用官方的绑定事件，在EventListener中是看不到绑定的，也就是说绑定失败，当然也没有点击效果。</li>
+<li>是否是事件被覆盖了？前面也说了点击是有默认事件的，不过我看目标元素绑定的是touchstart事件。</li>
+</ul>
+<h3 id="记录一下闭包吧"><a href="#记录一下闭包吧" class="headerlink" title="记录一下闭包吧"></a>记录一下闭包吧</h3><p>确实一天都没解决上面这个问题，后面做了几个页面然后回家看了下书，正好看到闭包，记录一下。技术不够，看书来凑。明天一定要找到原因！</p>
+<ul>
+<li>我自己的理解是，只要一个函数内部的变量被另一个函数引用着，就是闭包。<br>JavaScript的垃圾回收机制可达性：就是这个变量到底还在用没有？那么怎么判断还在用没有呢，那就是看还有代码引用这个变量没有，是否可达？<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function one()&#123;</span><br><span class="line">    var a = 10;</span><br><span class="line">    console.log(a);</span><br><span class="line">&#125;</span><br><span class="line">one();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里的a在声明打印后就被销毁了，因为在one函数运行完后就不可达了。</p>
+<p>看一下简单的闭包<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function one()&#123;</span><br><span class="line">    var a = 10;</span><br><span class="line">    return function two()&#123;</span><br><span class="line">        a += 2;</span><br><span class="line">        console.log(a); </span><br><span class="line">    &#125;</span><br><span class="line">    two();</span><br><span class="line">&#125;</span><br><span class="line">var func = new one();</span><br><span class="line">func(); // 12</span><br><span class="line">func(); // 14</span><br></pre></td></tr></table></figure></p>
+<p>这里two是one内部的函数，根据作用域链的规则，two是可以访问到one中变量a的，这里two中执行a每次加2 并打印出来。下面在func实例化one函数后，可以看到，第一次打印后12，第二次打印后并不是12 而是14，说明变量并没有被销毁，而是继续被引用了。<br>再看一个例子<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 这个for循环的结果不是1 2 3 4 5而是每隔1秒钟输出一个6 其实想实现前面的效果即输出1、2、3、4、5很简单，只需将var改成let即可</span><br><span class="line">for(var i=1;i&lt;=5;i++)&#123;</span><br><span class="line">    setTimeout( function timer()&#123;</span><br><span class="line">        console.log(i);</span><br><span class="line">    &#125;,i*1000)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>按照这个for循环的条件，6是最后输出结果。因为这里使用了setTimeout函数，它会在for循环结束后执行哪怕我们把时间设置为0也是这样，并且这里的i被共享了。setTimeout我经常用来做异步操作。<br>接下来使用IIFE改造上面这个函数使其输出的结果是1、2、3、4、5<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i=1;i&lt;=5;i++)&#123;</span><br><span class="line">    (function(j)&#123;</span><br><span class="line">        setTimeout( function timer()&#123;</span><br><span class="line">            console.log(j);</span><br><span class="line">        &#125;,j*1000);</span><br><span class="line">    &#125;)(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面使用IIFE我们将外层for循环的i传进去给了j setTimeout打印出了12345,在迭代内使用IIFE可以为每个迭代都生成一个新的作用域，使得延迟函数的回调可将新的作用域封闭在每个迭代内部，而每个迭代内不都会有一个具有正确值的新变量(如上述j)让我们访问</p>
+<ul>
+<li>未完待续</li>
 </ul>
 
+                <hr>
+                
 
-        </div>
-        <!-- Sidebar Container -->
-        <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-
-            <!-- About Me -->
-            <section class="visible-md visible-lg" style="padding: 0 18px">
-                <div class="short-about">
-                    <!--侧边栏头像-->
+                <ul class="pager">
                     
-                    <img src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
                     
-                    <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2019/05/11/实习NO-5Day-高德地图与$nextTick()/" data-toggle="tooltip" data-placement="top" title="实习NO-5Day-高德地图与$nextTick()">Next Post &rarr;</a>
+                    </li>
                     
-                    <p>在前端的路上</p>
-                    
-                    <hr>
-                    <!-- SNS Link 社交 -->
-                    <ul class="list-inline">
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://twitter.com/zyyzg">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                            </a>
-                        </li>
-                        
+                </ul>
 
-                        
-                        <li>
-                            <a target="_blank" href="http://weibo.com/St7Paul-">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
+                
 
-                        
+                
 
-                        
-                        <li>
-                            <a target="_blank" href="https://github.com/becoderq">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
 
-                        
-                    </ul>
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实习第六天"><span class="toc-text">实习第六天</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#今天遇到的问题"><span class="toc-text">今天遇到的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#记录一下闭包吧"><span class="toc-text">记录一下闭包吧</span></a></li></ol></li></ol>
                 </div>
-            </section>
-
-            <!-- Featured Tags  标签 -->
-            
-            <section>
-                <div class="tags">
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#实习" title="实习" rel="6">实习</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#vue-amap" title="vue-amap" rel="2">vue-amap</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </div>
-            </section>
-            
-
-            
-
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#实习" title="实习">实习</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#vue-amap" title="vue-amap">vue-amap</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#闭包" title="闭包">闭包</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
     </div>
-</div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->

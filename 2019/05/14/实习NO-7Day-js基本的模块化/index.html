@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
                         </li>
 							
 						
@@ -184,19 +184,36 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="实习第七天"><a href="#实习第七天" class="headerlink" title="实习第七天"></a>实习第七天</h2><p>今天又是做搬砖程序员的一天，各种代码的复用，组件的复用，解决了昨天的两个疑问，但本质问题还是没解决，另外感觉自己代码的可维护性太差了，写得很乱，css也有很多没必要的重复，等后面项目页面以及基本业务逻辑代码写完后来优化一下代码。</p>
-<h3 id="JavaScript的模块化"><a href="#JavaScript的模块化" class="headerlink" title="JavaScript的模块化"></a>JavaScript的模块化</h3><p>直接看一个例子<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var MyModules = (function Manager()&#123;</span><br><span class="line">    var modules =&#123;&#125;;</span><br><span class="line"></span><br><span class="line">    function define(name,deps,impl)&#123;</span><br><span class="line">        for(var i=0;i&lt;deps.length;i++)&#123;</span><br><span class="line">            deps[i] = modules[deps[i]];</span><br><span class="line">        &#125;</span><br><span class="line">        // 这里即改变了传入的impl函数this指向，更改后指向deps,需要注意apply第二个参数只能是数组，这也是其与call的区别</span><br><span class="line">        modules[name] = impl.apply(impl,deps);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function get(name)&#123;</span><br><span class="line">        return modules[name];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return&#123;</span><br><span class="line">        define: define,</span><br><span class="line">        get: get</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
-<p>这里声明了一个MyModules等于后面那一坨立即执行函数,重点下面这行<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">modules[name] = impl.apply(impl,deps);</span><br></pre></td></tr></table></figure></p>
-<p>apply很好理解，举个最简单的例子:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var b = [&apos;me&apos;]</span><br><span class="line">function a(a)&#123;</span><br><span class="line">	this.a = a;</span><br><span class="line">	console.log(a)</span><br><span class="line">&#125;</span><br><span class="line">a.apply( a,b ) //输出me</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MyModules.define(&apos;bar&apos;,[],function()&#123;</span><br><span class="line">    function hello(who)&#123;</span><br><span class="line">        return &apos;you are&apos; + who;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">        hello: hello</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">MyModules.define(&apos;foo&apos;,[],function()&#123;</span><br><span class="line">    var symbol = &quot;pants&quot;;</span><br><span class="line"></span><br><span class="line">    function complex(w)&#123;</span><br><span class="line">        console.log( bar.hello(symbol).toUpperCase() );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">        complex: complex</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var bar = MyModules.get(&apos;bar&apos;);</span><br><span class="line">var foo = MyModules.get(&apos;foo&apos;);</span><br><span class="line"></span><br><span class="line">console.log( bar.hello(&apos;shoes&apos;) )// you are shoes</span><br><span class="line">foo.complex(); // YOU ARE pants</span><br></pre></td></tr></table></figure>
+                <h2 id="实习第七天"><a href="#实习第七天" class="headerlink" title="实习第七天"></a>实习第七天</h2><p>今天又是做搬砖程序员的一天，各种代码的复用，组件的复用，解决了昨天的两个疑问，但本质问题还是没解决，另外感觉自己代码的可维护性太差了，写得很乱，css也有很多没必要的重复，考虑使用@import。等后面项目页面以及基本业务逻辑代码写完后来优化一下代码。</p>
+<h3 id="JavaScript的模块化"><a href="#JavaScript的模块化" class="headerlink" title="JavaScript的模块化"></a>JavaScript的模块化</h3><p>直接看一个例子<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var MyModules = (function Manager()&#123;</span><br><span class="line">    var modules =&#123;&#125;;</span><br><span class="line">    // 这里name传字符串，deps是数组,impl是函数</span><br><span class="line">    function define(name,deps,impl)&#123;</span><br><span class="line">        for(var i=0;i&lt;deps.length;i++)&#123;</span><br><span class="line">            deps[i] = modules[deps[i]];</span><br><span class="line">        &#125;</span><br><span class="line">        modules[name] = impl.apply(impl,deps);</span><br><span class="line">    &#125;</span><br><span class="line">    function get(name)&#123;</span><br><span class="line">        return modules[name];</span><br><span class="line">    &#125;</span><br><span class="line">    return&#123;</span><br><span class="line">        define: define,</span><br><span class="line">        get: get</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>这一堆函数真的不太好理解，第一眼看到简直一脸懵逼，太绕了！明天再组织语言好好说明一下</li>
+<li><p>这段例子还没完，接下来看后半部分</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MyModules.define(&apos;bar&apos;,[],function()&#123;</span><br><span class="line">    function hello(who)&#123;</span><br><span class="line">        return &apos;you are&apos; + who;</span><br><span class="line">    &#125;</span><br><span class="line">    return &#123;</span><br><span class="line">        hello: hello</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">MyModules.define(&apos;foo&apos;,[&apos;bar&apos;],function()&#123;</span><br><span class="line">    var symbol = &quot;pants&quot;;</span><br><span class="line">    function complex()&#123;</span><br><span class="line">        // 这里没明白bar.hello()方法，为什么是用bar来调用？ 现在搞明白了。其实就是bar是个对象 有个hello方法</span><br><span class="line">        console.log( bar.hello(symbol).toUpperCase() );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">        complex: complex</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line">// 这里不就是让bar 等于了modules.bar的值吗，没搞明白为什么下面用这个去调用hello函数？ 自问自答 现在看明白了，实际上modules.bar等于一个对象&#123;hello: function&#125;后面这个function就是上面传入的hello函数，所以这里可以直接bar.hello！</span><br><span class="line">var bar = MyModules.get(&apos;bar&apos;);</span><br><span class="line">var foo = MyModules.get(&apos;foo&apos;);</span><br><span class="line"></span><br><span class="line">console.log( bar.hello(&apos;pants&apos;) )// you are pants</span><br><span class="line">foo.complex(); // YOU ARE PANTS</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这一堆函数真的不太好理解，第一眼看到简直一脸懵逼，太绕了！明天再组织语言好好说明一下</p>
+</li>
+<li>一天过去了 尝试写了些注释 依然一脸懵逼 我就在这里记录一下，看这两天下班回家后能看懂这堆代码到底表达了什么，直到看懂之前，每天都留下这么一条屈辱list,5月15日留<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var a = [&apos;zhou&apos;];</span><br><span class="line">function hello(who)&#123;</span><br><span class="line">	return &apos;you are&apos;+ who;</span><br><span class="line">&#125;</span><br><span class="line">hello.apply(hello(),a);// 输出you are zhou</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我就这里没看明白，自己尝试去控制台打印了一下。。居然是这样的结果，这也就是说apply在这里就相当于直接hello(a)的结果了。。学艺不精！！</p>
+<p>结合上下文翻译一下上面的代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 这里一堆代码执行后</span><br><span class="line">MyModules.define(&apos;bar&apos;,[],function()&#123;</span><br><span class="line">    function hello(who)&#123;</span><br><span class="line">        return &apos;you are&apos; + who;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">// 会如下</span><br><span class="line">// 因为传入的空数组，[].length等于0，因此deps[i]=modelus[deps[i]]不会执行</span><br><span class="line">modules.bar = &#123;hello: f&#125; // 这里的f即是上面传入的第三个参数的function！</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>还是5月15日。。上面写得很乱，因为是花了两天的休息时间才看明白的，我就总结一下我寻找这个问题答案的方法<br><strong><em>他妈的不要再自己臆想每个结果是什么了！！！去控制台打出来啊混蛋！！！</em></strong><br>就拿下面这段代码来说<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MyModules.define(&apos;bar&apos;,[],function()&#123;</span><br><span class="line">    function hello(who)&#123;</span><br><span class="line">        return &apos;you are&apos; + who;</span><br><span class="line">    &#125;</span><br><span class="line">    return &#123;</span><br><span class="line">        hello: hello</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>首先我看错了，看成穿的函数是hello(),直到我把代码打到控制台，输出结果是{hello: f}我才发现。。所以，以后遇到类似的问题，一定要去控制台分段打出来！！！！</p>
+<ul>
+<li>finish</li>
 </ul>
 
                 <hr>
                 
 
                 <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2019/05/15/实习NO-8Day-对象的-与-操作符的区别/" data-toggle="tooltip" data-placement="top" title="实习NO-8Day-对象的[]与.操作符的区别">&larr; Previous Post</a>
+                    </li>
                     
                     
                     <li class="next">

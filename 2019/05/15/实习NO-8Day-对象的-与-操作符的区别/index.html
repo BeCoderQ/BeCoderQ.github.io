@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
                         </li>
 							
 						
@@ -184,22 +184,27 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="实习第八天"><a href="#实习第八天" class="headerlink" title="实习第八天"></a>实习第八天</h2><p>今天把应用打包成了APP，用的是HBuilder打包，这里也遇到了点小问题，就是vue.cli脚手架打包后的问题。在运行npm run build后打开打包后生成的dist文件里的index.html会出现白屏的问题，这是因为打包后的路径问题，需要在</p>
+                <h2 id="实习第八天"><a href="#实习第八天" class="headerlink" title="实习第八天"></a>实习第八天</h2><p>今天把应用打包成了APP，用的是HBuilder打包，这里也遇到了点小问题，就是vue.cli脚手架打包后的问题。在运行npm run build后打开打包后生成的dist文件里的index.html会出现白屏的问题。</p>
 <h3 id="vue-cli打包后文件路径问题"><a href="#vue-cli打包后文件路径问题" class="headerlink" title="vue.cli打包后文件路径问题"></a>vue.cli打包后文件路径问题</h3><p>解决：找到config下的index.js文件，改assetsPublicPath:’./‘,也就是前面加一个点，注意有两个这个玩意儿，都要加，当然，打包后就可以去掉点了，因为在平时调试时有点又运行不了</p>
-<h3 id="js对象的-与-操作符"><a href="#js对象的-与-操作符" class="headerlink" title="js对象的[]与.操作符"></a>js对象的[]与.操作符</h3><p>我基本上平时都用.操作符，之前也知道有[/]操作符也没搞明白[]和.有什么区别，今天说明一下</p>
+<h3 id="js对象的-与-操作符"><a href="#js对象的-与-操作符" class="headerlink" title="js对象的[]与.操作符"></a>js对象的[]与.操作符</h3><p>我基本上平时都用.操作符，之前也知道有[]操作符也没搞明白[]和.有什么区别，今天说明一下</p>
 <ul>
 <li>比如说我有如下函数<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var obj = &#123;&#125;;</span><br><span class="line">function func(key,val)&#123;</span><br><span class="line">    obj[key] = val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>这里我的func函数接受两个参数，第一个是对象的键，第二个是其对应的值,那么问题来了，如果我用点操作符的话，这里会出现什么问题呢？他会给你报’Uncaught SyntaxError: Unexpected string’这个错误，因为你传入的是字符串，而当我们的对象需要传入不确定的键时，就用[]。</p>
+<p>这里我的func函数接受两个参数，第一个是对象的键，第二个是其对应的值,那么问题来了，如果我用点操作符的话，这里会出现什么问题呢？他会给你报’Uncaught SyntaxError: Unexpected string’这个错误，因为你传入的键是字符串，这就相当于<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// Uncaught SyntaxError: Unexpected string</span><br><span class="line">obj.&apos;aaa&apos; = val;</span><br></pre></td></tr></table></figure></p>
+<p>当我们的对象需要传入不确定的键时，就用[]。</p>
 <ul>
-<li>其次，如果我们需要用数字做键的话，也要用[/]操作符，并且在用数字做键时，取出时也得用[]取出，如果你用.操作符，那么报错’Uncaught SyntaxError: Unexpected number’</li>
+<li>其次，如果我们需要用数字做键的话，也要用[]操作符，并且在用数字做键时，取出时也得用[]取出，如果你用.操作符，那么报错’Uncaught SyntaxError: Unexpected number’</li>
 </ul>
 
                 <hr>
                 
 
                 <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2019/05/16/实习NO-9Day-记录一下CSS垂直居中/" data-toggle="tooltip" data-placement="top" title="实习NO-9Day-记录一下CSS的居中布局">&larr; Previous Post</a>
+                    </li>
                     
                     
                     <li class="next">

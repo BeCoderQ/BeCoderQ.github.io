@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Chow&#39;s blog
+        vue.cli3.x打包上传服务器后首次加载太慢的坑｜Chow&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/tags/js模块化/">
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/06/10/vue-cli3-x打包上传服务器后首次加载太慢的坑/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="false" data-istags="true
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="true" data-istags="false
 " data-ishome="false">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -132,212 +132,143 @@
 
 <!-- Main Content -->
 
+<!--only post-->
 
-<!-- Page Header -->
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
-    <div class="row">
-        <header class="intro-header">
-            <div class="container">
-                <div class="site-heading text-center">
-                    <div class="about-me">
-                        <!--移动端头部显示-->
-                        <img src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
-                        <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
-                        <p>在前端的路上</p>
+
+<img class="wechat-title-img" src="https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>vue.cli3.x打包上传服务器后首次加载太慢的坑</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2019-06-10
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#vue.cli3" title="vue.cli3">vue.cli3</a>
+                        
                     </div>
                 </div>
             </div>
-        </header>
-    </div>
-</div>
-<!-- Main Content -->
-<div class="container custom-haojen-container">
-    <!-- Post Container -->
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
-            <!-- Main Content -->
-
-
-
-<div class="post-preview " style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
-    <a href="/BeCoderQ.github.io/2019/05/14/实习NO-7Day-js基本的模块化/">
-        <h2 class="post-title">
-            实习NO-7Day-js基本的模块化
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-05-14
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                实习第七天今天又是做搬砖程序员的一天，各种代码的复用，组件的复用，解决了昨天的两个疑问，但本质问题还是没解决，另外感觉自己代码的可维护性太差了，写得很乱，css也有很多没必要的重复，考虑使用@import。等后面项目页面以及基本业务逻辑代码写完后来优化一下代码。
-JavaScript的模块化直接..
-            </p>
         </div>
-    </a>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            vue.cli3.x打包上传服务器后首次加载太慢的坑
+        </span>
+    </div>
+</header>
 
-</div>
-
-<hr>
-
-
-
-
-<!-- 翻页 pager -->
-
-<ul class="pager">
-    
-    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="问题阐述"><a href="#问题阐述" class="headerlink" title="问题阐述"></a>问题阐述</h2><p>端午节前发现的问题，6号那天只上了半天班就放假了，那半天也是没找出个所以然，今天节后搞了半天才解决，主要是项目build后上传云端服务器第一次进入首页会加载很长时间，作为一个小白，花了一番功夫才解决。</p>
+<h2 id="分析与解决"><a href="#分析与解决" class="headerlink" title="分析与解决"></a>分析与解决</h2><p>打包后我发现chunk-vendors.js这个文件比较大，有880KB左右，并且在浏览器network中看到也是这个文件加载时间最长，长的时候甚至超过20秒，严重影响了使用体验。于是我就从这里下手</p>
+<ul>
+<li>这个vendors.js是所有第三方插件的集合，我主要用了ElementUI，后面我发现就这玩意儿占了880KB的三分之二，究其原因是我没有按需引入，而是简单粗暴的全局导入了。这里我将ElementUI使用CDN方式导入，但是有一点要注意，CDN导入ElementUI后Vue也必须使用CDN导入，并且要放在ElementUI的前面！最后，必须在<strong>vue.config.js</strong>文件中配置如下<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">config</span><br><span class="line">externals: &#123;</span><br><span class="line">    &apos;vue&apos;: &apos;Vue&apos;,</span><br><span class="line">    &apos;element-ui&apos;: &apos;ElEMENT&apos;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+<p>这是告诉webpack你用了外部标签引入</p>
+<ul>
+<li><p>这样做了过后还是慢得很，尽管vendor.js只有160KB了！那么又看network,我又发现vendor.css这个文件，加载时间很长，200多KB大。当时我在想vendor.js是第三方插件，那么这个vendor.css应该是第三方样式吧？第三方样式我只用了ElmentUI,并且用link标签导入了，要这家伙何用？果断删除掉，然后速度又快了一点，在火狐与IE浏览器里打开速度基本正常了，chrome浏览器里也只要5S左右了。<br><strong>但是问题还是没解决，还是慢啊！</strong></p>
+</li>
+<li><p>于是又发现了个神器，gzip</p>
+</li>
+</ul>
+<p>服务器端配合配置</p>
+<p>还是有疑问：<br>1.脚手架中怎样让js不影响页面渲染？<br>2.为何一两百KB的JS文件CSS文件下载还是那么慢？<br>3.为何还是每个页面都加载了所有JS与CSS？</p>
 
+                <hr>
+                
 
-        </div>
-        <!-- Sidebar Container -->
-        <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-
-            <!-- About Me -->
-            <section class="visible-md visible-lg" style="padding: 0 18px">
-                <div class="short-about">
-                    <!--侧边栏头像-->
+                <ul class="pager">
                     
-                    <img src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2019/06/12/记一次解决axios请求status返回canceled的过程/" data-toggle="tooltip" data-placement="top" title="记一次解决axios请求status返回canceled的过程">&larr; Previous Post</a>
+                    </li>
                     
-                    <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
                     
-                    <p>在前端的路上</p>
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2019/06/01/ES6特性之解构/" data-toggle="tooltip" data-placement="top" title="ES6特性之解构">Next Post &rarr;</a>
+                    </li>
                     
-                    <hr>
-                    <!-- SNS Link 社交 -->
-                    <ul class="list-inline">
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://twitter.com/zyyzg">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                            </a>
-                        </li>
-                        
+                </ul>
 
-                        
-                        <li>
-                            <a target="_blank" href="http://weibo.com/St7Paul-">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
+                
 
-                        
+                
 
-                        
-                        <li>
-                            <a target="_blank" href="https://github.com/becoderq">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
 
-                        
-                    </ul>
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题阐述"><span class="toc-text">问题阐述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析与解决"><span class="toc-text">分析与解决</span></a></li></ol>
                 </div>
-            </section>
-
-            <!-- Featured Tags  标签 -->
-            
-            <section>
-                <div class="tags">
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#实习" title="实习" rel="9">实习</a>
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#vue-amap" title="vue-amap" rel="2">vue-amap</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </div>
-            </section>
-            
-
-            
-
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#vue.cli3" title="vue.cli3">vue.cli3</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
     </div>
-</div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->

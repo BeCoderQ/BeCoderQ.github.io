@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Chow&#39;s blog
+        记一次解决axios请求status返回canceled的过程｜Chow&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/tags/js模块化/">
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/06/12/记一次解决axios请求status返回canceled的过程/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="false" data-istags="true
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="true" data-istags="false
 " data-ishome="false">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -132,212 +132,131 @@
 
 <!-- Main Content -->
 
+<!--only post-->
 
-<!-- Page Header -->
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
-    <div class="row">
-        <header class="intro-header">
-            <div class="container">
-                <div class="site-heading text-center">
-                    <div class="about-me">
-                        <!--移动端头部显示-->
-                        <img src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
-                        <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
-                        <p>在前端的路上</p>
+
+<img class="wechat-title-img" src="https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>记一次解决axios请求status返回canceled的过程</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2019-06-12
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#axios" title="axios">axios</a>
+                        
                     </div>
                 </div>
             </div>
-        </header>
-    </div>
-</div>
-<!-- Main Content -->
-<div class="container custom-haojen-container">
-    <!-- Post Container -->
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
-            <!-- Main Content -->
-
-
-
-<div class="post-preview " style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
-    <a href="/BeCoderQ.github.io/2019/05/14/实习NO-7Day-js基本的模块化/">
-        <h2 class="post-title">
-            实习NO-7Day-js基本的模块化
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-05-14
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                实习第七天今天又是做搬砖程序员的一天，各种代码的复用，组件的复用，解决了昨天的两个疑问，但本质问题还是没解决，另外感觉自己代码的可维护性太差了，写得很乱，css也有很多没必要的重复，考虑使用@import。等后面项目页面以及基本业务逻辑代码写完后来优化一下代码。
-JavaScript的模块化直接..
-            </p>
         </div>
-    </a>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            记一次解决axios请求status返回canceled的过程
+        </span>
+    </div>
+</header>
 
-</div>
-
-<hr>
-
-
-
-
-<!-- 翻页 pager -->
-
-<ul class="pager">
-    
-    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="问题阐述"><a href="#问题阐述" class="headerlink" title="问题阐述"></a>问题阐述</h2><ul>
+<li>昨天下午<br>在APP一个页面的数据绑定时发现拿不到数据，到network里看了一下，发现那个post请求的红了，status是canceled,也就是取消，作为一个英语六级(差两分)的程序员，看到ed我第一反应就是被动，被取消了，被谁取消了？那铁定是被后台服务器端的取消了，那不关我前端的事咯！果断告诉后端的小老弟，他们那边是接受到这个请求的，但显示的是请求被中断，大家也都普遍是没多少经验的菜鸟，他们也以为是自己后端服务器的问题，然后那天忙活到下班都没解决。</li>
+<li>今天<br>今天后端的同学除了做其他的几个接口，就继续搞昨天那个问题了，经过各种调试分析，最后用一个以太网的软件发现其实服务器是正确返回了数据的，并且status是200，那么，问题就是前端的了。</li>
 </ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>在chrome的network里是真的没什么线索，但是我发现每次请求的时间都是1.01s,就被取消了，然后红字，status显示canceled。于是我把注意力转向了我们使用的ajax请求。<br>我们使用的是github上别人封装的axios,我找到源码，如下<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  post (url, data) &#123;</span><br><span class="line">    <span class="keyword">return</span> axios(&#123;</span><br><span class="line">      method: 'post',</span><br><span class="line">      baseURL: 'http://192.168.0.105:19090',</span><br><span class="line">      url,</span><br><span class="line">      dataType: <span class="string">"json"</span>,</span><br><span class="line">      data: qs.stringify(data),</span><br><span class="line">      <span class="comment">// timeout啊，怎么就设置成1S了？坑了大伙</span></span><br><span class="line">      timeout: <span class="number">1000</span>,</span><br><span class="line">      headers: &#123;</span><br><span class="line">        'X-Requested-With': 'XMLHttpRequest',</span><br><span class="line">        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;).then(</span><br><span class="line">      (response) =&gt; &#123;</span><br><span class="line">      	console.<span class="built_in">log</span>(response)</span><br><span class="line">        <span class="keyword">return</span> checkStatus(response)</span><br><span class="line">      &#125;</span><br><span class="line">    ).then(</span><br><span class="line">      (res) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> checkCode(res)</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>很快就发现了这个timeout,咋回事 居然是1000？？往后加了个0，果然解决了。<br>这里其实就是这个timeout决定前端请求的时间，因为我请求的那个数据量比较大，因此请求时间1S内是无法完成的，之前请求的数据量比较小，所以没有发现这个问题。</p>
+<h2 id="感慨"><a href="#感慨" class="headerlink" title="感慨"></a>感慨</h2><p>果然遇到的都是小问题，但是这么小的问题，也能卡住我一天。这就是经验的积累吧，虽然是小小的经验，但是长期的积累就是通向大神的道路，希望自己能坚持记录这些问题。</p>
 
+                <hr>
+                
 
-        </div>
-        <!-- Sidebar Container -->
-        <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-
-            <!-- About Me -->
-            <section class="visible-md visible-lg" style="padding: 0 18px">
-                <div class="short-about">
-                    <!--侧边栏头像-->
+                <ul class="pager">
                     
-                    <img src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
                     
-                    <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2019/06/10/vue-cli3-x打包上传服务器后首次加载太慢的坑/" data-toggle="tooltip" data-placement="top" title="vue.cli3.x打包上传服务器后首次加载太慢的坑">Next Post &rarr;</a>
+                    </li>
                     
-                    <p>在前端的路上</p>
-                    
-                    <hr>
-                    <!-- SNS Link 社交 -->
-                    <ul class="list-inline">
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://twitter.com/zyyzg">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                            </a>
-                        </li>
-                        
+                </ul>
 
-                        
-                        <li>
-                            <a target="_blank" href="http://weibo.com/St7Paul-">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
+                
 
-                        
+                
 
-                        
-                        <li>
-                            <a target="_blank" href="https://github.com/becoderq">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
 
-                        
-                    </ul>
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题阐述"><span class="toc-text">问题阐述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决问题"><span class="toc-text">解决问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#感慨"><span class="toc-text">感慨</span></a></li></ol>
                 </div>
-            </section>
-
-            <!-- Featured Tags  标签 -->
-            
-            <section>
-                <div class="tags">
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#实习" title="实习" rel="9">实习</a>
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#vue-amap" title="vue-amap" rel="2">vue-amap</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </div>
-            </section>
-            
-
-            
-
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#axios" title="axios">axios</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
     </div>
-</div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->

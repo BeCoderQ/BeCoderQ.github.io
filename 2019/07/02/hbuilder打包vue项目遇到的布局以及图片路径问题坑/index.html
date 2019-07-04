@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Chow&#39;s blog
+        hbuilder打包vue项目遇到的布局以及图片路径问题坑｜Chow&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/tags/flex布局/">
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/07/02/hbuilder打包vue项目遇到的布局以及图片路径问题坑/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="false" data-istags="true
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost="true" data-istags="false
 " data-ishome="false">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -132,217 +132,145 @@
 
 <!-- Main Content -->
 
+<!--only post-->
 
-<!-- Page Header -->
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
-    <div class="row">
-        <header class="intro-header">
-            <div class="container">
-                <div class="site-heading text-center">
-                    <div class="about-me">
-                        <!--移动端头部显示-->
-                        <img src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
-                        <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
-                        <p>在前端的路上</p>
+
+<img class="wechat-title-img" src="https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>hbuilder打包vue项目遇到的布局以及图片路径问题坑</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2019-07-02
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#hbuilder" title="hbuilder">hbuilder</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#app" title="app">app</a>
+                        
                     </div>
                 </div>
             </div>
-        </header>
-    </div>
-</div>
-<!-- Main Content -->
-<div class="container custom-haojen-container">
-    <!-- Post Container -->
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
-            <!-- Main Content -->
-
-
-
-<div class="post-preview " style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
-    <a href="/BeCoderQ.github.io/2019/05/06/实习NO-2Day-vantUI与flex布局/">
-        <h2 class="post-title">
-            实习NO.2Day-vantUI与flex布局
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2019-05-06
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                实习第二天今天过得很顺利，早上也没走错路，还提前了十分钟打卡，今天正式接触了项目app，做了两个很简单的页面，复杂一点的公司另一个前端前辈在做。今天中午恰饭一本满足，一个是便宜，木桶饭才十二块钱，分量还足，另外下午boss出去谈业务了，一边吃一边写代码简直不能再爽。不过今天做项目遇到了很大的一个..
-            </p>
         </div>
-    </a>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            hbuilder打包vue项目遇到的布局以及图片路径问题坑
+        </span>
+    </div>
+</header>
 
-</div>
-
-<hr>
-
-
-
-
-<!-- 翻页 pager -->
-
-<ul class="pager">
-    
-    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>我们的项目用hbuilder打包成安卓app,最近主要遇到了两个问题:</p>
+<ul>
+<li>打包后登录页底部总是有空白，后面根据我仔细观察，发现那个空白的高度和手机状态栏是一样的</li>
+<li>打包后高德地图的海量点icon图标不显示了？！在pc端调试的时候可都是没问题的！</li>
 </ul>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>要说都是小问题，可是对于我这样才入职的程序员小白来说还真花了一番功夫才解决<br>首先说下hbuilder打包后登录页留白的问题。原因我还没找到，我感觉可能是bug?因为我只有第一次进入登录页才会留白，从app登录后点退出回到登录页后就没有留白了。</p>
+<ul>
+<li>解决这个问题的核心是获取到当前手机的状态栏高度<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里可以算是获取状态栏高度吧，实际是获取的屏幕高度与非工作区域高度的差值</span></span><br><span class="line"><span class="keyword">const</span> stateHeight = window.screen.height - document.documentElement.clientHeight;</span><br><span class="line"><span class="comment">// 这里stateHeight为啥要除以2呢？这就是我觉得是bug的原因！hbuilder给我打包后登录页留白是因为出现了两个状态栏！只是其中一个在底部，而且是空白。</span></span><br><span class="line"><span class="keyword">this</span>.$refs.main.style.height = window.screen.height - stateHeight / <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这个问题就算解决了</p>
+<p>再说第二个，为啥打包后高德地图海量点的图标不显示了？</p>
+<ul>
+<li>路径原因！下面看看我改之前的代码<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 之前我是这么写的海量点路径</span></span><br><span class="line">...</span><br><span class="line">style: [&#123;</span><br><span class="line">          url: '../../static/images/img.png',</span><br><span class="line">          anchor: <span class="keyword">new</span> AMap.Pixel(<span class="number">16</span>, <span class="number">35</span>),</span><br><span class="line">          size: <span class="keyword">new</span> AMap.Size(<span class="number">25</span>, <span class="number">32</span>),</span><br><span class="line">        &#125;]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这样似乎没问题，我其他页面的图都是这么写的，并且打包后能正常显示。但是高德地图的icon地址就不能这么写了<br>一定要写成<strong>static/images/img.png</strong>，也就是说不要前面的../!</p>
 
+                <hr>
+                
 
-        </div>
-        <!-- Sidebar Container -->
-        <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-
-            <!-- About Me -->
-            <section class="visible-md visible-lg" style="padding: 0 18px">
-                <div class="short-about">
-                    <!--侧边栏头像-->
+                <ul class="pager">
                     
-                    <img src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
                     
-                    <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2019/07/02/vue中使用高德地图展示点信息以及海量点的使用/" data-toggle="tooltip" data-placement="top" title="vue中使用高德地图展示点信息以及海量点的使用">Next Post &rarr;</a>
+                    </li>
                     
-                    <p>在前端的路上</p>
-                    
-                    <hr>
-                    <!-- SNS Link 社交 -->
-                    <ul class="list-inline">
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://twitter.com/zyyzg">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                            </a>
-                        </li>
-                        
+                </ul>
 
-                        
-                        <li>
-                            <a target="_blank" href="http://weibo.com/St7Paul-">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
+                
 
-                        
+                
 
-                        
-                        <li>
-                            <a target="_blank" href="https://github.com/becoderq">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
 
-                        
-                    </ul>
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决"><span class="toc-text">解决</span></a></li></ol>
                 </div>
-            </section>
-
-            <!-- Featured Tags  标签 -->
-            
-            <section>
-                <div class="tags">
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#实习" title="实习" rel="9">实习</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#vue-amap" title="vue-amap" rel="2">vue-amap</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </div>
-            </section>
-            
-
-            
-
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#hbuilder" title="hbuilder">hbuilder</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#app" title="app">app</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
     </div>
-</div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->

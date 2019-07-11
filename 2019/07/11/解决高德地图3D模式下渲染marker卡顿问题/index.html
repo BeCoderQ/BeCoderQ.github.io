@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        对于Symbol.iterator的理解｜Chow&#39;s blog
+        解决高德地图3D模式下渲染marker卡顿问题｜Chow&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/07/08/对于Symbol-iterator的理解/">
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/07/11/解决高德地图3D模式下渲染marker卡顿问题/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
@@ -152,19 +152,17 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>对于Symbol.iterator的理解</h1>
+                    <h1>解决高德地图3D模式下渲染marker卡顿问题</h1>
                     
                     <span class="meta">
                          作者 Chow
                         <span>
-                          日期 2019-07-08
+                          日期 2019-07-11
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#ES6" title="ES6">ES6</a>
-                        
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#iterator" title="iterator">iterator</a>
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#高德地图" title="高德地图">高德地图</a>
                         
                     </div>
                 </div>
@@ -173,7 +171,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            对于Symbol.iterator的理解
+            解决高德地图3D模式下渲染marker卡顿问题
         </span>
     </div>
 </header>
@@ -184,28 +182,26 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="什么是iterator"><a href="#什么是iterator" class="headerlink" title="什么是iterator"></a>什么是iterator</h2><p>iterator就是迭代器的意思，在ES6里面，第一次看到的时候很懵逼，这是干什么的？那么还是直接看例子吧</p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="for-in枚举"><a href="#for-in枚举" class="headerlink" title="for in枚举"></a>for in枚举</h3><p>我们都知道for in来枚举对象或者数组属性列表，如<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var a = &#123;name: <span class="string">"Qi"</span>,age: <span class="number">22</span>,job:<span class="string">"engineer"</span>&#125;</span><br><span class="line"><span class="keyword">for</span>(var key in a)&#123;</span><br><span class="line">    console.<span class="built_in">log</span>(key)<span class="comment">// 打印 name  age  job</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>那么，如果要直接打印属性值呢？一般我是下面这样做<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var a = &#123;name: <span class="string">"Qi"</span>,age: <span class="number">22</span>,job:<span class="string">"engineer"</span>&#125;</span><br><span class="line"><span class="keyword">for</span>(var key in a)&#123;</span><br><span class="line">    console.<span class="built_in">log</span>(a[key])<span class="comment">// 打印 Qi 22 engineer</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="for-of"><a href="#for-of" class="headerlink" title="for of"></a>for of</h3><p>es6其实有个for of方法,使用上和for in差不多<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var b = ['Qi','22','engineer'];</span><br><span class="line"><span class="keyword">for</span>(var val in b)&#123;</span><br><span class="line">    console.<span class="built_in">log</span>(b);<span class="comment">// Qi 22 engineer</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里用数组举例，不用对象是因为对象并没有内置@@iterator迭代器，iterator迭代器只在数组、类数组对象、Map和Set结构中内置了，为什么对象没有内置？实际是因为对象的各成员并没有一个确定的顺序，所以谁先遍历谁后遍历就不确定了。给一个对象部署iterator接口，其实就是对该对象做一种线性转换。接下来看如何给对象部署迭代器。</p>
-<h3 id="给对象部署iterator"><a href="#给对象部署iterator" class="headerlink" title="给对象部署iterator"></a>给对象部署iterator</h3><p>就用上面的例子，看看迭代器怎么工作<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var b = ['Qi','22','engineer'];</span><br><span class="line">var it = b[Symbol.iterator]();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 内置的next方法</span></span><br><span class="line">it.next(); <span class="comment">// &#123;value: 'Qi',done: false&#125;</span></span><br><span class="line">it.next(); <span class="comment">// &#123;value: '22',done: false&#125;</span></span><br><span class="line">it.next(); <span class="comment">// &#123;value: 'engineer',done: false&#125;</span></span><br><span class="line">it.next(); <span class="comment">// &#123;done: true&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>当然 如果直接这样连着打只会打印最后一行，这样只是展示了iterator的遍历顺序。我们使用ES6的Symbol.iterator来获取对象的@@iterator内部属性，要注意@@iterator本身不是一个迭代器对象，而是一个返回迭代器对象的函数</p>
-<p>那么接下来看看如何给对象部署迭代器<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    name: <span class="string">"Zhou"</span>,</span><br><span class="line">    age: <span class="number">22</span>,</span><br><span class="line">    job: <span class="string">"engineer"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Object.defineProperty( obj,Symbol.iterator, &#123;</span><br><span class="line">    enumrable: <span class="literal">false</span>, <span class="comment">// 是否可枚举</span></span><br><span class="line">    writable: <span class="literal">false</span>, <span class="comment">// 只读 writable 给的说明是如果设置为 false, 不可以采用 数据运算符 进行赋值</span></span><br><span class="line">    configurable: <span class="literal">true</span>, <span class="comment">// 可操作 为false的话不可以修改, 不可以删除.</span></span><br><span class="line">    value: function() &#123;</span><br><span class="line">        var _this = <span class="keyword">this</span>;</span><br><span class="line">        var idx = <span class="number">0</span>;</span><br><span class="line">        var ks = Object.keys( _this ); <span class="comment">// Object.keys()方法传入一个对象返回其属性名</span></span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">            next: function() &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;</span><br><span class="line">                    value: _this[ks[idx++]],</span><br><span class="line">                    done: (idx &gt; ks.length)</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var it = obj[Symbol.iterator]();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 内置的next方法</span></span><br><span class="line">it.next(); <span class="comment">// &#123;value: 'Zhou',done: false&#125;</span></span><br><span class="line">it.next(); <span class="comment">// &#123;value: '22',done: false&#125;</span></span><br><span class="line">it.next(); <span class="comment">// &#123;value: 'engineer',done: false&#125;</span></span><br><span class="line">it.next(); <span class="comment">// &#123;value: undefined,done: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 用for of 遍历我们的obj对象</span></span><br><span class="line"><span class="keyword">for</span>(var val of obj)&#123;</span><br><span class="line">    console.<span class="built_in">log</span>(val); <span class="comment">// Zhou 22 engineer</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这实际上就是用强大的Object.defineProperty(vue中数据的双向绑定就是使用该方法)方法把Symbol.iterator写进了对象里。</p>
+                <h2 id="闲扯"><a href="#闲扯" class="headerlink" title="闲扯"></a>闲扯</h2><p>这一个月我都在和高德地图打交道，遇到了很多问题，因为没人带，都是靠自己解决，走了不少弯路。高德地图其实很强大，你能想到的几乎上面都有。</p>
+<h2 id="3D地图"><a href="#3D地图" class="headerlink" title="3D地图"></a>3D地图</h2><p>其实项目并没有3D地图的需求，但是无奈老板提了个需求是要地图可以慢慢缩放，也就是我们说的无级缩放，再说专业点就是缩放等级zoom可以是浮点数。web端高德地图在2D模式下是不支持无级缩放的，那么在手机上就算你只缩放了一丢丢，地图也会按照加减1的zoom来放大缩小。<br>但是我又遇到个问题，3D模式下我在地图上的marker们都点不动了，经过我测试发现并不是点击事件失效，而是压根就触发不了，就像表面有个遮罩层挡住了一样，z-index设置多高都没用。最后搞了一天我还是没找到原因，不过我想起来自己用的是vue-amap,我果断换回了原生的amap，居然就解决了。。。</p>
+<h3 id="渲染速度"><a href="#渲染速度" class="headerlink" title="渲染速度"></a>渲染速度</h3><p>那么，来说正题，我解决了上述两个问题，接下来又发现了新问题：我的marker渲染速度太慢了！！我的地图是才加载进去有9个marker,这9个类似点聚合的点，点击后会让地图放大，然后展示那9个行政区下面的几百上千家企业的marker点。marker实际上就是一个div,那么dom渲染，上千个，<strong>并且随着每次拖动div都会相对移动，而且地图还是在3D模式下</strong>，卡顿也就不奇怪了。那么我就如下分析了一下</p>
+<ul>
+<li>dom渲染卡顿，那么我不用dom。</li>
+<li>拖动会重新绘制div的位置，那么我不让他重汇。<br>能实现这两点的那就只有canvas了，高德地图里也就是海量点。</li>
+</ul>
+<p>但是还有个问题，我的项目要求每个点旁边要有文字展示，海量点是没有的，那么高德地图有没有绘制文字的canvas方法呢？答案当然是有的。</p>
+<h3 id="LabelsLayer图层与LabelMarker标记层"><a href="#LabelsLayer图层与LabelMarker标记层" class="headerlink" title="LabelsLayer图层与LabelMarker标记层"></a>LabelsLayer图层与LabelMarker标记层</h3><p>直接看代码<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">this.amap = new AMap.Map('cont', &#123;</span><br><span class="line">    resizeEnable: <span class="literal">true</span>,</span><br><span class="line">    rotateEnable:<span class="literal">false</span>,</span><br><span class="line">    pitchEnable:<span class="literal">true</span>,</span><br><span class="line">    zoom: <span class="number">9.5</span>,</span><br><span class="line">    pitch:<span class="number">0</span>,</span><br><span class="line">    viewMode:'3D',//开启3D视图,默认为关闭</span><br><span class="line">    buildingAnimation:<span class="literal">true</span>,<span class="comment">//楼块出现是否带动画</span></span><br><span class="line">    zooms:[<span class="number">9</span>,<span class="number">19</span>],</span><br><span class="line">    center:[<span class="number">116.45848</span>, <span class="number">38.87328</span>],</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.layer = <span class="keyword">new</span> AMap.LabelsLayer(&#123;</span><br><span class="line">    zooms: [<span class="number">3</span>, <span class="number">20</span>],</span><br><span class="line">    zIndex: <span class="number">99999999999999999</span>,</span><br><span class="line">    visible: <span class="literal">true</span>,</span><br><span class="line">    collision: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// 开启标注避让，默认为开启，v1.4.15 新增属性</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 加入图层</span></span><br><span class="line"><span class="keyword">this</span>.amap.add(<span class="keyword">this</span>.layer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下面是canvas文字</span></span><br><span class="line">var text = <span class="keyword">new</span> AMap.LabelMarker(&#123;</span><br><span class="line">        position: [longitude, latitude],</span><br><span class="line">        zooms: [<span class="number">3</span>,<span class="number">20</span>],</span><br><span class="line">        extData: eachList,</span><br><span class="line">        text: &#123;</span><br><span class="line">            content: companyName,</span><br><span class="line">            style: &#123;</span><br><span class="line">                backgroundColor: <span class="string">"white"</span></span><br><span class="line">            &#125;,</span><br><span class="line">        offset: [<span class="number">0</span>,<span class="number">-33</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">this</span>.layer.add(text)</span><br></pre></td></tr></table></figure></p>
+<p>实际上LabelsMarker也是可以绘制icon图标的，但是不知为何我用on函数绑定点击事件总是有一大半的点点了没反应，因此我还是使用了海量点(massMarker)</p>
+<p>这样，在3D地图下较大量点的渲染就变得very smooth了！</p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/BeCoderQ.github.io/2019/07/11/解决高德地图3D模式下渲染marker卡顿问题/" data-toggle="tooltip" data-placement="top" title="解决高德地图3D模式下渲染marker卡顿问题">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/BeCoderQ.github.io/2019/07/02/hbuilder打包vue项目遇到的布局以及图片路径问题坑/" data-toggle="tooltip" data-placement="top" title="hbuilder打包vue项目遇到的布局以及图片路径问题坑">Next Post &rarr;</a>
+                        <a href="/BeCoderQ.github.io/2019/07/08/对于Symbol-iterator的理解/" data-toggle="tooltip" data-placement="top" title="对于Symbol.iterator的理解">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -224,7 +220,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是iterator"><span class="toc-text">什么是iterator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#for-in枚举"><span class="toc-text">for in枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for-of"><span class="toc-text">for of</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#给对象部署iterator"><span class="toc-text">给对象部署iterator</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#闲扯"><span class="toc-text">闲扯</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3D地图"><span class="toc-text">3D地图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#渲染速度"><span class="toc-text">渲染速度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LabelsLayer图层与LabelMarker标记层"><span class="toc-text">LabelsLayer图层与LabelMarker标记层</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -246,9 +242,7 @@
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#ES6" title="ES6">ES6</a>
-                        
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#iterator" title="iterator">iterator</a>
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#高德地图" title="高德地图">高德地图</a>
                         
                     </div>
                 </section>

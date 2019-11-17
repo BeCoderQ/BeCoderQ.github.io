@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://becoderq.github.io/BeCoderQ.github.io/images/favicon.ico">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        js数组的拷贝与清空｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/05/18/js数组的拷贝与清空/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>js数组的拷贝与清空</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2019-05-18
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#数组"
+                           title="数组">数组</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#深浅拷贝"
+                           title="深浅拷贝">深浅拷贝</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#数组清空"
+                           title="数组清空">数组清空</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            js数组的拷贝与清空
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h2><p>昨天写代码的时候，有一个需求是需要一个临时的数组b暂时存储数据，在这个数组中进行如去重、筛选等操作，之后再将结果倒入渲染页面的那个数组a里，在将数据倒入渲染数组a里后，临时数组b要清空。</p>
+<h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><ul>
+<li>我先用的方法是写b.length = 0,结果很奇怪,看下面的例子:<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line">var b = a;</span><br><span class="line"></span><br><span class="line">console.<span class="built_in">log</span>(b); <span class="comment">// 输出[1,2,3,4,5]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟对b进行操作</span></span><br><span class="line">b= b.concat([<span class="number">1</span>,<span class="number">2</span>]); <span class="comment">// 输出[1,2,3,4,5,1,2]</span></span><br><span class="line"></span><br><span class="line">a = b; <span class="comment">// 将进行操作后的b数组拷贝给a数组</span></span><br><span class="line"></span><br><span class="line">console.<span class="built_in">log</span>(a); <span class="comment">// 输出[1,2,3,4,5,1,2]</span></span><br><span class="line"></span><br><span class="line">b.length = <span class="number">0</span>; <span class="comment">// 将b数组长度设为0 清空b数组 </span></span><br><span class="line"></span><br><span class="line">console.<span class="built_in">log</span>(b); <span class="comment">// 这时候b输出为 []</span></span><br><span class="line"></span><br><span class="line">console.<span class="built_in">log</span>(a); <span class="comment">// a数组也输出[] a也被清空了！</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>这里的我设置b.length=0后，a数组也被清空了!</strong></p>
+<ul>
+<li>我马上又用了另一个方法清空数组,b = [],看下面例子:<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line">var b = a;</span><br><span class="line"></span><br><span class="line">console.<span class="built_in">log</span>(b);</span><br><span class="line"></span><br><span class="line">b= b.concat([<span class="number">1</span>,<span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line">a = b;</span><br><span class="line"></span><br><span class="line">console.<span class="built_in">log</span>(a); <span class="comment">// 输出[1,2,3,4,5,1,2]</span></span><br><span class="line"></span><br><span class="line">b= []; <span class="comment">// 设置为一个空数组 其实这种方法只是换了个引用，并没有真正的清空，原数据还在内存当中，这也是问题所在</span></span><br><span class="line"></span><br><span class="line">console.<span class="built_in">log</span>(b); <span class="comment">// b输出为 []</span></span><br><span class="line"></span><br><span class="line">console.<span class="built_in">log</span>(a); <span class="comment">// a输出为[1,2,3,4,5,1,2],没有被清空！</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>这里用这种写法就正常了！</strong></p>
+<h2 id="寻找原因"><a href="#寻找原因" class="headerlink" title="寻找原因"></a>寻找原因</h2><p>这里要涉及到<strong>深浅拷贝</strong>的问题,下面说一下深拷贝和浅拷贝的定义</p>
+<h3 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h3><p>在说明前先理解一下栈内存与堆内存，这也是深浅拷贝的背景</p>
+<h4 id="拓展背景"><a href="#拓展背景" class="headerlink" title="拓展背景"></a>拓展背景</h4><p>Javascript有五种基本数据类型（也就是简单数据类型），它们分别是：Undefined，Null，Boolean，Number和String。还含有一种复杂的数据类型（也叫引用类型），就是对象，注意Undefined和Null的区别，Undefined类型和Null类型只有一个值，分别就是undefined和null。</p>
+<ul>
+<li>对于基本数据类型<br>他们的值在内存中占据着固定大小的空间，并被保存在<strong>栈内存</strong>中。当一个变量向另一个变量复制基本类型的值，会创建这个值的<strong>副本</strong>，并且我们不能给基本数据类型的值添加属性<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var x = <span class="number">1</span>;</span><br><span class="line">var y = x;</span><br><span class="line">x.name = 'zhou';</span><br><span class="line">console.<span class="built_in">log</span>(y); <span class="comment">//1</span></span><br><span class="line">console.<span class="built_in">log</span>(x.name); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面的x是基本数据类型(Number)， y是x的一个副本，它们两者都占有不同位置但相等的内存空间，只是它们的值相等，若改变其中一方，另一方<strong>不会</strong>随之改变。</p>
+<ul>
+<li>对于引用类型<br>复杂的数据类型即是引用类型，它的值是对象，保存在<strong>堆内存</strong>中，包含引用类型值的变量实际上包含的不是对象本身，而是一个指向该对象的指针。从一个变量向另一个变量复制引用类型的值，复制的其实是<strong>指针地址</strong>而已，因此两个变量最终都指向<strong>同一个</strong>对象<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var person = &#123;</span><br><span class="line">    name: 'zhou',</span><br><span class="line">    age: <span class="number">22</span></span><br><span class="line">&#125;</span><br><span class="line">var newPerson = person;</span><br><span class="line">newPerson.name = 'qi';</span><br><span class="line">console.<span class="built_in">log</span>(person); <span class="comment">// &#123;name: "qi", age: 22&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面可以看到新建的对象newPerson等于person对象后，改变其中name的值，原始person对象的name也改变了，说明他们都指向同一个指针</p>
+<h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><p>浅拷贝的例子其实最前面我写了，就是a数组与b数组，下面在写个简单的例子<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var <span class="built_in">list</span> = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line">var newList = <span class="built_in">list</span>;</span><br><span class="line">newList[1] = 'hello';</span><br><span class="line">console.<span class="built_in">log</span>(<span class="built_in">list</span>); <span class="comment">// [1,'hello',3,4]</span></span><br><span class="line">console.<span class="built_in">log</span>(newList);<span class="comment">// [1,'hello',3,4]</span></span><br></pre></td></tr></table></figure></p>
+<p>这种情况下改变两个中任意的一个，都会导致另一个也改变</p>
+<h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><p>我们可以使用slice()与concat()方法实现深拷贝，前者可以接受两个参数，开始索引与结束索引，也可以只输入一个参数，即开始到最后，即可拷贝数组，后者即是合并数组，但也可以像下面这样用<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var arr = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line">var arrCopy = arr.concat();</span><br><span class="line">arrCopy[0] = 'test'</span><br><span class="line">console.<span class="built_in">log</span>(arr); <span class="comment">// ["a", "b", "c"] 因为是深拷贝arr数组没有被改变</span></span><br><span class="line">console.<span class="built_in">log</span>(arrCopy); <span class="comment">// ["test", "b", "c"]</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="数组清空的方法"><a href="#数组清空的方法" class="headerlink" title="数组清空的方法"></a>数组清空的方法</h3><h4 id="1-slice方法"><a href="#1-slice方法" class="headerlink" title="1.slice方法:"></a>1.slice方法:</h4><p>slice方法接受开始与结束索引，并后返回一个新数组<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line">a = a.slice(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">console.<span class="built_in">log</span>(a); <span class="comment">// 输出[]</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="2-数组长度大法"><a href="#2-数组长度大法" class="headerlink" title="2.数组长度大法:"></a>2.数组长度大法:</h4><p>在JavaScript数组是可读写的,因此直接设置数组为0即可<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var b = [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>];</span><br><span class="line">b.length = <span class="number">0</span>;</span><br><span class="line">console.<span class="built_in">log</span>(b); <span class="comment">// 输出[]</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="3-设置为空数组"><a href="#3-设置为空数组" class="headerlink" title="3.设置为空数组:"></a>3.设置为空数组:</h4><p>实际上是更改了数组的引用地址，原数据还在<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var c = [<span class="string">'你'</span>,<span class="string">'好'</span>,<span class="string">'吗'</span>];</span><br><span class="line">c = [];</span><br><span class="line">console.<span class="built_in">log</span>(c); <span class="comment">// 输出[]</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>所以说我最开始遇到的问题就明了了:</p>
+<ul>
+<li>设置长度为0或是通过slice方法设置长度为0,会清除那个引用地址的值，而让一个数组等于[]其实只是让这个数组的引用地址改变了，之前的引用还在那儿。</li>
+<li>我直接让a = b,这样就是浅拷贝，因此才会出现两个数组指向同一个引用地址，其中一个改变，另一个也跟着改。</li>
+</ul>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2019/05/26/this的使用与原理解析/" data-toggle="tooltip" data-placement="top"
+                           title="this的使用与原理解析">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2019/05/16/实习NO-9Day-记录一下CSS垂直居中/" data-toggle="tooltip" data-placement="top"
+                           title="实习NO-9Day-记录一下CSS的居中布局">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题来源"><span class="toc-text">问题来源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#发现问题"><span class="toc-text">发现问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寻找原因"><span class="toc-text">寻找原因</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#深拷贝与浅拷贝"><span class="toc-text">深拷贝与浅拷贝</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拓展背景"><span class="toc-text">拓展背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浅拷贝"><span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#深拷贝"><span class="toc-text">深拷贝</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组清空的方法"><span class="toc-text">数组清空的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-slice方法"><span class="toc-text">1.slice方法:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-数组长度大法"><span class="toc-text">2.数组长度大法:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-设置为空数组"><span class="toc-text">3.设置为空数组:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#数组"
+                           title="数组">数组</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#深浅拷贝"
+                           title="深浅拷贝">深浅拷贝</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#数组清空"
+                           title="数组清空">数组清空</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2019
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
+</body>
+
+</html>

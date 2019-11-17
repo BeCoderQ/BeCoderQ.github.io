@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://becoderq.github.io/BeCoderQ.github.io/images/favicon.ico">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        实习NO-7Day-js基本的模块化｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/05/14/实习NO-7Day-js基本的模块化/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>实习NO-7Day-js基本的模块化</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2019-05-14
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#实习"
+                           title="实习">实习</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#js模块化"
+                           title="js模块化">js模块化</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            实习NO-7Day-js基本的模块化
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="实习第七天"><a href="#实习第七天" class="headerlink" title="实习第七天"></a>实习第七天</h2><p>今天又是做搬砖程序员的一天，各种代码的复用，组件的复用，解决了昨天的两个疑问，但本质问题还是没解决，另外感觉自己代码的可维护性太差了，写得很乱，css也有很多没必要的重复，考虑使用@import。等后面项目页面以及基本业务逻辑代码写完后来优化一下代码。</p>
+<h3 id="JavaScript的模块化"><a href="#JavaScript的模块化" class="headerlink" title="JavaScript的模块化"></a>JavaScript的模块化</h3><p>直接看一个例子<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var MyModules = (function Manager()&#123;</span><br><span class="line">    var modules =&#123;&#125;;</span><br><span class="line">    <span class="comment">// 这里name传字符串，deps是数组,impl是函数</span></span><br><span class="line">    function define(name,deps,impl)&#123;</span><br><span class="line">        <span class="keyword">for</span>(var i=<span class="number">0</span>;i&lt;deps.length;i++)&#123;</span><br><span class="line">            deps[i] = modules[deps[i]];</span><br><span class="line">        &#125;</span><br><span class="line">        modules[name] = impl.apply(impl,deps);</span><br><span class="line">    &#125;</span><br><span class="line">    function get(name)&#123;</span><br><span class="line">        <span class="keyword">return</span> modules[name];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line">        define: define,</span><br><span class="line">        get: get</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>这段例子还没完，接下来看后半部分</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">MyModules.define('bar',[],function()&#123;</span><br><span class="line">    <span class="function">function <span class="title">hello</span><span class="params">(who)</span></span>&#123;</span><br><span class="line">        return 'you are' + who;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        hello: hello</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">MyModules.define('foo',['bar'],function()&#123;</span><br><span class="line">    var symbol = <span class="string">"pants"</span>;</span><br><span class="line">    <span class="function">function <span class="title">complex</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 这里没明白bar.hello()方法，为什么是用bar来调用？ 现在搞明白了。其实就是bar是个对象 有个hello方法</span></span><br><span class="line">        console.<span class="built_in">log</span>( bar.hello(symbol).toUpperCase() );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="keyword">complex</span>: <span class="keyword">complex</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 这里不就是让bar 等于了modules.bar的值吗，没搞明白为什么下面用这个去调用hello函数？ </span></span><br><span class="line"><span class="comment">// 自问自答 现在看明白了，实际上modules.bar等于一个对象&#123;hello: function&#125;后面这个function就是上面传入的hello函数，所以这里可以直接bar.hello！</span></span><br><span class="line">var bar = MyModules.get('bar');</span><br><span class="line">var foo = MyModules.get('foo');</span><br><span class="line"></span><br><span class="line">console.log( bar.hello('pants') )// you are pants</span><br><span class="line">foo.<span class="keyword">complex</span>(); <span class="comment">// YOU ARE PANTS</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这一堆函数真的不太好理解，第一眼看到简直一脸懵逼，太绕了！明天再组织语言好好说明一下</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var a = ['zhou'];</span><br><span class="line"><span class="function">function <span class="title">hello</span><span class="params">(who)</span></span>&#123;</span><br><span class="line">	return 'you are'+ who;</span><br><span class="line">&#125;</span><br><span class="line">hello.apply(hello(),a);<span class="comment">// 输出you are zhou</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我就这里没看明白，自己尝试去控制台打印了一下。。居然是这样的结果，这也就是说apply在这里就相当于直接hello(a)的结果了。。学艺不精！！</p>
+<p>结合上下文翻译一下上面的代码：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这里一堆代码执行后</span></span><br><span class="line">MyModules.define('bar',[],function()&#123;</span><br><span class="line">    <span class="function">function <span class="title">hello</span><span class="params">(who)</span></span>&#123;</span><br><span class="line">        return 'you are' + who;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 会如下</span></span><br><span class="line"><span class="comment">// 因为传入的空数组，[].length等于0，因此deps[i]=modelus[deps[i]]不会执行</span></span><br><span class="line">modules.bar = &#123;hello: f&#125; <span class="comment">// 这里的f即是上面传入的第三个参数的function！</span></span><br></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2019/05/15/实习NO-8Day-对象的-与-操作符的区别/" data-toggle="tooltip" data-placement="top"
+                           title="实习NO-8Day-对象的\[]与.操作符的区别">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2019/05/13/实习NO-6Day-闭包与高德地图点聚合事件/" data-toggle="tooltip" data-placement="top"
+                           title="实习NO-6Day-闭包与高德地图点聚合事件">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实习第七天"><span class="toc-text">实习第七天</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript的模块化"><span class="toc-text">JavaScript的模块化</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#实习"
+                           title="实习">实习</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#js模块化"
+                           title="js模块化">js模块化</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2019
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
+</body>
+
+</html>

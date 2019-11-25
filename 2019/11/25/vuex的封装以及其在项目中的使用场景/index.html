@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        vue.cli脚手架项目中require.context的使用｜Chow&#39;s blog
+        vuex的封装以及其在项目中的使用场景｜Chow&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/09/15/vue-cli脚手架项目中require-context的使用/">
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/11/25/vuex的封装以及其在项目中的使用场景/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
@@ -153,21 +153,18 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>vue.cli脚手架项目中require.context的使用</h1>
+                    <h1>vuex的封装以及其在项目中的使用场景</h1>
                     
                     <span class="meta">
                          作者 Chow
                         <span>
-                          日期 2019-09-15
+                          日期 2019-11-25
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#node"
-                           title="node">node</a>
-                        
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#webpack"
-                           title="webpack">webpack</a>
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Vuex"
+                           title="Vuex">Vuex</a>
                         
                     </div>
                 </div>
@@ -176,7 +173,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            vue.cli脚手架项目中require.context的使用
+            vuex的封装以及其在项目中的使用场景
         </span>
     </div>
 </header>
@@ -187,38 +184,26 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="使用背景"><a href="#使用背景" class="headerlink" title="使用背景"></a>使用背景</h2><p>在使用vue做项目开发时，我们经常会用到vue全家桶，vue-router,vuex等，对于这两个工具，就拿路由来说，我们每新开一个vue文件,就要在router里注册组件才能使用,vuex也是类似如此，这个时候，我们使用这个node的api就可以实现自动注册，也就是常说的前端自动化工程。</p>
-<h2 id="require-context"><a href="#require-context" class="headerlink" title="require.context"></a>require.context</h2><p>对于这个api我也只是有一点初步的了解，是因为看了公司一位前辈搭建的工程的代码才发现的。该方法接受三个参数:</p>
+                <h2 id="Vuex的半自动化注册"><a href="#Vuex的半自动化注册" class="headerlink" title="Vuex的半自动化注册"></a>Vuex的半自动化注册</h2><p>以前我的vuex的store文件里总是会写一大坨代码，看着实在不够’优雅’！我们其实可以利用require.context来实现vuex的半自动化注册。<br>先看下我vuex的结构</p>
+<h3 id="Vuex的结构"><a href="#Vuex的结构" class="headerlink" title="Vuex的结构"></a>Vuex的结构</h3><p><img src="/BeCoderQ.github.io/2019/11/25/vuex的封装以及其在项目中的使用场景/store.png" alt="store.png"><br>module文件下是我按照模块划分的各个js文件 存储了如枚举值 用户信息 请求url的信息，他们会如下暴露出去<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    menulist: [],</span><br><span class="line">    companyInfo: &#123;&#125;,</span><br><span class="line">    companyNo: null,</span><br><span class="line">    toLogined:<span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用require-context"><a href="#使用require-context" class="headerlink" title="使用require.context"></a>使用require.context</h3><p>接下来是关键，在StoreFactory文件内，有以下代码<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 声明一个对象 用来暴露出去</span></span><br><span class="line">var storeMap = &#123;&#125;</span><br><span class="line"></span><br><span class="line">var moduleFiles = require.context('./module', true, /\.js$/)</span><br><span class="line">moduleFiles.keys().<span class="built_in">map</span>(function(modulePath) &#123;</span><br><span class="line">    var moduleName = modulePath.substr(modulePath.lastIndexOf(<span class="string">'/'</span>) + <span class="number">1</span>, modulePath.length - <span class="number">5</span>)</span><br><span class="line">    <span class="comment">// 获取到每个模块内的对象</span></span><br><span class="line">    var stores = moduleFiles(modulePath).<span class="keyword">default</span></span><br><span class="line">    <span class="comment">// 声明一个中转对象</span></span><br><span class="line">    var store = &#123;namespaced:<span class="literal">true</span>, state:&#123;&#125;,mutations:&#123;&#125;&#125;</span><br><span class="line">    <span class="comment">// 使用for in遍历之每个模块内的对象。vuex的mutation修改，state存储</span></span><br><span class="line">    <span class="keyword">for</span>(let i in stores)&#123;</span><br><span class="line">        store.state[i]=stores[i]</span><br><span class="line">        <span class="comment">// 这里我设置set+属性名首字母大写 实际就是驼峰</span></span><br><span class="line">        store.mutations[`<span class="built_in">set</span>$&#123;i[<span class="number">0</span>].toUpperCase()&#125;$&#123;i.substr(<span class="number">1</span>)&#125;`]=function(states, params) &#123;</span><br><span class="line">		    states[i] = params</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    storeMap[moduleName] = store</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// storeMap将存储所有对象暴露出去</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> storeMap</span><br></pre></td></tr></table></figure></p>
+<p>我们这里用webpackContext的keys方法能够得到符合条件的文件地址的数组,map方法便利我们拿到字符串，处理掉多余的符号，我们便得到了对应的文件名<br><img src="/BeCoderQ.github.io/2019/11/25/vuex的封装以及其在项目中的使用场景/keys.png" alt="moduleFiles.keys()数组"><br>得到文件名后我们将他传入moduleFiles方法中，我们可以打印出来，会发现这个对象里的default字段下已经有了我们之前暴露出去的变量对象：<br><img src="/BeCoderQ.github.io/2019/11/25/vuex的封装以及其在项目中的使用场景/default.png" alt="moduleFiles(modulePath)"><br>没错～我们就这么轻而易举的拿到了module文件下各个模块的变量！接下来要做的就是以vuex的形式处理每个模块</p>
+<h3 id="封装store的取值与改值"><a href="#封装store的取值与改值" class="headerlink" title="封装store的取值与改值"></a>封装store的取值与改值</h3><p>先上代码<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">import &#123;Store&#125; from 'vuex'</span><br><span class="line"><span class="keyword">import</span> Vuex from <span class="string">"vuex"</span></span><br><span class="line"><span class="keyword">import</span> Vue from <span class="string">"vue"</span></span><br><span class="line"><span class="comment">// 导入上面那堆代码暴露出的对象</span></span><br><span class="line">import allStore from './StoreFactory'</span><br><span class="line">Vue.use(Vuex);</span><br><span class="line">var store</span><br><span class="line"><span class="keyword">if</span> (!store) &#123;</span><br><span class="line">    store = <span class="keyword">new</span> Store(&#123;</span><br><span class="line">        modules: &#123;</span><br><span class="line">            ...allStore</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 简单的封装取值与赋值函数</span></span><br><span class="line"><span class="function"><span class="keyword">export</span> function <span class="title">getState</span><span class="params">(moduleName, value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!store)</span><br><span class="line">        <span class="keyword">return</span> null</span><br><span class="line">    <span class="keyword">return</span> moduleName ? store.state[moduleName][value] : store.state[value]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> function setState(moduleName, field,value)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!store)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    store.commit(`$&#123;moduleName?`$&#123;moduleName&#125;/`:''&#125;set$&#123;field[0].toLocaleUpperCase()&#125;$&#123;field.substr(1)&#125;`,value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure></p>
+<p>封装的代码很简单，赋值就是按照刚才设置的set字段撸就完事儿。</p>
+<h2 id="Vuex项目中常用场景"><a href="#Vuex项目中常用场景" class="headerlink" title="Vuex项目中常用场景"></a>Vuex项目中常用场景</h2><p>实际上Vuex出了存储用户信息 token等参数外，我认为在缓存数据时更能体现价值。假设有个页面有一个表单，当用户填写表单后再次点进去，会显示刚才填写过的内容，也就是说回显，这个时候我们可以按照一下步骤来缓存与取数据。</p>
 <ul>
-<li>第一个是你需要遍历的文件目录</li>
-<li>第二个是是否遍历其下所有子级路径的布尔变量</li>
-<li>第三个是匹配文件名的正则表达式</li>
+<li>首先我们的表单页面的mounted或者其他合适的钩子函数内，我们先判断<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 好累 这里明天在写</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>下面以vuex的自动注册为例子<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在store目录下的index.js文件</span></span><br><span class="line"><span class="comment">// 首先导入相关依赖</span></span><br><span class="line">import Vue from 'vue'</span><br><span class="line">import Vuex from 'vuex'</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"><span class="comment">// allStates存储共享变量</span></span><br><span class="line">var allStates = &#123;&#125;</span><br><span class="line"><span class="comment">// 自动生成mutation存储到这个对象中</span></span><br><span class="line">var mutations = &#123;&#125;</span><br><span class="line">var computedCache = []</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 加载modules下所有的状态码文件*/</span></span><br><span class="line">var moduleFiles = require.context('./modules', true, /\.js$/)</span><br><span class="line"><span class="comment">// map遍历文件路径数组</span></span><br><span class="line">moduleFiles.keys().<span class="built_in">map</span>(function(modulePath) &#123;</span><br><span class="line">  <span class="comment">// 获取到文件内的内容，并以键值对的形式存入allStates,这里我modules下的default文件格式规定成n为键名，value为值</span></span><br><span class="line">  var vars = moduleFiles(modulePath).<span class="keyword">default</span></span><br><span class="line">  vars.<span class="built_in">map</span>(function(v) &#123;</span><br><span class="line">    <span class="comment">// v.n即取出键名,v.value取出值</span></span><br><span class="line">    allStates[v.n] = v.value</span><br><span class="line">    <span class="comment">// mutation我们拼接字符串设置为统一的set+键名</span></span><br><span class="line">    mutations[`<span class="built_in">set</span>$&#123;v.n.substr(<span class="number">0</span>, <span class="number">1</span>).toUpperCase()&#125;$&#123;v.n.substr(<span class="number">1</span>)&#125;`] = function(state, value) &#123;</span><br><span class="line">      <span class="comment">// 变更状态</span></span><br><span class="line">      state[v.n] = value</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// computed的数组推入新键名 </span></span><br><span class="line">    computedCache.push(v.n)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// computed数组存入session方便另一个文件取出</span></span><br><span class="line">sessionStorage.setItem('computedStateCache',computedCache.join(","))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将自动生成的vuex数据放进store实例里</span></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: allStates,</span><br><span class="line">  mutations</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><p>接下来在另一个mapComputed文件内</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var computeds = &#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> function() &#123;</span><br><span class="line">  <span class="comment">// 将刚才存入session的键名取出遍历，并根据键名返回对应值</span></span><br><span class="line">  var states = sessionStorage.getItem('computedStateCache').split(',')</span><br><span class="line">  states.<span class="built_in">map</span>(function(state) &#123;</span><br><span class="line">    computeds[state] = function() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.$store.state[state]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> computeds</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这样，在我们要使用的文件内，我们就可以在computed计算属性内像下面这样使用了</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  computed:&#123;</span><br><span class="line">      <span class="comment">// es6写法</span></span><br><span class="line">      ...mapComputed(),</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>这样我们就相当于把store里的变量放入data内，实现了属性共享。在使用的时候，我们只需要在store内自己创建的modules文件下的default.js中按自己规定的格式写入变量即可，一般我把页面的一些枚举值放在里面。</p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/BeCoderQ.github.io/2019/11/25/vuex的封装以及其在项目中的使用场景/" data-toggle="tooltip" data-placement="top"
-                           title="vuex的封装以及其在项目中的使用场景">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/BeCoderQ.github.io/2019/08/31/DOM元素渲染的几种优化方式/" data-toggle="tooltip" data-placement="top"
-                           title="DOM元素渲染的几种优化方式">Next Post &rarr;</a>
+                        <a href="/BeCoderQ.github.io/2019/09/15/vue-cli脚手架项目中require-context的使用/" data-toggle="tooltip" data-placement="top"
+                           title="vue.cli脚手架项目中require.context的使用">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -237,7 +222,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用背景"><span class="toc-text">使用背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#require-context"><span class="toc-text">require.context</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vuex的半自动化注册"><span class="toc-text">Vuex的半自动化注册</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vuex的结构"><span class="toc-text">Vuex的结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用require-context"><span class="toc-text">使用require.context</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#封装store的取值与改值"><span class="toc-text">封装store的取值与改值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vuex项目中常用场景"><span class="toc-text">Vuex项目中常用场景</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -259,11 +244,8 @@
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#node"
-                           title="node">node</a>
-                        
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#webpack"
-                           title="webpack">webpack</a>
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Vuex"
+                           title="Vuex">Vuex</a>
                         
                     </div>
                 </section>

@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        vue.cli脚手架项目中require.context的使用｜Chow&#39;s blog
+        electron打包后文件路径问题(解决子进程文件报错)｜Chow&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/09/15/vue-cli脚手架项目中require-context的使用/">
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2020/05/23/electron打包后文件路径问题-解决子进程文件报错/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
@@ -153,21 +153,21 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>vue.cli脚手架项目中require.context的使用</h1>
+                    <h1>electron打包后文件路径问题(解决子进程文件报错)</h1>
                     
                     <span class="meta">
                          作者 Chow
                         <span>
-                          日期 2019-09-15
+                          日期 2020-05-23
                          </span>
                     </span>
                     <div class="tags text-center">
                         
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#electron"
+                           title="electron">electron</a>
+                        
                         <a class="tag" href="/BeCoderQ.github.io/tags/#webpack"
                            title="webpack">webpack</a>
-                        
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#node"
-                           title="node">node</a>
                         
                     </div>
                 </div>
@@ -176,7 +176,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            vue.cli脚手架项目中require.context的使用
+            electron打包后文件路径问题(解决子进程文件报错)
         </span>
     </div>
 </header>
@@ -187,38 +187,27 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="使用背景"><a href="#使用背景" class="headerlink" title="使用背景"></a>使用背景</h2><p>在使用vue做项目开发时，我们经常会用到vue全家桶，vue-router,vuex等，对于这两个工具，就拿路由来说，我们每新开一个vue文件,就要在router里注册组件才能使用,vuex也是类似如此，这个时候，我们使用这个node的api就可以实现自动注册，也就是常说的前端自动化工程。</p>
-<h2 id="require-context"><a href="#require-context" class="headerlink" title="require.context"></a>require.context</h2><p>对于这个api我也只是有一点初步的了解，是因为看了公司一位前辈搭建的工程的代码才发现的。该方法接受三个参数:</p>
-<ul>
-<li>第一个是你需要遍历的文件目录</li>
-<li>第二个是是否遍历其下所有子级路径的布尔变量</li>
-<li>第三个是匹配文件名的正则表达式</li>
-</ul>
-<p>下面以vuex的自动注册为例子<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在store目录下的index.js文件</span></span><br><span class="line"><span class="comment">// 首先导入相关依赖</span></span><br><span class="line">import Vue from 'vue'</span><br><span class="line">import Vuex from 'vuex'</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"><span class="comment">// allStates存储共享变量</span></span><br><span class="line">var allStates = &#123;&#125;</span><br><span class="line"><span class="comment">// 自动生成mutation存储到这个对象中</span></span><br><span class="line">var mutations = &#123;&#125;</span><br><span class="line">var computedCache = []</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 加载modules下所有的状态码文件*/</span></span><br><span class="line">var moduleFiles = require.context('./modules', true, /\.js$/)</span><br><span class="line"><span class="comment">// map遍历文件路径数组</span></span><br><span class="line">moduleFiles.keys().<span class="built_in">map</span>(function(modulePath) &#123;</span><br><span class="line">  <span class="comment">// 获取到文件内的内容，并以键值对的形式存入allStates,这里我modules下的default文件格式规定成n为键名，value为值</span></span><br><span class="line">  var vars = moduleFiles(modulePath).<span class="keyword">default</span></span><br><span class="line">  vars.<span class="built_in">map</span>(function(v) &#123;</span><br><span class="line">    <span class="comment">// v.n即取出键名,v.value取出值</span></span><br><span class="line">    allStates[v.n] = v.value</span><br><span class="line">    <span class="comment">// mutation我们拼接字符串设置为统一的set+键名</span></span><br><span class="line">    mutations[`<span class="built_in">set</span>$&#123;v.n.substr(<span class="number">0</span>, <span class="number">1</span>).toUpperCase()&#125;$&#123;v.n.substr(<span class="number">1</span>)&#125;`] = function(state, value) &#123;</span><br><span class="line">      <span class="comment">// 变更状态</span></span><br><span class="line">      state[v.n] = value</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// computed的数组推入新键名 </span></span><br><span class="line">    computedCache.push(v.n)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// computed数组存入session方便另一个文件取出</span></span><br><span class="line">sessionStorage.setItem('computedStateCache',computedCache.join(","))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将自动生成的vuex数据放进store实例里</span></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: allStates,</span><br><span class="line">  mutations</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><p>接下来在另一个mapComputed文件内</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var computeds = &#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> function mapComputed() &#123;</span><br><span class="line">  <span class="comment">// 将刚才存入session的键名取出遍历，并根据键名返回对应值</span></span><br><span class="line">  var states = sessionStorage.getItem('computedStateCache').split(',')</span><br><span class="line">  states.<span class="built_in">map</span>(function(state) &#123;</span><br><span class="line">    computeds[state] = function() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.$store.state[state]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> computeds</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这样，在我们要使用的文件内，我们就可以在computed计算属性内像下面这样使用了</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  computed:&#123;</span><br><span class="line">      <span class="comment">// es6写法</span></span><br><span class="line">      ...mapComputed(),</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>这样我们就相当于把store里的变量放入data内，实现了属性共享。在使用的时候，我们只需要在store内自己创建的modules文件下的default.js中按自己规定的格式写入变量即可，一般我把页面的一些枚举值放在里面。</p>
+                <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>最近手上有个项目是基于electron（electron-vue）开发的平台监测系统，有一部分数据量非常大，并且是实时更新数据滚动显示，但后台的同学很鸡贼的没有过滤去重就把超多的数据仍给我了，因此数据处理就交给前端了。为了不影响页面的流畅性，我把计算去重等操作放到了子进程中(child_process.fork)。但打包后发现抛出了channel closed的报错（这里的error输出是我手动抓取的）：</p>
+<p><img src="/BeCoderQ.github.io/2020/05/23/electron打包后文件路径问题-解决子进程文件报错/error.png" alt="抓到的报错"></p>
+<p>这个报错我在stackoverflow上看有说版本问题，有说send数据不对。但debug了半天，最后发现实际是打包后子进程文件的路径出了问题。</p>
+<h2 id="在package-json中修改配置"><a href="#在package-json中修改配置" class="headerlink" title="在package.json中修改配置"></a>在package.json中修改配置</h2><p>找到了出错的原因，下一步就好做了，打包后路径有问题，那么我们就在package.json文件中的build属性下，加入下面的配置:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"build"</span>: &#123;</span><br><span class="line">  	...otherConfig,</span><br><span class="line">    <span class="string">"asarUnpack"</span>: [</span><br><span class="line">				<span class="string">"**/src/renderer/utils/**/*"</span></span><br><span class="line">		],</span><br><span class="line">    <span class="string">"extraResources"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="string">"from"</span>: <span class="string">"src/renderer/utils/worker.js"</span>,</span><br><span class="line">          <span class="string">"to"</span>: <span class="string">"app.asar.unpacked/source/worker.js"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>按照文档上的说法，<strong><a href="https://github.com/atom/asar" target="_blank" rel="noopener">asar</a> 是一种将多个文件合并成一个文件的类 tar 风格的归档格式。Electron 可以无需解压，即从其中读取任意文件内容。</strong></p>
+<p>那么这里就是配置unpack（不打包）的文件，我的子进程文件放在了utils里，因此这里我配置了utils的路径。</p>
+<p>第二个参数extraResources（直译额外的资源），下面from-to也很明显是要在打包后从哪个路径到哪个路径，实际就是我们自己的具体某个文件需要在打包后存放到哪个路径下。</p>
+<h2 id="主进程文件中"><a href="#主进程文件中" class="headerlink" title="主进程文件中"></a>主进程文件中</h2><p>这里我们设置好了打包后的路径，接下来就在调用子进程的主进程文件内做好开发环境与生产环境的判定就好了：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 引入子进程</span></span><br><span class="line"><span class="keyword">const</span> childProcess = <span class="built_in">require</span>(<span class="string">'child_process'</span>)</span><br><span class="line"><span class="comment">// 引入path</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="comment">// 判定当前环境的变量</span></span><br><span class="line"><span class="keyword">const</span> isDev = process.env.NODE_ENV &amp;&amp; process.env.NODE_ENV == <span class="string">'development'</span></span><br><span class="line"><span class="comment">// 子进程的真实路径 注意后面生产环节的路径要与package.json中配置的相同</span></span><br><span class="line"><span class="keyword">let</span> _path = isDev?path.join(__dirname, <span class="string">'worker.js'</span>):path.join(process.resourcesPath, <span class="string">'app.asar.unpacked/source/worker.js'</span>)</span><br><span class="line"><span class="keyword">const</span> worker = childProcess.fork(_path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> onMessage = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  	<span class="comment">// 以下为我的业务函数 </span></span><br><span class="line">    caculateMsg(clientMsg, serverMsg, callback) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;主进程启动'</span>, _path)</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            worker.send(&#123;clientMsg, serverMsg&#125;);</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;主进程发送出数据'</span>)</span><br><span class="line">        &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">            <span class="comment">// 这里回调遵守error-first的设计逻辑</span></span><br><span class="line">            callback(err, <span class="literal">null</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!onMessage)</span><br><span class="line">            onMessage = worker.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;子进程的信息:'</span>, msg)</span><br><span class="line">                callback(<span class="literal">null</span>, msg)</span><br><span class="line">            &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Done!</p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/BeCoderQ.github.io/2019/11/25/vuex的封装以及其在项目中的使用场景/" data-toggle="tooltip" data-placement="top"
-                           title="vuex的封装以及其在项目中的使用场景">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/BeCoderQ.github.io/2019/08/31/DOM元素渲染的几种优化方式/" data-toggle="tooltip" data-placement="top"
-                           title="DOM元素渲染的几种优化方式">Next Post &rarr;</a>
+                        <a href="/BeCoderQ.github.io/2020/05/16/迭代器与生成器/" data-toggle="tooltip" data-placement="top"
+                           title="ES6迭代器与生成器">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -237,7 +226,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用背景"><span class="toc-text">使用背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#require-context"><span class="toc-text">require.context</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在package-json中修改配置"><span class="toc-text">在package.json中修改配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主进程文件中"><span class="toc-text">主进程文件中</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -259,11 +248,11 @@
                     </h5>
                     <div class="tags">
                         
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#electron"
+                           title="electron">electron</a>
+                        
                         <a class="tag" href="/BeCoderQ.github.io/tags/#webpack"
                            title="webpack">webpack</a>
-                        
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#node"
-                           title="node">node</a>
                         
                     </div>
                 </section>

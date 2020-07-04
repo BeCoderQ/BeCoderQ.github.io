@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        DOM元素渲染的几种优化方式｜Chow&#39;s blog
+        vue开发中的实用技巧｜Chow&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/08/31/DOM元素渲染的几种优化方式/">
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2020/06/22/vue开发中的实用技巧/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
@@ -153,18 +153,21 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>DOM元素渲染的几种优化方式</h1>
+                    <h1>vue开发中的实用技巧</h1>
                     
                     <span class="meta">
                          作者 Chow
                         <span>
-                          日期 2019-08-31
+                          日期 2020-06-22
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#递归"
-                           title="递归">递归</a>
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#vue.cli4"
+                           title="vue.cli4">vue.cli4</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#vue"
+                           title="vue">vue</a>
                         
                     </div>
                 </div>
@@ -173,7 +176,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            DOM元素渲染的几种优化方式
+            vue开发中的实用技巧
         </span>
     </div>
 </header>
@@ -184,39 +187,39 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="DOM渲染性能问题"><a href="#DOM渲染性能问题" class="headerlink" title="DOM渲染性能问题"></a>DOM渲染性能问题</h2><p>我在几个月前做的项目地图部分使用了大量的dom渲染，这导致地图在渲染的时候会有很明显的卡顿效果，当然对于地图这块，海量点的渲染是尽量不要或者说压根就别用dom元素去渲染，因为每次拖动地图都会导致每个dom元素的重新渲染。但有时候在某些不可抗力影响下又不得不用dom元素去做大量渲染，这时候我们就要考虑如何优化性能了。</p>
-<h2 id="我所知的几个优化方法"><a href="#我所知的几个优化方法" class="headerlink" title="我所知的几个优化方法"></a>我所知的几个优化方法</h2><p>在公司一位有多年前端开发经验的前辈那里我学到了几点优化的方案：</p>
+                <h2 id="Vue-cli中区分开发、生产环境"><a href="#Vue-cli中区分开发、生产环境" class="headerlink" title="Vue.cli中区分开发、生产环境"></a>Vue.cli中区分开发、生产环境</h2><p>对于在vue脚手架中区分开环境，我一直用的下面的方法:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">baseUrl: process.env.NODE_ENV === <span class="string">'development'</span>? xxx.com : yyy.com</span><br></pre></td></tr></table></figure>
+<p>这个方法没毛病，能正常运行，不过还有一种更好的方式，我们可以在项目的根目录创建两个文件:</p>
+<p><img src="/BeCoderQ.github.io/2020/06/22/vue开发中的实用技巧/struct.png" alt="结构"></p>
+<p>.env.production文件与.env.development文件分别是生产环境与开发环境对应的文件，在我们run dev时后者会生效，run build时前者会生效，然后我们利用这点可以轻松的实现类似下面的操作:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在两个文件中我们都设置一个地址变量 当然地址的路径会根据环境而不同</span></span><br><span class="line">VUE_APP_BASE_API = <span class="string">"http://xxx.com"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 接下来在axios的配置文件中</span></span><br><span class="line">...</span><br><span class="line">baseUrl: process.env.VUE_APP_BASE_API</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这样就完成了生产环境与开发环境的区分。</p>
+<h2 id="巧妙利用ref钩子"><a href="#巧妙利用ref钩子" class="headerlink" title="巧妙利用ref钩子"></a>巧妙利用ref钩子</h2><p>在实际业务中，会遇到一些复杂的页面，这些页面我们会把组件抽离出来，那么就会存在参数传递，事件触发等问题，对于上述问题，合理利用ref钩子可以少写不少代码，下面看例子。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 父组件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"button"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"primary"</span> @<span class="attr">click</span>=<span class="string">"$refs['deal-violation'].onDeal(row)"</span>&gt;</span></span><br><span class="line">          	立即处理</span><br><span class="line">      	<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">  	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		</span><br><span class="line">  	<span class="comment">&lt;!-- 子组件 --&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">electric-deal-violation</span> <span class="attr">ref</span>=<span class="string">"deal-violation"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>接下来在子组件内部</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  	...</span><br><span class="line">  	methods: &#123;</span><br><span class="line">      	onDeal(data) &#123;</span><br><span class="line">          	<span class="comment">// do something</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样的好处是我们让父子通信后子组件的逻辑能在自己内部完成，降低了与父组件的耦合度。需要注意的是，这样的操作并不是所有情况都适用：</p>
 <ul>
-<li>使用requestAnimationFrame<br>在那之前，我一直是使用setTimeout、setInterval来编写动画或是进行dom渲染，后两者只是在设定的时间后将相应任务添加到任务队列中，而任务队列中如果还有前面的任务尚未执行完毕，那么后添加的任务就必须等待，所以说给它们设定的时间并不准确。requestAnimationFrame的间隔是16.7ms(1000ms/60帧),另外在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这就意味着更少的的cpu，gpu和内存使用量，最直观的还是动画变得更流畅了。<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var x = <span class="number">0</span>;</span><br><span class="line">    var div = document.getElementById(<span class="string">"div"</span>)</span><br><span class="line">    function animation() &#123;</span><br><span class="line">        requestAnimationFrame(function () &#123;</span><br><span class="line">            div.style.left = ++x + <span class="string">"px"</span>;</span><br><span class="line">            <span class="keyword">if</span> (x &lt; <span class="number">250</span>) animation();</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">animation();</span><br></pre></td></tr></table></figure>
+<li><p>如果父组件与子组件有较多的数据来源，那么还是适用props传参，因为这样能一目了然哪些数据会影响子组件。</p>
+</li>
+<li><p>嵌套超过一层的组件不宜使用该方法。</p>
 </li>
 </ul>
-<p>上面是一个最简单的应用，内层一个递归调用requestAnimationFrame</p>
-<ul>
-<li>document.Fragment<br>DocumentFragment，文档片段接口，表示一个没有父级文件的最小文档对象。它被作为一个轻量版的 Document 使用，用于存储已排好版的或尚未打理好格式的XML片段。最大的区别是因为 DocumentFragment 不是真实DOM树的一部分，它的变化不会触发 DOM 树的（重新渲染) ，且不会导致性能等问题。这是MDN的文档说明。实际我理解就是避免单次一个一个的插入dom元素，尽量的批量插入元素<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="string">"一"</span>,<span class="string">"个"</span>,<span class="string">"数"</span>,<span class="string">"组"</span>];</span><br><span class="line">arr.forEach( item=&gt;&#123;</span><br><span class="line">    var p = document.createElement(<span class="string">"p"</span>);</span><br><span class="line">    p.innerText = item;</span><br><span class="line">    document.body.appendChild(p);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>这样遍历数组每次都是挨个插入，性能较低<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="string">"一"</span>,<span class="string">"个"</span>,<span class="string">"数"</span>,<span class="string">"组"</span>];</span><br><span class="line">var fakeFather = document.createDocumentFragment()</span><br><span class="line">arr.forEach( item=&gt;&#123;</span><br><span class="line">    var p = document.createElement(<span class="string">"p"</span>);</span><br><span class="line">    p.innerText = item;</span><br><span class="line">    fakeFather.appendChild(p);</span><br><span class="line">&#125;)</span><br><span class="line">document.body.appendChild(fakeFather);</span><br></pre></td></tr></table></figure></p>
-<p>document.Fragment不存在于文档流中，暂时作为一个’包’，我们将每个元素先存放在这个包中，最后打包一起插入文档流。</p>
-<ul>
-<li>递归分批次渲染<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">batchRenderLotsPoints(eachList)&#123;</span><br><span class="line">    <span class="comment">// 这里setTimeout主要是怕前一个还没渲染好，因为没有对应的回调函数</span></span><br><span class="line">	setTimeout(()=&gt;&#123;</span><br><span class="line">    <span class="comment">// splice截取前10个</span></span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span>.renderLotsPoints(eachList.splice(<span class="number">0</span>,<span class="number">10</span>)))</span><br><span class="line">		<span class="keyword">this</span>.batchRenderLotsPoints(eachList)</span><br><span class="line">	&#125;,<span class="number">200</span>)</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">renderLotsPoints(eachList) &#123;</span><br><span class="line">	<span class="keyword">if</span>(!eachList||!eachList.length)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">      let arr = [];</span><br><span class="line">      let colorMarker = <span class="string">"#76DA91"</span>;</span><br><span class="line">      <span class="keyword">for</span> (let i = <span class="number">0</span>; i &lt; eachList.length; i++) &#123;</span><br><span class="line">          ...</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">...</span><br><span class="line"><span class="keyword">this</span>.batchRenderLotsPoints(eachList);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>这里我用递归渲染，页面上效果就是很有节奏感的渲染除了节点，非常流畅。</p>
+<h2 id="使用-attrs属性二次封装组件"><a href="#使用-attrs属性二次封装组件" class="headerlink" title="使用$attrs属性二次封装组件"></a>使用$attrs属性二次封装组件</h2><p>$attrs这个属性内部是父组件向子组件传递的参数，当然，不包含在子组件内通过props属性注册的。一般我们在嵌套组件内会使用$attrs属性。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这里我们二次封装一个elementui的表格+分页组件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"table"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table</span> <span class="attr">v-bind</span>=<span class="string">"$attrs"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> </span></span><br><span class="line"><span class="tag">            <span class="attr">class</span>=<span class="string">"pagination"</span> </span></span><br><span class="line"><span class="tag">        &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-pagination</span></span></span><br><span class="line"><span class="tag">                <span class="attr">layout</span>=<span class="string">"total, prev, pager, next"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:total</span>=<span class="string">"total"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:page-size</span>=<span class="string">"pageSize"</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">current-change</span>=<span class="string">"pageChange"</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">prev-click</span>=<span class="string">"pageChange"</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">next-click</span>=<span class="string">"pageChange"</span></span></span><br><span class="line"><span class="tag">            &gt;</span><span class="tag">&lt;/<span class="name">el-pagination</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们只接收分页的属性：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  	...</span><br><span class="line">  	<span class="comment">// 这里只接收了sonTitle属性</span></span><br><span class="line">  	props: &#123;</span><br><span class="line">      	total: &#123;</span><br><span class="line">            type: <span class="built_in">Number</span>,</span><br><span class="line">            required: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        pageSize: &#123;</span><br><span class="line">            type: <span class="built_in">Number</span>,</span><br><span class="line">            <span class="keyword">default</span>: <span class="number">10</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意我们在el-table标签上使用了$attrs属性，这样我们在外部调用这个组件的时候，就能够像直接使用el-table一样传递各种诸如data等属性，除了声明的total与pageSize属性，其他都会被放当$attrs里传递给el-table。</p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/BeCoderQ.github.io/2019/09/15/vue-cli脚手架项目中require-context的使用/" data-toggle="tooltip" data-placement="top"
-                           title="vue.cli脚手架项目中require.context的使用">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/BeCoderQ.github.io/2019/07/31/记录一下最近vue项目开发中遇到的问题与解决过程/" data-toggle="tooltip" data-placement="top"
-                           title="记录一下最近vue项目开发中遇到的问题与解决过程">Next Post &rarr;</a>
+                        <a href="/BeCoderQ.github.io/2020/05/27/vue-cli4版本下跨域代理配置与数据mock/" data-toggle="tooltip" data-placement="top"
+                           title="vue.cli4版本下跨域代理配置与数据mock">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -235,7 +238,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM渲染性能问题"><span class="toc-text">DOM渲染性能问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#我所知的几个优化方法"><span class="toc-text">我所知的几个优化方法</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-cli中区分开发、生产环境"><span class="toc-text">Vue.cli中区分开发、生产环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#巧妙利用ref钩子"><span class="toc-text">巧妙利用ref钩子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-attrs属性二次封装组件"><span class="toc-text">使用$attrs属性二次封装组件</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -257,8 +260,11 @@
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/BeCoderQ.github.io/tags/#递归"
-                           title="递归">递归</a>
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#vue.cli4"
+                           title="vue.cli4">vue.cli4</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#vue"
+                           title="vue">vue</a>
                         
                     </div>
                 </section>

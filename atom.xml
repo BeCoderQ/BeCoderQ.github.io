@@ -6,7 +6,7 @@
   <link href="/BeCoderQ.github.io/atom.xml" rel="self"/>
   
   <link href="http://localhost:4000/"/>
-  <updated>2020-07-11T05:57:10.860Z</updated>
+  <updated>2020-08-10T12:49:47.280Z</updated>
   <id>http://localhost:4000/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Typescript再体验---一些开发中的杂谈</title>
+    <link href="http://localhost:4000/2020/08/10/Typescript%E5%86%8D%E4%BD%93%E9%AA%8C-%E4%B8%80%E4%BA%9B%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E6%9D%82%E8%B0%88/"/>
+    <id>http://localhost:4000/2020/08/10/Typescript%E5%86%8D%E4%BD%93%E9%AA%8C-%E4%B8%80%E4%BA%9B%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E6%9D%82%E8%B0%88/</id>
+    <published>2020-08-10T12:13:37.000Z</published>
+    <updated>2020-08-10T12:49:47.280Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="keyof映射"><a href="#keyof映射" class="headerlink" title="keyof映射"></a>keyof映射</h2><p>keyof这个关键字在ts中很有用，可以看一下官方的Readonly Partial type：</p><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Readonly将interface或type中的所有属性转为只读项</span></span><br><span class="line"><span class="keyword">type</span> Readonly&lt;T&gt; = &#123;</span><br><span class="line">  readonly [K <span class="keyword">in</span> keyof T]: T[K]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用：</span></span><br><span class="line"><span class="keyword">type</span> Person = &#123;</span><br><span class="line">  name: <span class="built_in">string</span>,</span><br><span class="line">  age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> person: ReadOnly&lt;Person&gt; = &#123;</span><br><span class="line">  name: <span class="string">'chow'</span>,</span><br><span class="line">  age: <span class="number">23</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">person.age = <span class="number">22</span> <span class="comment">// 编译报错 因为age是只读属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Partial将interface或type中的所有属性转为非必选项</span></span><br><span class="line"><span class="keyword">type</span> Partial&lt;T&gt; = &#123;</span><br><span class="line">  [P <span class="keyword">in</span> keyof T]?: T[P];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在可以只传入一个属性甚至不传</span></span><br><span class="line"><span class="keyword">const</span> person: Partial&lt;Person&gt; = &#123;</span><br><span class="line">  name: <span class="string">'chow'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>再看一个例子，一个非常严谨的字典读取函数:</p><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>&lt;<span class="title">T</span>, <span class="title">K</span> <span class="title">extends</span> <span class="title">keyof</span> <span class="title">T</span>&gt;(<span class="params">obj: T, key: K</span>): <span class="title">T</span>[<span class="title">K</span>] </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obj[key]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getValue(&#123; name: <span class="string">'chow'</span> &#125;, <span class="string">'name'</span>) <span class="comment">// chow</span></span><br></pre></td></tr></table></figure><p>同样是使用了泛型 keyof</p><h2 id="使用装饰器封装防抖函数"><a href="#使用装饰器封装防抖函数" class="headerlink" title="使用装饰器封装防抖函数"></a>使用装饰器封装防抖函数</h2><p>最近我开发自己的博客有一个上拉加载的功能，我使用了防抖包装，但后面一个输入框又需要防抖，于是我打算用装饰器封装，达到一下效果</p><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    components: &#123; LoadingWaves &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> Article <span class="keyword">extends</span> Vue &#123;</span><br><span class="line">    <span class="keyword">private</span> loading: <span class="built_in">boolean</span> = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">private</span> noMore: <span class="built_in">boolean</span> = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">private</span> pageNum: <span class="built_in">number</span> = <span class="number">1</span></span><br><span class="line">...</span><br><span class="line">    <span class="comment">// 只需传入延迟时间</span></span><br><span class="line">    <span class="meta">@debounce</span>(<span class="number">500</span>)</span><br><span class="line">    <span class="keyword">public</span> loadMore() &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.noMore) <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">this</span>.pageNum++</span><br><span class="line">        <span class="keyword">this</span>.loading = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">this</span>.loading = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">this</span>.getArticle()</span><br><span class="line">    &#125;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>封装：</p><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">delay: <span class="built_in">number</span></span>): <span class="title">Function</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timer: <span class="built_in">number</span> | <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">target: <span class="built_in">any</span>, key: <span class="built_in">string</span>, descriptor: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 一定要先将本次执行的函数拷贝到变量中</span></span><br><span class="line">        <span class="keyword">const</span> aimFunction = descriptor.value</span><br><span class="line">        descriptor.value = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> args: <span class="built_in">Array</span>&lt;<span class="built_in">any</span>&gt;</span><br><span class="line">            <span class="keyword">if</span>(timer) clearTimeout(timer)</span><br><span class="line">          <span class="comment">// 第一个是上下文环境，拷贝后续参数</span></span><br><span class="line">            args = [...arguments].slice(<span class="number">1</span>)</span><br><span class="line">            timer = setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">                aimFunction.apply(<span class="keyword">this</span>, args)</span><br><span class="line">                timer = <span class="literal">null</span></span><br><span class="line">            &#125;, delay) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>我们要明确，ts中函数装饰器会拿到三个参数:</p><ul><li>target，装饰函数所在类的构造函数</li><li>key，该函数的名称，即Function.name</li><li>descriptor，即Object.defineProperty() 的第三个参数 descrideptor</li></ul><p>这里为了接受自定义参数，我们用了闭包，返回了一个函数。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;keyof映射&quot;&gt;&lt;a href=&quot;#keyof映射&quot; class=&quot;headerlink&quot; title=&quot;keyof映射&quot;&gt;&lt;/a&gt;keyof映射&lt;/h2&gt;&lt;p&gt;keyof这个关键字在ts中很有用，可以看一下官方的Readonly Partial type：&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="经验" scheme="http://localhost:4000/categories/%E7%BB%8F%E9%AA%8C/"/>
+    
+    
+      <category term="Typescript" scheme="http://localhost:4000/tags/Typescript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uni-app中利用webview标签使用原生js高德地图</title>
+    <link href="http://localhost:4000/2020/07/17/uni-app%E4%B8%AD%E5%88%A9%E7%94%A8webview%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8%E5%8E%9F%E7%94%9Fjs%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/"/>
+    <id>http://localhost:4000/2020/07/17/uni-app%E4%B8%AD%E5%88%A9%E7%94%A8webview%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8%E5%8E%9F%E7%94%9Fjs%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/</id>
+    <published>2020-07-17T01:54:16.000Z</published>
+    <updated>2020-07-17T04:19:43.274Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="为什么要使用原生的js高德地图"><a href="#为什么要使用原生的js高德地图" class="headerlink" title="为什么要使用原生的js高德地图"></a>为什么要使用原生的js高德地图</h2><p>首先说一下原因，虽然uni-app自带的map也是高德地图，但是这地图确实太鸡肋了，很多功能都没有，自定义的程度也很低，并且犹豫是底层的，因此无法简单的通过z-index设置显示层级。而高德官方的js地图就非常友好了，并且功能齐全，自定义程度高。</p><h2 id="为什么要使用webview"><a href="#为什么要使用webview" class="headerlink" title="为什么要使用webview"></a>为什么要使用webview</h2><p>因为在uni-app中，打包后的手机环境是没有docment对象或是window对象等一些列我们常用的api，没有document对象我们就无法将高德地图的api以script标签的形式引入，这样我们就拿不到AMap的实例了。而使用webview控件，我们可以引入自己的html文件，我们在这个html文件里用script标签引入高德地图便可：</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge,chrome=1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"renderer"</span> <span class="attr">content</span>=<span class="string">"webkit"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-id">#map-container</span> &#123;</span></span><br><span class="line">width: 100vw;</span><br><span class="line">height: 100vh;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"http://webapi.amap.com/maps?v=1.4.15&amp;key=********&amp;plugin=Map3D,AMap.DistrictLayer,AMap.Scale,AMap.ToolBar"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./js/webview.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./js/map.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"map-container"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;为什么要使用原生的js高德地图&quot;&gt;&lt;a href=&quot;#为什么要使用原生的js高德地图&quot; class=&quot;headerlink&quot; title=&quot;为什么要使用原生的js高德地图&quot;&gt;&lt;/a&gt;为什么要使用原生的js高德地图&lt;/h2&gt;&lt;p&gt;首先说一下原因，虽然uni-app自
+      
+    
+    </summary>
+    
+    
+      <category term="经验总结" scheme="http://localhost:4000/categories/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/"/>
+    
+    
+      <category term="uni-app" scheme="http://localhost:4000/tags/uni-app/"/>
+    
+      <category term="高德地图" scheme="http://localhost:4000/tags/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>flutter页面重绘问题解决方案</title>
@@ -505,47 +559,6 @@
     
     
       <category term="总结" scheme="http://localhost:4000/tags/%E6%80%BB%E7%BB%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>prototype、_proto_与[[prototype]]记录</title>
-    <link href="http://localhost:4000/2019/07/15/prototype%E3%80%81-proto-%E4%B8%8E-prototype-%E8%AE%B0%E5%BD%95/"/>
-    <id>http://localhost:4000/2019/07/15/prototype%E3%80%81-proto-%E4%B8%8E-prototype-%E8%AE%B0%E5%BD%95/</id>
-    <published>2019-07-15T11:49:53.000Z</published>
-    <updated>2019-07-15T11:49:53.915Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>解决高德地图3D模式下渲染marker卡顿问题</title>
-    <link href="http://localhost:4000/2019/07/11/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE3D%E6%A8%A1%E5%BC%8F%E4%B8%8B%E6%B8%B2%E6%9F%93marker%E5%8D%A1%E9%A1%BF%E9%97%AE%E9%A2%98/"/>
-    <id>http://localhost:4000/2019/07/11/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE3D%E6%A8%A1%E5%BC%8F%E4%B8%8B%E6%B8%B2%E6%9F%93marker%E5%8D%A1%E9%A1%BF%E9%97%AE%E9%A2%98/</id>
-    <published>2019-07-11T11:55:35.000Z</published>
-    <updated>2019-07-11T12:16:39.051Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="闲扯"><a href="#闲扯" class="headerlink" title="闲扯"></a>闲扯</h2><p>这一个月我都在和高德地图打交道，遇到了很多问题，因为没人带，都是靠自己解决，走了不少弯路。高德地图其实很强大，你能想到的几乎上面都有。</p><h2 id="3D地图"><a href="#3D地图" class="headerlink" title="3D地图"></a>3D地图</h2><p>其实项目并没有3D地图的需求，但是无奈老板提了个需求是要地图可以慢慢缩放，也就是我们说的无级缩放，再说专业点就是缩放等级zoom可以是浮点数。web端高德地图在2D模式下是不支持无级缩放的，那么在手机上就算你只缩放了一丢丢，地图也会按照加减1的zoom来放大缩小。<br>但是我又遇到个问题，3D模式下我在地图上的marker们都点不动了，经过我测试发现并不是点击事件失效，而是压根就触发不了，就像表面有个遮罩层挡住了一样，z-index设置多高都没用。最后搞了一天我还是没找到原因，不过我想起来自己用的是vue-amap,我果断换回了原生的amap，居然就解决了。。。</p><h3 id="渲染速度"><a href="#渲染速度" class="headerlink" title="渲染速度"></a>渲染速度</h3><p>那么，来说正题，我解决了上述两个问题，接下来又发现了新问题：我的marker渲染速度太慢了！！我的地图是才加载进去有9个marker,这9个类似点聚合的点，点击后会让地图放大，然后展示那9个行政区下面的几百上千家企业的marker点。marker实际上就是一个div,那么dom渲染，上千个，<strong>并且随着每次拖动div都会相对移动，而且地图还是在3D模式下</strong>，卡顿也就不奇怪了。那么我就如下分析了一下</p><ul><li>dom渲染卡顿，那么我不用dom。</li><li>拖动会重新绘制div的位置，那么我不让他重汇。<br>能实现这两点的那就只有canvas了，高德地图里也就是海量点。</li></ul><p>但是还有个问题，我的项目要求每个点旁边要有文字展示，海量点是没有的，那么高德地图有没有绘制文字的canvas方法呢？答案当然是有的。</p><h3 id="LabelsLayer图层与LabelMarker标记层"><a href="#LabelsLayer图层与LabelMarker标记层" class="headerlink" title="LabelsLayer图层与LabelMarker标记层"></a>LabelsLayer图层与LabelMarker标记层</h3><p>直接看代码<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">this.amap = new AMap.Map('cont', &#123;</span><br><span class="line">    resizeEnable: <span class="literal">true</span>,</span><br><span class="line">    rotateEnable:<span class="literal">false</span>,</span><br><span class="line">    pitchEnable:<span class="literal">true</span>,</span><br><span class="line">    zoom: <span class="number">9.5</span>,</span><br><span class="line">    pitch:<span class="number">0</span>,</span><br><span class="line">    viewMode:'3D',//开启3D视图,默认为关闭</span><br><span class="line">    buildingAnimation:<span class="literal">true</span>,<span class="comment">//楼块出现是否带动画</span></span><br><span class="line">    zooms:[<span class="number">9</span>,<span class="number">19</span>],</span><br><span class="line">    center:[<span class="number">116.45848</span>, <span class="number">38.87328</span>],</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.layer = <span class="keyword">new</span> AMap.LabelsLayer(&#123;</span><br><span class="line">    zooms: [<span class="number">3</span>, <span class="number">20</span>],</span><br><span class="line">    zIndex: <span class="number">99999999999999999</span>,</span><br><span class="line">    visible: <span class="literal">true</span>,</span><br><span class="line">    collision: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// 开启标注避让，默认为开启，v1.4.15 新增属性</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 加入图层</span></span><br><span class="line"><span class="keyword">this</span>.amap.add(<span class="keyword">this</span>.layer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下面是canvas文字</span></span><br><span class="line">var text = <span class="keyword">new</span> AMap.LabelMarker(&#123;</span><br><span class="line">        position: [longitude, latitude],</span><br><span class="line">        zooms: [<span class="number">3</span>,<span class="number">20</span>],</span><br><span class="line">        extData: eachList,</span><br><span class="line">        text: &#123;</span><br><span class="line">            content: companyName,</span><br><span class="line">            style: &#123;</span><br><span class="line">                backgroundColor: <span class="string">"white"</span></span><br><span class="line">            &#125;,</span><br><span class="line">        offset: [<span class="number">0</span>,<span class="number">-33</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">this</span>.layer.add(text)</span><br></pre></td></tr></table></figure></p><p>实际上LabelsMarker也是可以绘制icon图标的，但是不知为何我用on函数绑定点击事件总是有一大半的点点了没反应，因此我还是使用了海量点(massMarker)</p><p>这样，在3D地图下较大量点的渲染就变得very smooth了！</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;闲扯&quot;&gt;&lt;a href=&quot;#闲扯&quot; class=&quot;headerlink&quot; title=&quot;闲扯&quot;&gt;&lt;/a&gt;闲扯&lt;/h2&gt;&lt;p&gt;这一个月我都在和高德地图打交道，遇到了很多问题，因为没人带，都是靠自己解决，走了不少弯路。高德地图其实很强大，你能想到的几乎上面都有。&lt;/p
-      
-    
-    </summary>
-    
-    
-      <category term="经验总结" scheme="http://localhost:4000/categories/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/"/>
-    
-    
-      <category term="高德地图" scheme="http://localhost:4000/tags/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/"/>
     
   </entry>
   

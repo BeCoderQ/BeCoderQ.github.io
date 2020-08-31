@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://becoderq.github.io/BeCoderQ.github.io/images/favicon.ico">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        记一次后台权限与路由的重构｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2020/08/31/记一次后台权限与路由的重构/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>记一次后台权限与路由的重构</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2020-08-31
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Proxy"
+                           title="Proxy">Proxy</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#重构"
+                           title="重构">重构</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Vue"
+                           title="Vue">Vue</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            记一次后台权限与路由的重构
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="为什么要重构"><a href="#为什么要重构" class="headerlink" title="为什么要重构"></a>为什么要重构</h2><p>老实说重构我一直觉得是一件费力不讨好的事儿，但是这次的后台项目路由那块确实太乱了，复制粘贴以前项目的，非常生硬，这也导致权限的验证非常麻烦，因此趁着还没上线，花了大半天给改完了。</p>
+<h2 id="重构的思路"><a href="#重构的思路" class="headerlink" title="重构的思路"></a>重构的思路</h2><p>这个后台管理是有两级菜单的，如下图</p>
+<p><img src="/BeCoderQ.github.io/2020/08/31/记一次后台权限与路由的重构/power-menu.png" alt="菜单结构"></p>
+<p>可以看到有两级菜单，顶层的菜单控制切换模块，并带动左侧的边栏菜单的变化，这里因为项目结构的历史原因，顶部的一级菜单和左侧的菜单是完全分开且没有关系的。那么我的思路大概有以下几步</p>
+<ul>
+<li>在数据上耦合一级菜单与二级菜单</li>
+<li>因为页面并不是特别多，所以菜单就直接通过暴露出的路由元数据来渲染</li>
+<li>权限配置上，因为后台返回的是id，因此这些id可以直接写在路由配置的meta属性中</li>
+<li>在后端返回权限的配置数据，前端对比当前路由后，通过一个resetRouter函数替换路由(替换的路由是剔除掉无权限页面的)</li>
+</ul>
+<p>大体上就是这几个点，下面看代码详细说</p>
+<h2 id="耦合一二级菜单"><a href="#耦合一二级菜单" class="headerlink" title="耦合一二级菜单"></a>耦合一二级菜单</h2><p>耦合两级菜单非常简单，我的办法是使用webpack的require.context方法，通过文件名作为key耦合两级菜单，并存储在vuex中，先看一下路由结构：</p>
+<p><img src="/BeCoderQ.github.io/2020/08/31/记一次后台权限与路由的重构/router-menu.png" alt="路由结构"></p>
+<p>modules文件下是所有路由的元数据，router-config文件是一些配置路由的功能函数，然后再看一下用于存储菜单数据的vuex数据：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">rootMenus: [</span><br><span class="line">    &#123; <span class="attr">title</span>: <span class="string">'首页'</span>, <span class="attr">path</span>: <span class="string">'/synthesize/home'</span>, <span class="attr">subs</span>: [] &#125;,</span><br><span class="line">    &#123; <span class="attr">title</span>: <span class="string">'遥感监测'</span>, <span class="attr">path</span>: <span class="string">'/synthesize/remote-sensing-map'</span>, <span class="attr">id</span>: <span class="string">'remote'</span>, <span class="attr">subs</span>: [] &#125;,</span><br><span class="line">    &#123; <span class="attr">title</span>: <span class="string">'分表计电'</span>, <span class="attr">path</span>: <span class="string">'/synthesize/product-run'</span>, <span class="attr">id</span>: <span class="string">'electric'</span>, <span class="attr">subs</span>: [] &#125;,</span><br><span class="line">    &#123; <span class="attr">title</span>: <span class="string">'扬尘监测'</span>, <span class="attr">path</span>: <span class="string">'/synthesize/monitor-map'</span>, <span class="attr">id</span>: <span class="string">'raise-dust'</span>, <span class="attr">subs</span>: [] &#125;,</span><br><span class="line">    &#123; <span class="attr">title</span>: <span class="string">'OBD监测'</span>, <span class="attr">path</span>: <span class="string">'/synthesize/obd-map'</span>, <span class="attr">id</span>: <span class="string">'obd'</span>, <span class="attr">subs</span>: [] &#125;,</span><br><span class="line">    &#123; <span class="attr">title</span>: <span class="string">'系统管理'</span>, <span class="attr">path</span>: <span class="string">'/synthesize/car-setting'</span>, <span class="attr">id</span>: <span class="string">'system'</span>, <span class="attr">subs</span>: [] &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>这里id就是对应每个模块的文件名，subs就是二级菜单数组。</p>
+<h3 id="通过require-context完成菜单的合成"><a href="#通过require-context完成菜单的合成" class="headerlink" title="通过require.context完成菜单的合成"></a>通过require.context完成菜单的合成</h3><p>在router-config中：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// associateMenu将根据文件名与store中预设的菜单id关联，将顶级菜单与二级菜单结合</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">associateMenu</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	<span class="comment">// getState方法是我封装的获取store中state的方法</span></span><br><span class="line">    <span class="keyword">let</span> rootMenus = getState(<span class="string">'cache'</span>, <span class="string">'rootMenus'</span>),</span><br><span class="line">        originRouters = []</span><br><span class="line">    <span class="keyword">const</span> moduleFiles = <span class="built_in">require</span>.context(<span class="string">'./modules'</span>, <span class="literal">true</span>, /\.js$/)</span><br><span class="line">    moduleFiles.keys().map(<span class="function"><span class="keyword">function</span> (<span class="params">modulePath</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(moduleFiles(modulePath).default) &#123;</span><br><span class="line">            originRouters.push(moduleFiles(modulePath).default)</span><br><span class="line">            rootMenus.map(<span class="function"><span class="params">menu</span>=&gt;</span> &#123;</span><br><span class="line">              	<span class="comment">// 根据id绑定在一起</span></span><br><span class="line">                <span class="keyword">if</span>(modulePath.includes(menu.id)) &#123;</span><br><span class="line">                    menu.subs = moduleFiles(modulePath).default</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    setState(<span class="string">'cache'</span>, <span class="string">'rootMenus'</span>, rootMenus)</span><br><span class="line">    <span class="comment">// 这里返回一个原始的路由元数据，用于路由的注册</span></span><br><span class="line">    <span class="keyword">return</span> originRouters</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在路由的index.js大概是这个样子:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> &#123; associateMenu &#125; <span class="keyword">from</span> <span class="string">'./router-config'</span></span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"><span class="keyword">const</span> sonMenus = [].concat(...associateMenu())</span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">	&#123;</span><br><span class="line">		path: <span class="string">'/synthesize'</span>,</span><br><span class="line">        redirect: <span class="string">'/synthesize'</span>,</span><br><span class="line">				component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "about" */</span> <span class="string">'@/views/frame/Home.vue'</span>),</span><br><span class="line">        children: [</span><br><span class="line">          &#123;</span><br><span class="line">          name: <span class="string">'home'</span>,</span><br><span class="line">          path: <span class="string">'home'</span>,</span><br><span class="line">          component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "home" */</span> <span class="string">'@/views/home/index'</span>),</span><br><span class="line">            meta: &#123;</span><br><span class="line">              title: <span class="string">'首页'</span>,</span><br><span class="line">              icon: <span class="string">'el-icon-home'</span></span><br><span class="line">            &#125;</span><br><span class="line">      		&#125;,</span><br><span class="line">        	...sonMenus</span><br><span class="line">        ]</span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		path: <span class="string">'/'</span>,</span><br><span class="line">		redirect: <span class="string">'/login'</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		title: <span class="string">'登录'</span>,</span><br><span class="line">		path: <span class="string">'/login'</span>,</span><br><span class="line">		name: <span class="string">"Login"</span>,</span><br><span class="line">		component: <span class="function"><span class="params">()</span>=&gt;</span> <span class="keyword">import</span>(<span class="string">'@/views/base/login/LoginPageNew'</span>),</span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		path: <span class="string">'*'</span>,</span><br><span class="line">		redirect: <span class="string">'/404'</span>,</span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		path: <span class="string">'/404'</span>,</span><br><span class="line">		component: <span class="function"><span class="params">()</span>=&gt;</span> <span class="keyword">import</span>(<span class="string">'@/views/base/error-page/404'</span>),</span><br><span class="line">	&#125;</span><br><span class="line">]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这样菜单就做好了，接下来就是权限了</p>
+<h2 id="权限配置"><a href="#权限配置" class="headerlink" title="权限配置"></a>权限配置</h2><p>权限通过vuex中rootMenus中的权限id属性来判断哪些路由会被删除</p>
+<h3 id="动态刷新路由"><a href="#动态刷新路由" class="headerlink" title="动态刷新路由"></a>动态刷新路由</h3><p>首先看一下怎么实现路由的动态刷新:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">const</span> createRouter = <span class="function">(<span class="params">routes</span>) =&gt;</span> <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">	base: process.env.NODE_ENV === <span class="string">'development'</span>?<span class="string">'/'</span>:<span class="string">'/synthesize/'</span>,</span><br><span class="line">	routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = createRouter(routes)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 权限获取后替换路由</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">resetRouter</span>(<span class="params">routes</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> newRouter = createRouter(routes)</span><br><span class="line">	router.matcher = newRouter.matcher</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这里我们通过替换路由的matcher，即匹配规则，实现动态的路由更换，下面根据需要修改上面的代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> &#123; associateMenu &#125; <span class="keyword">from</span> <span class="string">'./router-config'</span></span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"><span class="keyword">const</span> sonMenus = [].concat(...associateMenu())</span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">	&#123;</span><br><span class="line">		path: <span class="string">'/synthesize'</span>,</span><br><span class="line">        redirect: <span class="string">'/synthesize'</span>,</span><br><span class="line">				component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "about" */</span> <span class="string">'@/views/frame/Home.vue'</span>),</span><br><span class="line">        children: [</span><br><span class="line">          &#123;</span><br><span class="line">          name: <span class="string">'home'</span>,</span><br><span class="line">          path: <span class="string">'home'</span>,</span><br><span class="line">          component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "home" */</span> <span class="string">'@/views/home/index'</span>),</span><br><span class="line">            meta: &#123;</span><br><span class="line">              title: <span class="string">'首页'</span>,</span><br><span class="line">                icon: <span class="string">'el-icon-home'</span></span><br><span class="line">            &#125;</span><br><span class="line">      		&#125;,</span><br><span class="line">        	...sonMenus</span><br><span class="line">        ]</span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		path: <span class="string">'/'</span>,</span><br><span class="line">		redirect: <span class="string">'/login'</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		title: <span class="string">'登录'</span>,</span><br><span class="line">		path: <span class="string">'/login'</span>,</span><br><span class="line">		name: <span class="string">"Login"</span>,</span><br><span class="line">		component: <span class="function"><span class="params">()</span>=&gt;</span> <span class="keyword">import</span>(<span class="string">'@/views/base/login/LoginPageNew'</span>),</span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		path: <span class="string">'*'</span>,</span><br><span class="line">		redirect: <span class="string">'/404'</span>,</span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		path: <span class="string">'/404'</span>,</span><br><span class="line">		component: <span class="function"><span class="params">()</span>=&gt;</span> <span class="keyword">import</span>(<span class="string">'@/views/base/error-page/404'</span>),</span><br><span class="line">	&#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// createRouter函数接受一个回调函数，将创建一个权限过滤后的路由实例</span></span><br><span class="line"><span class="keyword">const</span> createRouter = <span class="function">(<span class="params">validate</span>) =&gt;</span> <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">	base: process.env.NODE_ENV === <span class="string">'development'</span>?<span class="string">'/'</span>:<span class="string">'/synthesize/'</span>,</span><br><span class="line">	routes: <span class="keyword">typeof</span> validate === <span class="string">'function'</span>?validate(routes):routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = createRouter(routes)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 权限获取后替换路由</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">resetRouter</span>(<span class="params">validate</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> newRouter = createRouter(validate)</span><br><span class="line">	router.matcher = newRouter.matcher</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+<p>这里我们修改后的逻辑变成了在调用resetRouter时传入一个验证的回调函数，这个回调函数的参数就是当前所有路由的元数据，在使用时大概是这样：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">	<span class="keyword">async</span> getPower() &#123;</span><br><span class="line">  	<span class="keyword">let</span> [err, res] = <span class="keyword">await</span> getPower(&#123; ...params &#125;)</span><br><span class="line">    <span class="keyword">if</span>(err) <span class="keyword">return</span></span><br><span class="line">  	<span class="comment">// 这个就是后台返回的权限树</span></span><br><span class="line">  	<span class="keyword">const</span> powerMetas = res.rows</span><br><span class="line">    resetRouter(<span class="function">(<span class="params">routes</span>)=&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 这里用routes与powerMetas循环判断id是否存在，不存在则将该路由删除</span></span><br><span class="line">      <span class="keyword">let</span> routesChildren = routes[<span class="number">0</span>].children</span><br><span class="line">      routesChildren.map(<span class="function">(<span class="params">route, index</span>)=&gt;</span> &#123;</span><br><span class="line">        powerMetas.forEach(<span class="function"><span class="params">meta</span>=&gt;</span> &#123;</span><br><span class="line">          ...</span><br><span class="line">          <span class="keyword">if</span>(没有该ID) &#123;</span><br><span class="line">            <span class="comment">// 删除该路由</span></span><br><span class="line">            routesChildren.splice(index, <span class="number">1</span>)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="comment">// 返回一个已经过滤完成的路由</span></span><br><span class="line">      <span class="keyword">return</span> routes</span><br><span class="line">    &#125;)</span><br><span class="line">	&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这里我通过接口返回的权限树来与当前所有路由进行比对，把权限id不存在的路由删除掉。</p>
+<h3 id="进一步修改"><a href="#进一步修改" class="headerlink" title="进一步修改"></a>进一步修改</h3><p>这里其实并没有做完，因为我们的菜单是根据vuex的rootMenus属性来渲染的，所以我们单纯删除了路由是没有用的，页面上的菜单上还是会有删除的页面，只是点了过后无法访问而已，这样用户体验是很差的。那么，我们要想一个办法让路由的数据与vuex中渲染页面的数据联系起来。</p>
+<h3 id="使用Proxy监听路由的修改"><a href="#使用Proxy监听路由的修改" class="headerlink" title="使用Proxy监听路由的修改"></a>使用Proxy监听路由的修改</h3><p>这里正好可以使用上周博客介绍的Proxy来监听路由，在router-config文件中：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">observeRouter</span>(<span class="params">router</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 监听代理数组与对象</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> router === <span class="string">'object'</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> router) &#123;</span><br><span class="line">            <span class="comment">// 递归深度代理</span></span><br><span class="line">            <span class="keyword">typeof</span> router[key] === <span class="string">'object'</span> &amp;&amp; (router[key] = observeRouter(router[key]))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(router, &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * @param &#123;target&#125; 当前对象</span></span><br><span class="line"><span class="comment">         * @param &#123;prop&#125; 设置属性名</span></span><br><span class="line"><span class="comment">         * @param &#123;value&#125; 新的值</span></span><br><span class="line"><span class="comment">         * @param &#123;receiver&#125; 映射时的上下文</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">set</span>(target, prop, value, receiver) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">`设置了：<span class="subst">$&#123;prop&#125;</span>属性，修改值：<span class="subst">$&#123;value&#125;</span>`</span>)</span><br><span class="line">            <span class="comment">// 以下操作为同步store渲染菜单</span></span><br><span class="line">            <span class="keyword">let</span> newMenus = getState(<span class="string">'cache'</span>, <span class="string">'rootMenus'</span>) || [],</span><br><span class="line">                deleteXy = [<span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line">            <span class="comment">// 这里只处理第二级菜单 顶级菜单在渲染时直接通过v-show隐藏</span></span><br><span class="line">            newMenus.map(<span class="function">(<span class="params">menu, mIdx</span>)=&gt;</span> &#123;</span><br><span class="line">                menu.subs.map(<span class="function">(<span class="params">sub, sIdx</span>)=&gt;</span> &#123;</span><br><span class="line">                  	<span class="comment">// receiver是单个路由的配置对象</span></span><br><span class="line">                    <span class="keyword">if</span>(sub.name === receiver.name) &#123;</span><br><span class="line">                        deleteXy = [mIdx, sIdx]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">            newMenus[deleteXy[<span class="number">0</span>]].subs.splice(deleteXy[<span class="number">1</span>], <span class="number">1</span>)</span><br><span class="line">            <span class="comment">// 将修改后的数据同步到vuex中</span></span><br><span class="line">            setState(<span class="string">'cache'</span>, <span class="string">'rootMenus'</span>, newMenus)</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, prop, value, receiver)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里要注意一点，我们通过递归来监听数组对象，当我们删除数组后，Proxy监听会有一个问题，比如我监听的数据是一个包含24个对象的数组，<strong>当我们删除第三个时，这里的监听函数会触发21次，因为第三个的删除导致了数组长度的变化，换句话说，现在这个数组”坍塌”了。</strong>所以，如果我们匹配权限规则时直接去删除路由，会导致我们监听不到具体删除的结果。</p>
+<p>写好了监听函数，那么就在index.js文件中监听路由：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> &#123; associateMenu, observeRouter &#125; <span class="keyword">from</span> <span class="string">'./router-config'</span></span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"><span class="keyword">const</span> sonMenus = [].concat(...associateMenu())</span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">	&#123;</span><br><span class="line">		path: <span class="string">'/synthesize'</span>,</span><br><span class="line">        redirect: <span class="string">'/synthesize'</span>,</span><br><span class="line">				component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "about" */</span> <span class="string">'@/views/frame/Home.vue'</span>),</span><br><span class="line">        children: [</span><br><span class="line">          &#123;</span><br><span class="line">          name: <span class="string">'home'</span>,</span><br><span class="line">          path: <span class="string">'home'</span>,</span><br><span class="line">          component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "home" */</span> <span class="string">'@/views/home/index'</span>),</span><br><span class="line">            meta: &#123;</span><br><span class="line">              title: <span class="string">'首页'</span>,</span><br><span class="line">                icon: <span class="string">'el-icon-home'</span></span><br><span class="line">            &#125;</span><br><span class="line">      		&#125;,</span><br><span class="line">        	...sonMenus</span><br><span class="line">        ]</span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		path: <span class="string">'/'</span>,</span><br><span class="line">		redirect: <span class="string">'/login'</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		title: <span class="string">'登录'</span>,</span><br><span class="line">		path: <span class="string">'/login'</span>,</span><br><span class="line">		name: <span class="string">"Login"</span>,</span><br><span class="line">		component: <span class="function"><span class="params">()</span>=&gt;</span> <span class="keyword">import</span>(<span class="string">'@/views/base/login/LoginPageNew'</span>),</span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		path: <span class="string">'*'</span>,</span><br><span class="line">		redirect: <span class="string">'/404'</span>,</span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		path: <span class="string">'/404'</span>,</span><br><span class="line">		component: <span class="function"><span class="params">()</span>=&gt;</span> <span class="keyword">import</span>(<span class="string">'@/views/base/error-page/404'</span>),</span><br><span class="line">	&#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里代理路由</span></span><br><span class="line"><span class="keyword">let</span> proxyRoutes = observeRouter(routes)</span><br><span class="line"></span><br><span class="line"><span class="comment">// createRouter函数接受一个回调函数，将创建一个权限过滤后的路由实例</span></span><br><span class="line"><span class="keyword">const</span> createRouter = <span class="function">(<span class="params">validate</span>) =&gt;</span> <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">	base: process.env.NODE_ENV === <span class="string">'development'</span>?<span class="string">'/'</span>:<span class="string">'/synthesize/'</span>,</span><br><span class="line">	routes: <span class="keyword">typeof</span> validate === <span class="string">'function'</span>?validate(proxyRoutes):proxyRoutes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = createRouter(proxyRoutes)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 权限获取后替换路由</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">resetRouter</span>(<span class="params">validate</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> newRouter = createRouter(validate)</span><br><span class="line">	router.matcher = newRouter.matcher</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+<p>接下来，在刷新路由那里我们就要像这样改一下:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">	<span class="keyword">async</span> getPower() &#123;</span><br><span class="line">  	<span class="keyword">let</span> [err, res] = <span class="keyword">await</span> getPower(&#123; ...params &#125;)</span><br><span class="line">    <span class="keyword">if</span>(err) <span class="keyword">return</span></span><br><span class="line">  	<span class="comment">// 这个就是后台返回的权限树</span></span><br><span class="line">  	<span class="keyword">const</span> powerMetas = res.rows</span><br><span class="line">    resetRouter(<span class="function">(<span class="params">routes</span>)=&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 这里用routes与powerMetas循环判断id是否存在，不存在则将该路由删除</span></span><br><span class="line">      <span class="keyword">let</span> routesChildren = routes[<span class="number">0</span>].children</span><br><span class="line">      routesChildren.map(<span class="function">(<span class="params">route, index</span>)=&gt;</span> &#123;</span><br><span class="line">        powerMetas.forEach(<span class="function"><span class="params">meta</span>=&gt;</span> &#123;</span><br><span class="line">          ...</span><br><span class="line">          <span class="keyword">if</span>(没有该ID) &#123;</span><br><span class="line">            <span class="comment">// 将该路由的导入文件设置为null</span></span><br><span class="line">            route.component = <span class="literal">null</span></span><br><span class="line">            route.redirect = <span class="string">'/404'</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="comment">// 返回一个已经过滤完成的路由</span></span><br><span class="line">      <span class="keyword">return</span> routes</span><br><span class="line">    &#125;)</span><br><span class="line">	&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这里我们把没有权限的路由的component项设置为null，这样页面就时空的了，但是该路由其实还是注册了，用户如果直接输入路径访问并不会跳到404页面，所以后面我们把该路由重定向到了404页面。</p>
+<p><strong>完成！</strong></p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2020/08/20/ES6-Proxy与Reflect/" data-toggle="tooltip" data-placement="top"
+                           title="ES6-Proxy与Reflect">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要重构"><span class="toc-text">为什么要重构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重构的思路"><span class="toc-text">重构的思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#耦合一二级菜单"><span class="toc-text">耦合一二级菜单</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#通过require-context完成菜单的合成"><span class="toc-text">通过require.context完成菜单的合成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#权限配置"><span class="toc-text">权限配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#动态刷新路由"><span class="toc-text">动态刷新路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进一步修改"><span class="toc-text">进一步修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Proxy监听路由的修改"><span class="toc-text">使用Proxy监听路由的修改</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Proxy"
+                           title="Proxy">Proxy</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#重构"
+                           title="重构">重构</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Vue"
+                           title="Vue">Vue</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2020
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
+</body>
+
+</html>

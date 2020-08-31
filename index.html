@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
                         </li>
 							
 						
@@ -276,6 +276,32 @@
     <div class="row">
         <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
             <!-- Main Content -->
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
+    <a href="/BeCoderQ.github.io/2020/08/31/记一次后台权限与路由的重构/">
+        <h2 class="post-title">
+            记一次后台权限与路由的重构
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-08-31
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                为什么要重构老实说重构我一直觉得是一件费力不讨好的事儿，但是这次的后台项目路由那块确实太乱了，复制粘贴以前项目的，非常生硬，这也导致权限的验证非常麻烦，因此趁着还没上线，花了大半天给改完了。
+重构的思路这个后台管理是有两级菜单的，如下图
+
+可以看到有两级菜单，顶层的菜单控制切换模块，并带动左侧的..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
 
 
 
@@ -478,30 +504,6 @@ baseUrl: process.env.NODE_ENV === 'development'? xxx.com : yyy.com
 
 
 
-<div class="post-preview "
-     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
-    <a href="/BeCoderQ.github.io/2020/05/16/迭代器与生成器/">
-        <h2 class="post-title">
-            ES6迭代器与生成器
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-16
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                迭代器(Iterator)迭代器是一种特殊的对象,特的结构如下&#123; value: 'xxx', done: false &#125;
-value是下一个将要返回的值，done表示当前迭代是否完成，迭代器内部会保存一个指针，指向当前集合中值的位置，通过调用next()方法返回下一个值，当d..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
 
 <!-- 翻页 pager -->
 
@@ -598,12 +600,17 @@ value是下一个将要返回的值，done表示当前迭代是否完成，迭�
                     
                     
                     
+                    <a href="/BeCoderQ.github.io/tags/#Proxy" title="Proxy"
+                       rel="2">Proxy</a>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     <a href="/BeCoderQ.github.io/tags/#ES6" title="ES6"
                        rel="3">ES6</a>
-                    
-                    
-                    
-                    
                     
                     
                     
@@ -620,16 +627,12 @@ value是下一个将要返回的值，done表示当前迭代是否完成，迭�
                     
                     
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     <a href="/BeCoderQ.github.io/tags/#webpack" title="webpack"
                        rel="2">webpack</a>
+                    
+                    
+                    
+                    
                     
                     
                     
@@ -659,6 +662,10 @@ value是下一个将要返回的值，done表示当前迭代是否完成，迭�
                     
                     
                     
+                    
+                    
+                    
+                    
                     <a href="/BeCoderQ.github.io/tags/#vue.cli4" title="vue.cli4"
                        rel="2">vue.cli4</a>
                     
@@ -672,6 +679,8 @@ value是下一个将要返回的值，done表示当前迭代是否完成，迭�
                     
                     <a href="/BeCoderQ.github.io/tags/#axios" title="axios"
                        rel="2">axios</a>
+                    
+                    
                     
                     
                     

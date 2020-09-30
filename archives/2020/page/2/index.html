@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
                         </li>
 							
 						
@@ -156,6 +156,107 @@
     <div class="row">
         <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
             <!-- Main Content -->
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
+    <a href="/BeCoderQ.github.io/2020/07/11/flutter页面重绘问题解决方案/">
+        <h2 class="post-title">
+            flutter页面重绘问题解决方案
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-07-11
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                IndexedStackIndexedStack组件继承自Stack，两个参数
+
+Index: 当前显示的组件列表中的的第几个
+children: 渲染页面的组件列表
+
+使用:
+class _MyHomePageState extends State&lt;MyHomePage&gt; &#12..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
+    <a href="/BeCoderQ.github.io/2020/06/22/vue开发中的实用技巧/">
+        <h2 class="post-title">
+            vue开发中的实用技巧
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-06-22
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                Vue.cli中区分开发、生产环境对于在vue脚手架中区分开环境，我一直用的下面的方法:
+baseUrl: process.env.NODE_ENV === 'development'? xxx.com : yyy.com
+这个方法没毛病，能正常运行，不过还有一种更好的方式，我们可以在项目的根目..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
+    <a href="/BeCoderQ.github.io/2020/05/27/vue-cli4版本下跨域代理配置与数据mock/">
+        <h2 class="post-title">
+            vue.cli4版本下跨域代理配置与数据mock
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-27
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                proxy代理配置最近搭了一个项目的架子，接口请求库用的axios，第一个测试接口就给扔了CORS，于是打开vue.config.js文件配置代理服务:
+// vue.config.js中devServer: &#123;		port: port,    open: false, // 是否在r..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
+    <a href="/BeCoderQ.github.io/2020/05/23/electron打包后文件路径问题-解决子进程文件报错/">
+        <h2 class="post-title">
+            electron打包后文件路径问题(解决子进程文件报错)
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-23
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                问题描述最近手上有个项目是基于electron（electron-vue）开发的平台监测系统，有一部分数据量非常大，并且是实时更新数据滚动显示，但后台的同学很鸡贼的没有过滤去重就把超多的数据仍给我了，因此数据处理就交给前端了。为了不影响页面的流畅性，我把计算去重等操作放到了子进程中(child_..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
 
 
 
@@ -244,105 +345,6 @@ value是下一个将要返回的值，done表示当前迭代是否完成，迭�
             <p>
                 js中简单实用的图片压缩最近在业务中遇到一个问题，因为现在手机的像素越来越高了，拍出来的相片大小动辄就是4、5M，用户那边反应上传图片很慢，因此我便加入了一个压缩的功能。
 talk is cheap, show me the code// base64转为blob流function base64..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
-    <a href="/BeCoderQ.github.io/2020/03/18/操作符与二进制基础/">
-        <h2 class="post-title">
-            ~ | & ^操作符与二进制基础：原码反码补码
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-03-18
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                二进制我们都知道计算机只认识0和1，因此所有复杂的计算都是建立在0和1上面，换句话说，再复杂的代码，最后都会转换为0和1。对于操作符，理解了底层运算原理后，就一目了然了
-原码原码实际上是为了表示数字的正负出现的，它的最高位0与1分别代表正与负，下面以32为计算机中的数字5举例10000000 0..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
-    <a href="/BeCoderQ.github.io/2020/03/07/puppeteer爬虫工具的使用与踩坑/">
-        <h2 class="post-title">
-            puppeteer爬虫工具的使用与踩坑
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-03-07
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                关于puppeteer还记得前年我想要完成一个网页脚本，但局限于只知道console里输代码，页面如果一条转就拉胯了。后来知道了chrome插件，才写出了一个能够模拟真人的脚本。而puppeteer就可以实现chrome插件的效果，并且还支持可视化的操作(当然一般只有调试时才打开)，非常方便。
-..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
-    <a href="/BeCoderQ.github.io/2020/03/01/手写一个完整的Promise类/">
-        <h2 class="post-title">
-            手写一个完整的Promise类
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-03-01
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                Promise规则在实现Promise之前，先看一下Promise的规则，也就是我们要实现的目标。没有太专业的英文术语，都是我自己总结的白话：
-
-Promise有三个状态，分别为pendding(准备),fufilled(成功),rejected(失败)。这三个状态只能是由pendding-&g..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-<div class="post-preview "
-     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
-    <a href="/BeCoderQ.github.io/2020/02/21/二次封装axios/">
-        <h2 class="post-title">
-            二次封装axios
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-02-21
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                结构这里参考了网上一些大神的封装方法，然后结合了下自己的需求，总的分了两个文件
-
-api文件，将项目中所有的接口api按模块分类存储在module文件。其下的index文件会将所有模块及其下的api接口以字典形式对应起来
-service文件为axios封装的核心，config为配置项文件，req..
             </p>
         </div>
     </a>
@@ -453,17 +455,17 @@ service文件为axios封装的核心，config为配置项文件，req..
                     
                     
                     
+                    <a href="/BeCoderQ.github.io/tags/#ES6" title="ES6"
+                       rel="3">ES6</a>
+                    
+                    
+                    
+                    
+                    
                     <a href="/BeCoderQ.github.io/tags/#Proxy" title="Proxy"
                        rel="2">Proxy</a>
                     
                     
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#ES6" title="ES6"
-                       rel="3">ES6</a>
                     
                     
                     
@@ -515,12 +517,10 @@ service文件为axios封装的核心，config为配置项文件，req..
                     
                     
                     
-                    
-                    
-                    
-                    
                     <a href="/BeCoderQ.github.io/tags/#vue.cli4" title="vue.cli4"
                        rel="2">vue.cli4</a>
+                    
+                    
                     
                     
                     
@@ -536,6 +536,24 @@ service文件为axios封装的核心，config为配置项文件，req..
                     
                     
                     
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#Vue" title="Vue"
+                       rel="2">Vue</a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#总结" title="总结"
+                       rel="2">总结</a>
                     
                     
                     

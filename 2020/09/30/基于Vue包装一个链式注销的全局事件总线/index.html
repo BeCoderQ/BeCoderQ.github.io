@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Chow&#39;s blog
+        基于Vue包装一个链式注销的全局事件总线｜Chow&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/archives/2017/">
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2020/09/30/基于Vue包装一个链式注销的全局事件总线/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -80,7 +80,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
                         </li>
 							
 						
@@ -88,7 +88,7 @@
                         
 							
                         <li>
-                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
                         </li>
 							
 						
@@ -132,274 +132,140 @@
 
 <!-- Main Content -->
 
+<!--only post-->
 
-<!-- Page Header -->
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
-    <div class="row">
-        <header class="intro-header">
-            <div class="container">
-                <div class="site-heading text-center">
-                    <div class="about-me">
-                        <!--移动端头部显示-->
-                        <img src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif"/>
-                        <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
-                        <p>在前端的路上</p>
+
+<img class="wechat-title-img"
+     src="https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>基于Vue包装一个链式注销的全局事件总线</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2020-09-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#bus"
+                           title="bus">bus</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Vue"
+                           title="Vue">Vue</a>
+                        
                     </div>
                 </div>
             </div>
-        </header>
-    </div>
-</div>
-<!-- Main Content -->
-<div class="container custom-haojen-container">
-    <!-- Post Container -->
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
-            <!-- Main Content -->
-
-
-
-<div class="post-preview "
-     style="background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')">
-    <a href="/BeCoderQ.github.io/2017/10/28/hello-world/">
-        <h2 class="post-title">
-            Hello World
-        </h2>
-        <p class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-28
-        </p>
-        
-        <div class="post-content-preview">
-            <p>
-                Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer i..
-            </p>
-        </div>
-    </a>
-
-</div>
-
-<hr>
-
-
-
-
-<!-- 翻页 pager -->
-
-<ul class="pager">
-    
-    
-</ul>
-
-
-        </div>
-        <!-- Sidebar Container -->
-        <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
-
-            <!-- About Me -->
-            <section class="visible-md visible-lg" style="padding: 0 18px">
-                <div class="short-about">
-                    <!--侧边栏头像-->
-                    
-                    <img src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif"/>
-                    
-                    <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
-                    
-                    <p>在前端的路上</p>
-                    
-                    <hr>
-                    <!-- SNS Link 社交 -->
-                    <ul class="list-inline">
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://twitter.com/zyyzg">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-                        
-                        <li>
-                            <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-                        <li>
-                            <a target="_blank" href="http://weibo.com/St7Paul-">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-
-                        
-                        <li>
-                            <a target="_blank" href="https://github.com/becoderq">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                            </a>
-                        </li>
-                        
-
-                        
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Featured Tags  标签 -->
-            
-            <section>
-                <div class="tags">
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#Proxy" title="Proxy"
-                       rel="2">Proxy</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#ES6" title="ES6"
-                       rel="3">ES6</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#canvas" title="canvas"
-                       rel="2">canvas</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#webpack" title="webpack"
-                       rel="2">webpack</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#uni-app" title="uni-app"
-                       rel="2">uni-app</a>
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#高德地图" title="高德地图"
-                       rel="2">高德地图</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#vue.cli4" title="vue.cli4"
-                       rel="2">vue.cli4</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <a href="/BeCoderQ.github.io/tags/#axios" title="axios"
-                       rel="2">axios</a>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </div>
-            </section>
-            
-
-            
-
         </div>
     </div>
-</div>
+    <div class="post-title-haojen">
+        <span>
+            基于Vue包装一个链式注销的全局事件总线
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>公司的某个项目组件封装得不是很好，到处都在用全局事件总线，并且<code>@on</code>注册后还从来都不注销，虽然项目不大不存在爆栈的问题，但是这不是一个好习惯，因此决定写一个工厂函数来让注销事件简单一点。</p>
+<h2 id="目标效果"><a href="#目标效果" class="headerlink" title="目标效果"></a>目标效果</h2><p>最后实现的效果大概是这样:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.$bus.$on(<span class="string">'customize-event'</span>, msg=&gt; &#123;</span><br><span class="line">      <span class="comment">// do sth</span></span><br><span class="line">    &#125;).off(<span class="keyword">this</span>, <span class="string">'customize-event'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在往Vue实例中_events属性中推入事件后，直接在<code>@on</code>后面调用off事件注销事件，当然这个注销不是马上注销，而是在<code>beforeDestory</code>钩子函数触发时注销。另外，我们还要向下兼容原生的事件。</p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ExtendGlobalEvent,继承自Vue,调用全局总线调用同原生事件总线相同，</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExtendGlobalEvent</span> <span class="keyword">extends</span> <span class="title">Vue</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// @override</span></span><br><span class="line">  	<span class="comment">// 注意名字别写重了</span></span><br><span class="line">    _on(...args) &#123;</span><br><span class="line">        <span class="keyword">super</span>.$on(...args)</span><br><span class="line">    &#125;</span><br><span class="line">    _emit(...args) &#123;</span><br><span class="line">        <span class="keyword">super</span>.$emit(...args)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 全局事件的工厂函数，为了兼容原生$on的调用方式</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">EventGloablFactory</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> Event = <span class="keyword">new</span> ExtendGlobalEvent()</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        $on(...args) &#123;</span><br><span class="line">            Event._on(...args)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">        &#125;,</span><br><span class="line">        $emit(...args) &#123;</span><br><span class="line">            Event._emit(...args)</span><br><span class="line">        &#125;,</span><br><span class="line">        $off(...args) &#123;</span><br><span class="line">            Event.$off(...args)</span><br><span class="line">        &#125;,</span><br><span class="line">        off(context, eventName) &#123;</span><br><span class="line">            <span class="keyword">if</span> (context &amp;&amp; context._isVue) &#123;</span><br><span class="line">                context.$once(<span class="string">'hook:beforeDestroy'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.$off(eventName)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们暴露出去的实际是一个对象，这个对象的key与原生的全局事件的key相同，他们会执行被ExtendGlobalEvent实例化后的Event，而ExtendGlobalEvent内部又是继承自Vue，它触发的也是原生的$emit、$on、$off。</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2020/09/30/最近项目中遇到的一些问题或一些总结/" data-toggle="tooltip" data-placement="top"
+                           title="最近项目中遇到的一些问题或一些总结">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求"><span class="toc-text">需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目标效果"><span class="toc-text">目标效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现代码"><span class="toc-text">实现代码</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#bus"
+                           title="bus">bus</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Vue"
+                           title="Vue">Vue</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->

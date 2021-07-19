@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://localhost:4000/2021/07/19/%E5%AE%9E%E7%8E%B0Vuex%E6%9C%80%E7%B2%BE%E5%87%86%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%ADBeta%E7%89%88/</loc>
+    
+    <lastmod>2021-07-19T08:45:28.253Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://localhost:4000/2021/06/02/%E8%AE%B0%E4%B8%80%E6%AC%A1Vuex%E4%B8%ADcommit%E7%B1%BB%E5%9E%8B%E6%A0%A1%E9%AA%8C%E7%9A%84%E8%BF%87%E7%A8%8B/</loc>
     
     <lastmod>2021-06-15T02:14:53.249Z</lastmod>

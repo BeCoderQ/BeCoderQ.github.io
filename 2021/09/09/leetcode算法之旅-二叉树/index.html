@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://becoderq.github.io/BeCoderQ.github.io/images/favicon.ico">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        leetcode算法之旅---二叉树｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>leetcode算法之旅---二叉树</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2021-09-09
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#算法"
+                           title="算法">算法</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#二叉树"
+                           title="二叉树">二叉树</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            leetcode算法之旅---二叉树
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><p>这是我第一次接触二叉树的算法题，因此先对二叉树的基本概念做一些笔记</p>
+<p><img src="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/binary-tree-base.png" alt="图"></p>
+<ul>
+<li>根节点：二叉树最顶层节点</li>
+<li>分支节点：除了根节点以外且拥有叶子节点</li>
+<li>叶子节点，非根节点且除自身外没有其他子节点</li>
+</ul>
+<p>二叉树的定义：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> TreeNode &#123;</span><br><span class="line">  left!: TreeNode | <span class="literal">null</span>;</span><br><span class="line">	right!: TreeNode | <span class="literal">null</span>;</span><br><span class="line">	val: unknown;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">constructor</span>(<span class="params">left: TreeNode, right: TreeNode, val: unknown</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.left = left;</span><br><span class="line">    <span class="keyword">this</span>.right = right;</span><br><span class="line">    <span class="keyword">this</span>.val = val;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二叉树的三个数学性质"><a href="#二叉树的三个数学性质" class="headerlink" title="二叉树的三个数学性质"></a>二叉树的三个数学性质</h2><ol>
+<li>在二叉树的第i层上，至多有2^i - 1个节点，i=1时，只有一个即根节点。</li>
+<li>深度为k的二叉树至多有2^k - 1个节点。</li>
+<li>对任何一棵二叉树T，如果总结点数为n0，度为2(子树数目为2)的节点数为n2,则n0=n2+1</li>
+</ol>
+<h2 id="二叉树分类"><a href="#二叉树分类" class="headerlink" title="二叉树分类"></a>二叉树分类</h2><p>二叉树分为完全二叉树(complete binary tree)和满二叉树(full binary tree)。</p>
+<ul>
+<li>满二叉树：一棵深度为k且有2^k - 1个节点的二叉树称为满二叉树。</li>
+<li>完全二叉树：完全二叉树是指最后一层左边是满的，右边可能满也可能不满，然后其余层都是满的二叉树称为完全二叉树(满二叉树也是一种完全二叉树)。</li>
+</ul>
+<p><img src="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/type.png" alt="图"></p>
+<h2 id="二叉树的几种遍历方式"><a href="#二叉树的几种遍历方式" class="headerlink" title="二叉树的几种遍历方式"></a>二叉树的几种遍历方式</h2><p>如下图的一棵二叉树：</p>
+<p><img src="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/order.png" alt="图"></p>
+<ul>
+<li>先序遍历：1 2 4 6 7 8 3 5</li>
+<li>中序遍历：4 7 6 8 2 1 3 5</li>
+<li>后序遍历：7 8 6 4 2 5 3 1</li>
+</ul>
+<p><img src="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/order-detail.png" alt="图"></p>
+<h2 id="例题-相同的二叉树"><a href="#例题-相同的二叉树" class="headerlink" title="例题-相同的二叉树"></a>例题-相同的二叉树</h2><p><img src="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/question1.png" alt="图"></p>
+<p>二叉树的问题不外乎就是递归、迭代，这里我用递归方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val, left, right) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.left = (left===undefined ? null : left)</span></span><br><span class="line"><span class="comment"> *     this.right = (right===undefined ? null : right)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; p</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; q</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isSameTree = <span class="function"><span class="keyword">function</span>(<span class="params">p, q</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isSame = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">const</span> fn = <span class="function">(<span class="params">p1, q1</span>)=&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 两者有一者可能为空就判断是否相等，实际其实是判断是否有一者为null，不等返回false</span></span><br><span class="line">        <span class="keyword">if</span>(!p1 || !q1) &#123;</span><br><span class="line">            <span class="keyword">if</span>(p1 !== q1) isSame = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">      	<span class="comment">// </span></span><br><span class="line">        <span class="keyword">if</span>(p1.val !== q1.val) isSame = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 这里开始递归，其实就是左右互相对比，而递归结束的条件就是上面的第一个if</span></span><br><span class="line">        fn(p1.left, q1.left);</span><br><span class="line">        fn(p1.right, q1.right);</span><br><span class="line">    &#125;</span><br><span class="line">    fn(p, q);</span><br><span class="line">    <span class="keyword">return</span> isSame;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这一定不是最佳解法，不过这是我想出来的第一个解法，就直接用它了。</p>
+<h2 id="例题-对称二叉树"><a href="#例题-对称二叉树" class="headerlink" title="例题-对称二叉树"></a>例题-对称二叉树</h2><p><img src="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/question2.png" alt="图"></p>
+<p>这题我认为很典型，是一道入门的好题，我用了两种方法解题，一种是递归，另一种是迭代。</p>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val, left, right) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.left = (left===undefined ? null : left)</span></span><br><span class="line"><span class="comment"> *     this.right = (right===undefined ? null : right)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; root</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isSymmetric = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/** 递归法 */</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(!root.left || !root.right) <span class="keyword">return</span> !root.left &amp;&amp; !root.right;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> fn = <span class="function">(<span class="params">l, r</span>)=&gt;</span> (!l || !r) ? (!l &amp;&amp; !r) : l.val === r.val  &amp;&amp; fn(l.left, r.right) &amp;&amp; fn(l.right, r.left);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fn(root.left, root.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个题有一个热评写得非常好，我直接复制过来：</p>
+<blockquote>
+<p>递归的难点在于：找到可以递归的点 为什么很多人觉得递归一看就会，一写就废。 或者说是自己写无法写出来，关键就是你对递归理解的深不深。</p>
+<p>对于此题： 递归的点怎么找？从拿到题的第一时间开始，思路如下：</p>
+<p>1.怎么判断一棵树是不是对称二叉树？ 答案：如果所给根节点，为空，那么是对称。如果不为空的话，当他的左子树与右子树对称时，他对称</p>
+<p>2.那么怎么知道左子树与右子树对不对称呢？在这我直接叫为左树和右树 答案：如果左树的左孩子与右树的右孩子对称，左树的右孩子与右树的左孩子对称，那么这个左树和右树就对称。</p>
+<p>仔细读这句话，是不是有点绕？怎么感觉有一个功能A我想实现，但我去实现A的时候又要用到A实现后的功能呢？</p>
+<p>当你思考到这里的时候，递归点已经出现了： 递归点：我在尝试判断左树与右树对称的条件时，发现其跟两树的孩子的对称情况有关系。</p>
+<p>想到这里，你不必有太多疑问，上手去按思路写代码，函数A（左树，右树）功能是返回是否对称</p>
+<p>def 函数A（左树，右树）： 左树节点值等于右树节点值 且 函数A（左树的左子树，右树的右子树），函数A（左树的右子树，右树的左子树）均为真 才返回真</p>
+<p>实现完毕。。。</p>
+<p>写着写着。。。你就发现你写出来了。。。。。。</p>
+</blockquote>
+<ul>
+<li>这里第一个if是判断，如果左节点和右节点有一个为空另一个不为空，那么就返回false</li>
+<li>递归函数里面，我简写成了三元表达式，实际第一个判断和外面的if是一样的，后面其实就是利用递归开辟的一个栈来进行与(&amp;)操作。</li>
+</ul>
+<p>看了评论后递归很好理解。</p>
+<h3 id="迭代（栈）"><a href="#迭代（栈）" class="headerlink" title="迭代（栈）"></a>迭代（栈）</h3><p>迭代的话，使用队列或者栈其实都是一样的，这里我用的是栈（FILO）。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val, left, right) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.left = (left===undefined ? null : left)</span></span><br><span class="line"><span class="comment"> *     this.right = (right===undefined ? null : right)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; root</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isSymmetric = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/** 栈迭代法 */</span></span><br><span class="line">    <span class="keyword">if</span>(!root.left || !root.right) <span class="keyword">return</span> !root.left &amp;&amp; !root.right;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> stack = [root.left, root.right];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">let</span> r = stack.pop(), l = stack.pop();</span><br><span class="line">        <span class="comment">// 排除两者皆null的同值情况</span></span><br><span class="line">        <span class="keyword">if</span>(!l &amp;&amp; !r) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(!l || !r || l.val !== r.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左右子树对称入栈</span></span><br><span class="line">        stack.push(l.left);</span><br><span class="line">        stack.push(r.right);</span><br><span class="line">        stack.push(l.right);</span><br><span class="line">        stack.push(r.left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>全程维护一个stack数组栈，因为判断对称本质就是判断左树左节点和右树右节点、左树右节点和右树左节点是否相同，那么我们就可以按顺序入栈，并在每次开始时拿到出栈的值进行比对，迭代的结束条件即是空栈。</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2021/08/27/实用装饰器图（码）鉴/" data-toggle="tooltip" data-placement="top"
+                           title="业务中的装饰器图（码）鉴">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树"><span class="toc-text">二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树的三个数学性质"><span class="toc-text">二叉树的三个数学性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树分类"><span class="toc-text">二叉树分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树的几种遍历方式"><span class="toc-text">二叉树的几种遍历方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题-相同的二叉树"><span class="toc-text">例题-相同的二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题-对称二叉树"><span class="toc-text">例题-对称二叉树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#递归"><span class="toc-text">递归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代（栈）"><span class="toc-text">迭代（栈）</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#算法"
+                           title="算法">算法</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#二叉树"
+                           title="二叉树">二叉树</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2021
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
+</body>
+
+</html>

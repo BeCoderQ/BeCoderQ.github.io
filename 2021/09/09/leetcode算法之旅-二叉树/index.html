@@ -12,7 +12,7 @@
     <meta name="msapplication-navbutton-color" content="#600090">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
-    <link rel="shortcut icon" href="https://becoderq.github.io/BeCoderQ.github.io/images/favicon.ico">
+    <link rel="shortcut icon" href="https://gitee.com/zyyzg/blog/images/favicon.ico">
     <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
@@ -136,13 +136,13 @@
 
 
 <img class="wechat-title-img"
-     src="https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg">
+     src="https://gitee.com/zyyzg/blog/images/mountain.jpg">
 
 
 <style>
     
     header.intro-header {
-        background-image: url('https://becoderq.github.io/BeCoderQ.github.io/images/mountain.jpg')
+        background-image: url('https://gitee.com/zyyzg/blog/images/mountain.jpg')
     }
 
     
@@ -214,7 +214,7 @@
 <li>中序遍历：4 7 6 8 2 1 3 5</li>
 <li>后序遍历：7 8 6 4 2 5 3 1</li>
 </ul>
-<p><img src="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/order-detail.png" alt="图"></p>
+<p><img src="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/order-detail.jpeg" alt="图"></p>
 <h2 id="例题-相同的二叉树"><a href="#例题-相同的二叉树" class="headerlink" title="例题-相同的二叉树"></a>例题-相同的二叉树</h2><p><img src="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/question1.png" alt="图"></p>
 <p>二叉树的问题不外乎就是递归、迭代，这里我用递归方法：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * function TreeNode(val, left, right) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.left = (left===undefined ? null : left)</span></span><br><span class="line"><span class="comment"> *     this.right = (right===undefined ? null : right)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; p</span></span><br><span class="line"><span class="comment"> * @param &#123;TreeNode&#125; q</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isSameTree = <span class="function"><span class="keyword">function</span>(<span class="params">p, q</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isSame = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">const</span> fn = <span class="function">(<span class="params">p1, q1</span>)=&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 两者有一者可能为空就判断是否相等，实际其实是判断是否有一者为null，不等返回false</span></span><br><span class="line">        <span class="keyword">if</span>(!p1 || !q1) &#123;</span><br><span class="line">            <span class="keyword">if</span>(p1 !== q1) isSame = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">      	<span class="comment">// </span></span><br><span class="line">        <span class="keyword">if</span>(p1.val !== q1.val) isSame = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 这里开始递归，其实就是左右互相对比，而递归结束的条件就是上面的第一个if</span></span><br><span class="line">        fn(p1.left, q1.left);</span><br><span class="line">        fn(p1.right, q1.right);</span><br><span class="line">    &#125;</span><br><span class="line">    fn(p, q);</span><br><span class="line">    <span class="keyword">return</span> isSame;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -248,6 +248,11 @@
                 
 
                 <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2021/10/27/React-Hook函数式编程学习笔记/" data-toggle="tooltip" data-placement="top"
+                           title="React Hook函数式编程学习笔记">&larr; Previous Post</a>
+                    </li>
                     
                     
                     <li class="next">
@@ -464,7 +469,7 @@
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <!--wechat title img-->
-<img class="wechat-title-img" src="https://becoderq.github.io/BeCoderQ.github.io/images/eat.gif">
+<img class="wechat-title-img" src="https://gitee.com/zyyzg/blog/images/eat.gif">
 </body>
 
 </html>

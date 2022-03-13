@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://s3.bmp.ovh/imgs/2022/03/1f0227bacbd74e15.png">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        从零开始使用flutter开发一款本地阅读器｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2021/03/03/从零开始使用flutter开发一款本地阅读器/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>从零开始使用flutter开发一款本地阅读器</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2021-03-03
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#flutter"
+                           title="flutter">flutter</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#dart"
+                           title="dart">dart</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#android"
+                           title="android">android</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            从零开始使用flutter开发一款本地阅读器
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="杂谈"><a href="#杂谈" class="headerlink" title="杂谈"></a>杂谈</h2><p>在写这篇博客的时候这个app实际开发时长已经零零碎碎有半个多月了，都是利用下班以及周末的时间开发，确实遇到了非常非常多的问题，还包括一些到现在(21年3月3日)还未解决的疑难杂症，虽然没人看，不过后期会持续更新。</p>
+<h2 id="用到的库"><a href="#用到的库" class="headerlink" title="用到的库"></a>用到的库</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="attr">dio:</span> <span class="string">^3.0.9</span></span><br><span class="line">  <span class="attr">shared_preferences:</span> <span class="string">^0.5.12+4</span></span><br><span class="line">  <span class="attr">path_provider:</span> <span class="string">^1.6.24</span></span><br><span class="line">  <span class="attr">intl:</span> <span class="string">^0.16.1</span></span><br><span class="line">  <span class="attr">provider:</span> <span class="string">^4.3.2+3</span></span><br><span class="line">  <span class="attr">permission_handler:</span> <span class="string">^5.0.1+1</span></span><br><span class="line">  <span class="attr">gbk2utf8:</span> <span class="string">^1.0.1</span></span><br><span class="line">  <span class="attr">fluttertoast:</span> <span class="string">^7.1.6</span></span><br><span class="line">  <span class="attr">file_picker:</span> <span class="string">^2.1.4</span></span><br><span class="line">  <span class="attr">screen:</span> <span class="string">^0.0.5</span></span><br><span class="line">  <span class="attr">event_bus:</span> <span class="string">^1.1.1</span></span><br><span class="line">  <span class="attr">get_ip:</span> <span class="string">^0.4.0</span></span><br></pre></td></tr></table></figure>
+<h2 id="最初遇到的问题"><a href="#最初遇到的问题" class="headerlink" title="最初遇到的问题"></a>最初遇到的问题</h2><p>这个阅读器我构想的时候就只打算解析txt文本，本想txt文本解析应该很简单，但很快我便遇到了一堆问题。</p>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p><img src="/BeCoderQ.github.io/2021/03/03/从零开始使用flutter开发一款本地阅读器/structure.png" alt="插件"></p>
+<p>lib文件中分的包有点多，我把一些高服用的控件放到了<code>widgets</code>文件，页面以及其相关耦合度高的控件放到<code>pages</code>文件夹内，其实基本和主流的分包差不多，比较特殊的是<code>layout</code>文件内，可以先看一下app的界面:</p>
+<p><img src="/BeCoderQ.github.io/2021/03/03/从零开始使用flutter开发一款本地阅读器/home.png" alt="插件"></p>
+<p>当然还只是一个demo，不过结构确定了：底部的舵式导航分别是本地书架、在线书城、个人页面。于是乎我将tabbar独立出来，就像React与Vue中的嵌套路由(nested router)一样使用，代码大概是这样：</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/cupertino.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:simple_reader/pages/bookshelf/bookshelf_page.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:simple_reader/pages/mine/mine_page.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:simple_reader/pages/online/online_page.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Layout</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  State&lt;StatefulWidget&gt; createState()=&gt; _LayoutState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_LayoutState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">Layout</span>&gt; </span>&#123;</span><br><span class="line">  <span class="built_in">int</span> activePage = <span class="number">0</span>;</span><br><span class="line">	PageController _pageController = PageController(initialPage: <span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 底部导航栏</span></span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">List</span>&lt;BottomNavigationBarItem&gt; bottomNavItems = [</span><br><span class="line">		BottomNavigationBarItem(</span><br><span class="line">			icon: Icon(Icons.offline_bolt),</span><br><span class="line">      label: <span class="string">""</span></span><br><span class="line">		),</span><br><span class="line">		BottomNavigationBarItem(</span><br><span class="line">			icon: Icon(Icons.whatshot),</span><br><span class="line">      label: <span class="string">""</span></span><br><span class="line">		),</span><br><span class="line">		BottomNavigationBarItem(</span><br><span class="line">			icon: Icon(Icons.person),</span><br><span class="line">			label: <span class="string">""</span></span><br><span class="line">		)</span><br><span class="line">	];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 滑动pageView组件切换页面</span></span><br><span class="line">	<span class="keyword">void</span> _onPageChange(<span class="built_in">int</span> index) &#123;</span><br><span class="line">		setState(() &#123;</span><br><span class="line">			activePage = index;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span> </span><br><span class="line">	<span class="keyword">void</span> dispose() &#123;</span><br><span class="line">		_pageController.dispose();</span><br><span class="line">		<span class="keyword">super</span>.dispose();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      backgroundColor: Theme.of(context).backgroundColor,</span><br><span class="line">      body: PageView(</span><br><span class="line">        children: [Bookshelf(), Online(), Mine()],</span><br><span class="line">        controller: _pageController,</span><br><span class="line">        onPageChanged: _onPageChange,</span><br><span class="line">      ),</span><br><span class="line">      bottomNavigationBar: SizedBox(</span><br><span class="line">        child: BottomNavigationBar(</span><br><span class="line">          <span class="comment">// backgroundColor: Theme.of(context).primaryColor,</span></span><br><span class="line">          backgroundColor: Colors.white,</span><br><span class="line">          items: bottomNavItems,</span><br><span class="line">          currentIndex: activePage,</span><br><span class="line">          type: BottomNavigationBarType.fixed, </span><br><span class="line">          showSelectedLabels: <span class="keyword">false</span>,</span><br><span class="line">          showUnselectedLabels: <span class="keyword">false</span>,</span><br><span class="line">          fixedColor: Colors.cyan, <span class="comment">// 选中的颜色</span></span><br><span class="line">          onTap: (index) &#123;</span><br><span class="line">            _pageController.jumpToPage(index);</span><br><span class="line">          &#125;,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="文本的编码问题"><a href="#文本的编码问题" class="headerlink" title="文本的编码问题"></a>文本的编码问题</h3><p>用户从网络下载的虽然都是txt文本，但是编码却有可能不一样，中文小说最常见的可能是utf-8、gbk2312，而查看flutter的文本解析源码会发现官方并没有提供gbk2312的编码解析，这也导致了直接将File类直接调用readAsLines等方法会有乱码。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>这个问题属实有点硬核，不过好在大佬是比较多的，github上一位大神自己写了一套gbk2312的解析库<code>gbk2utf8</code>：<a href="https://github.com/best-flutter/gbk2utf8。" target="_blank" rel="noopener">https://github.com/best-flutter/gbk2utf8。</a></p>
+<h3 id="解析文本导致卡顿"><a href="#解析文本导致卡顿" class="headerlink" title="解析文本导致卡顿"></a>解析文本导致卡顿</h3><p>每次点击书籍进入，目前是根据存储的路径获取文件来按行读取：</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  lineText = <span class="keyword">await</span> file.readAsLines();</span><br><span class="line">&#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">  <span class="comment">// 如果文本以utf8解码出错，那么就按gbk格式解码</span></span><br><span class="line">  <span class="built_in">List</span>&lt;<span class="built_in">int</span>&gt; bytes = <span class="keyword">await</span> file.readAsBytes();</span><br><span class="line">  lineText = gbk.decode(bytes).split(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我会获取全文按换行来分割，这样的好处是能轻松的拿到章节。不过文章太长了，如一篇四五百万字的文章时，点击后明显就会卡1秒，这个使用体验是非常糟糕的。</p>
+<p><img src="/BeCoderQ.github.io/2021/03/03/从零开始使用flutter开发一款本地阅读器/calcTime.png" alt="插件"></p>
+<p>可以看到解析一个330万字的小说需要耗时700ms，非常耗时。</p>
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>Dart和JavaScript一样是一门单线程语言，同样是熟悉的Event Loop，MicroTask。就算我们使用Future异步来解析文本，他本质上还是在一个线程上跑，因此使用简单的异步是解决不了问题的，那么就要引入Dart中的”多线程”概念：<code>isolate</code>:<strong>「Isolate」在 Flutter 中并不共享内存。不同「Isolate」之间通过「消息」进行通信。</strong>需要注意的是isolate传入的回调函数必须是top-level，即不能是class内部的，但可以是静态函数。</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 新线程的回调函数必须是顶层函数 top-level 或者静态函数 static function of an instance</span></span><br><span class="line">Future&lt;<span class="built_in">Map</span>&lt;<span class="built_in">String</span>, ChapterTextDictionary&gt;&gt; getText(<span class="built_in">String</span> path) <span class="keyword">async</span> &#123;</span><br><span class="line">  FileToArticle fileInfo = <span class="keyword">await</span> FileOperate.getFile(path);</span><br><span class="line">  <span class="keyword">return</span> fileInfo.chapterTextDictionary;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">xxx</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">xxx</span>&gt; </span>&#123;</span><br><span class="line">  <span class="comment">// 开辟子线程解析文本</span></span><br><span class="line">  Future&lt;<span class="built_in">Map</span>&lt;<span class="built_in">String</span>, ChapterTextDictionary&gt;&gt; _isolateGetText() <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(isLoaded) <span class="keyword">return</span> chapterTextDictionary;</span><br><span class="line">    isLoaded = <span class="keyword">true</span>;</span><br><span class="line">    <span class="comment">// 这里的compute即是isolate，在不需要多个isolate通信时直接使用compute更简单</span></span><br><span class="line">    <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, ChapterTextDictionary&gt; response = <span class="keyword">await</span> compute(getText, widget.book.path);</span><br><span class="line">    setState(() &#123;</span><br><span class="line">      <span class="comment">// 此书的正文与章节</span></span><br><span class="line">      chapterTextDictionary = response;</span><br><span class="line">      <span class="comment">// 初始化菜单列表</span></span><br><span class="line">      chapterList = chapterTextDictionary.keys.toList();</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 正文总章节数</span></span><br><span class="line">    widget.book.totalChapters = chapterList.length;</span><br><span class="line">    brightness = <span class="keyword">await</span> Screen.brightness;</span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然解析时间没变 ，但大量的解析工作已经不会影响app的其他操作了。可以加上一个动画来提升体验。</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 路由的缩放动画</span></span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">ZoomRoute</span> <span class="keyword">extends</span> <span class="title">PageRouteBuilder</span></span>&#123;</span><br><span class="line">  <span class="keyword">final</span> Widget widget;</span><br><span class="line">   ZoomRoute(<span class="keyword">this</span>.widget):<span class="keyword">super</span>(</span><br><span class="line">    transitionDuration:<span class="built_in">Duration</span>(milliseconds: <span class="number">1500</span>),</span><br><span class="line">    pageBuilder:(</span><br><span class="line">       BuildContext context,</span><br><span class="line">        Animation&lt;<span class="built_in">double</span>&gt;animation1,</span><br><span class="line">        Animation&lt;<span class="built_in">double</span>&gt;animation2,</span><br><span class="line">    )&#123;</span><br><span class="line">      <span class="keyword">return</span> widget;</span><br><span class="line">    &#125;,</span><br><span class="line">    transitionsBuilder:(</span><br><span class="line">     BuildContext context,</span><br><span class="line">      Animation&lt;<span class="built_in">double</span>&gt;animation1,</span><br><span class="line">      Animation&lt;<span class="built_in">double</span>&gt;animation2,</span><br><span class="line">       Widget child</span><br><span class="line">    )&#123;</span><br><span class="line">       <span class="comment">// 缩放的效果</span></span><br><span class="line">     <span class="keyword">return</span> ScaleTransition(</span><br><span class="line">        scale: Tween(</span><br><span class="line">            begin: <span class="number">0.0</span>,end: <span class="number">1.0</span>).animate(CurvedAnimation(</span><br><span class="line">            parent: animation1,</span><br><span class="line">            curve: Curves.fastOutSlowIn</span><br><span class="line">        )),</span><br><span class="line">        child: child,</span><br><span class="line">      );</span><br><span class="line">     &#125;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个阅读app的开发记录将作为一个系列来写，阅读app难点就是文本的解析，分页计算，各种阅读记录，本文还没讲到，另外关于点开某本本地书籍后，是否该每次都解析整本书，我并没有找到一个准确的答案，大量解析耗费资源，哪怕是使用isloate，也无法解决时间问题，但是不解析全文，当用户通过目录随意跳动时，如何处理？这些问题在后续开发过程中我也会去研究，不过目前来看似乎很多app都是每次都重新解析全文。</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2021/04/24/借助babel的AST解析，让老代码重获新生-转载/" data-toggle="tooltip" data-placement="top"
+                           title="借助babel的AST解析，让老代码重获新生(转载)">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2021/01/01/typescript正确食用姿势之集成pont-engine白嫖后端/" data-toggle="tooltip" data-placement="top"
+                           title="typescript正确食用姿势之集成pont-engine白嫖后端">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#杂谈"><span class="toc-text">杂谈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用到的库"><span class="toc-text">用到的库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最初遇到的问题"><span class="toc-text">最初遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#项目结构"><span class="toc-text">项目结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文本的编码问题"><span class="toc-text">文本的编码问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案"><span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解析文本导致卡顿"><span class="toc-text">解析文本导致卡顿</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案-1"><span class="toc-text">解决方案</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#flutter"
+                           title="flutter">flutter</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#dart"
+                           title="dart">dart</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#android"
+                           title="android">android</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2022
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif">
+</body>
+
+</html>

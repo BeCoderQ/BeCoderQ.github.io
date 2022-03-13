@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://s3.bmp.ovh/imgs/2022/03/1f0227bacbd74e15.png">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        记录一下最近vue项目开发中遇到的问题与解决过程｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/07/31/记录一下最近vue项目开发中遇到的问题与解决过程/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>记录一下最近vue项目开发中遇到的问题与解决过程</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2019-07-31
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#总结"
+                           title="总结">总结</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            记录一下最近vue项目开发中遇到的问题与解决过程
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="缓存后的路由页面参数保存问题"><a href="#缓存后的路由页面参数保存问题" class="headerlink" title="缓存后的路由页面参数保存问题"></a>缓存后的路由页面参数保存问题</h2><p>前不久遇到个问题，在页面A单击按钮后会通过params路由传参将一个对象传给下一个路由页面B，然后进入B又有一个按钮，点击后会跳到页面C。然后我就遇到一个问题，在从B到C后，再从C返回到B，就会报错了，因为B页面接受路由参数的部分是写在activated钩子函数内的。因为在使用路由缓存后created与mounted等钩子函数都只在第一次页面载入时生效,也就是说这里必须放到activated里，那么就会出现上面的问题，C页面返回到B，是不传参的，也就是说B拿不到A之前传的参数，解决办法是使用deactivated钩子函数，<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">data()&#123;</span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line">        anotherInfo: <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">activated()&#123;</span><br><span class="line">    <span class="keyword">this</span>.info = <span class="keyword">this</span>.$route.params.obj == undefined ? <span class="keyword">this</span>.anotherInfo : <span class="keyword">this</span>.$route.params.obj;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// deactivated是缓存页面离开的钩子函数</span></span><br><span class="line">deactivated()&#123;</span><br><span class="line">    <span class="keyword">this</span>.anotherInfo = <span class="keyword">this</span>.info;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>这里我用另一个变量在离开页面时保存了第一次进入B路由时的info，在activated钩子函数内，使用三元表达式判断是否有A页面传来的参数？没有则是从其他页面跳转过来的，那么就让info等于之前离开时保存的变量antherInfo</li>
+<li>deactivated函数很实用，另外在这个钩子函数内打印url 结果是跳转后的页面。</li>
+</ul>
+<h2 id="filter内无法获取到data中的属性"><a href="#filter内无法获取到data中的属性" class="headerlink" title="filter内无法获取到data中的属性"></a>filter内无法获取到data中的属性</h2><p>项目中在使用v-for渲染页面时有一个变量需要过滤值，但是这个值要根据data中的一个变量来过滤，这个时候作为一个小白，我果断使用了filter然后写了this.那个变量,然后就报错了，抛出ReferenceError,即引用错误，后来打印了一下this,居然是undefined，反正不是指向vue实例的。这个时候我查了一下，网上大神建议用computed计算属性，但是我这儿v-for渲染的不好处理呀。</p>
+<ul>
+<li>最后实在插值符里用了三元表达式判断。。。</li>
+</ul>
+<h2 id="vuex状态管理内变量在页面刷新后消失"><a href="#vuex状态管理内变量在页面刷新后消失" class="headerlink" title="vuex状态管理内变量在页面刷新后消失"></a>vuex状态管理内变量在页面刷新后消失</h2><p>接手的别人的项目用了vuex,然后这边老板要求价格下拉刷新。结果当然是一刷新就报错，因为整个app都依赖vuex里的变量。</p>
+<ul>
+<li>解决方法其实很简单，将vuex里的东西存入session里就行了<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">created()&#123;</span><br><span class="line">    <span class="comment">// 判断session中是否有值</span></span><br><span class="line">    <span class="keyword">if</span> (sessionStorage.getItem(<span class="string">"store"</span>) ) &#123;</span><br><span class="line">        <span class="comment">// 深拷贝session中的值</span></span><br><span class="line">        <span class="keyword">this</span>.$store.replaceState(Object.assign(&#123;&#125;, <span class="keyword">this</span>.$store.state,JSON.parse(sessionStorage.getItem(<span class="string">"store"</span>))))</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="comment">//在页面刷新前将vuex里的信息保存到sessionStorage里</span></span><br><span class="line">    window.addEventListener(<span class="string">"beforeunload"</span>,()=&gt;&#123;</span><br><span class="line">        sessionStorage.setItem(<span class="string">"store"</span>,JSON.stringify(<span class="keyword">this</span>.$store.state))</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="使用ES6中Set类型给数组去重"><a href="#使用ES6中Set类型给数组去重" class="headerlink" title="使用ES6中Set类型给数组去重"></a>使用ES6中Set类型给数组去重</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>];</span><br><span class="line">arr = <span class="keyword">new</span> Set(arr) <span class="comment">// [1,2,3,4,6]</span></span><br><span class="line">console.<span class="built_in">log</span>(arr instanceof Array) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>Set类型可以给单纯的数组去重，但是对于复杂的对象数组是无法实现去重的，另外对于去重后的数组，实际上我们还需要数组的from方法来将其完全转化为数组类型<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>];</span><br><span class="line">arr = Array.from(<span class="keyword">new</span> Set(arr)) <span class="comment">// [1,2,3,4,6]</span></span><br><span class="line">console.<span class="built_in">log</span>(arr instanceof Array) <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>这里就可以将arr转化为数组类型了。</p>
+<h2 id="关于对象数组排序"><a href="#关于对象数组排序" class="headerlink" title="关于对象数组排序"></a>关于对象数组排序</h2><p>有时候遇到需求需要我们前端来讲返回的json数组排序，并且排序的情况可能会改变比如 下面的对象数组<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">var json = [</span><br><span class="line">    &#123;name: <span class="string">"Zhou"</span>,age: <span class="number">22</span>,late: <span class="string">"0次"</span>&#125;,</span><br><span class="line">    &#123;name: <span class="string">"Qi"</span>,age: <span class="number">20</span>,late:<span class="string">"5次"</span>&#125;,</span><br><span class="line">    &#123;name: <span class="string">"Ming"</span>,age: <span class="number">23</span>,late: <span class="string">"3次"</span>&#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>类似如此，我们需要按特定属性排序将数据依次渲染到页面，这时候我们可以使用Array的sort方法<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">function <span class="title">sortProperty</span><span class="params">(property)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> function(a,b)&#123;</span><br><span class="line">        <span class="keyword">return</span> parseInt(a[property]) - parseInt(b[property]) <span class="comment">//这里用parseInt强制转化为数字，因为项目内需求只考虑数字大小排序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">json.sort( sortProperty('late') ) // 传入排序的属性</span><br><span class="line"><span class="comment">// 输出[&#123;name: "Zhou",age: 22,late: "0次"&#125;,&#123;name: "Ming",age: 23,late: "3次"&#125;,&#123;name: "Qi",age: 20,late:"5次"&#125;]</span></span><br></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2019/08/31/DOM元素渲染的几种优化方式/" data-toggle="tooltip" data-placement="top"
+                           title="DOM元素渲染的几种优化方式">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2019/07/15/prototype、-proto-与-prototype-记录/" data-toggle="tooltip" data-placement="top"
+                           title="prototype、_proto_与[[prototype]]记录">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存后的路由页面参数保存问题"><span class="toc-text">缓存后的路由页面参数保存问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#filter内无法获取到data中的属性"><span class="toc-text">filter内无法获取到data中的属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vuex状态管理内变量在页面刷新后消失"><span class="toc-text">vuex状态管理内变量在页面刷新后消失</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用ES6中Set类型给数组去重"><span class="toc-text">使用ES6中Set类型给数组去重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于对象数组排序"><span class="toc-text">关于对象数组排序</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#总结"
+                           title="总结">总结</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2022
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif">
+</body>
+
+</html>

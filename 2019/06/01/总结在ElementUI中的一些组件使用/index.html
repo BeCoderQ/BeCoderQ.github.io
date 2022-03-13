@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://s3.bmp.ovh/imgs/2022/03/1f0227bacbd74e15.png">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        总结在ElementUI中的一些组件使用｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2019/06/01/总结在ElementUI中的一些组件使用/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>总结在ElementUI中的一些组件使用</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2019-06-01
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#ElementUI"
+                           title="ElementUI">ElementUI</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            总结在ElementUI中的一些组件使用
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="使用背景"><a href="#使用背景" class="headerlink" title="使用背景"></a>使用背景</h2><p>最近在做一个后台管理系统，前端使用vue全家桶+ElementUI搭建，总结一下目前为止一些重要组件的使用</p>
+<h2 id="ElementUI表格"><a href="#ElementUI表格" class="headerlink" title="ElementUI表格"></a>ElementUI表格</h2><p>ElmentUI的表格是通过:data=”xxx” 然后单元格使用prop=”数组中的键”来渲染的。我昨天遇到一个问题是要根据条件单独更改某个单元格内文字的颜色，查了一下，用下面的方法可以实现<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">&lt;el-table</span><br><span class="line">      :data=<span class="string">"tableData"</span></span><br><span class="line">      style=<span class="string">"width: 100%"</span>&gt;</span><br><span class="line">      &lt;el-table-column prop=<span class="string">"date"</span> label=<span class="string">"日期"</span> width=<span class="string">"180"</span>&gt;</span><br><span class="line">      &lt;/el-table-column&gt;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 假设我想让等级为2以上的字体变成红色</span></span><br><span class="line">      &lt;el-table-column prop=<span class="string">"name"</span> label=<span class="string">"等级"</span> width=<span class="string">"180"</span>&gt; <span class="comment">// 这里的prop可以不用写了</span></span><br><span class="line">        &lt;<span class="keyword">template</span> slot-scope=<span class="string">"scope"</span>&gt;</span><br><span class="line">            &lt;span v-<span class="keyword">if</span>=<span class="string">"scope.row.name &gt; 2"</span> style=<span class="string">"color: red"</span>&gt;二级以上&lt;/span&gt;</span><br><span class="line">            &lt;span v-<span class="keyword">else</span>&gt;二级以下&lt;/span&gt;</span><br><span class="line">        &lt;/<span class="keyword">template</span>&gt;</span><br><span class="line">      &lt;/el-table-column&gt;</span><br><span class="line"></span><br><span class="line">      &lt;el-table-column prop=<span class="string">"address"</span> label=<span class="string">"地址"</span>&gt;</span><br><span class="line">      &lt;/el-table-column&gt;</span><br><span class="line">&lt;/el-table&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="ElementUI表单验证"><a href="#ElementUI表单验证" class="headerlink" title="ElementUI表单验证"></a>ElementUI表单验证</h2><p>表单验证这里我总结一下步骤:</p>
+<ul>
+<li><p>在&lt;\el-form&gt;上 写上ref钩子以及规则属性</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">&lt;el-dialog title=<span class="string">"新增"</span> :visible.sync=<span class="string">"addVisible"</span> width=<span class="string">"30%"</span> @close=<span class="string">"close"</span> :close-on-click-modal=<span class="string">"false"</span>&gt;</span><br><span class="line">    &lt;el-form ref=<span class="string">"info"</span> :model=<span class="string">"info"</span> label-width=<span class="string">"80px"</span> :rules=<span class="string">"rules"</span>&gt;</span><br><span class="line">        ......</span><br><span class="line">    &lt;/el-form&gt;</span><br><span class="line">&lt;/el-dialog&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在data中写上一个对象属性rules，内部成员都是数组对象形式</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">rules: &#123;</span><br><span class="line">    levelType: [</span><br><span class="line">        &#123; required: <span class="literal">true</span>, message: <span class="string">"请选择预警等级"</span>, trigger: <span class="string">"blur"</span> &#125;</span><br><span class="line">        &#123; min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur' &#125;</span><br><span class="line">    ],</span><br><span class="line">    warnState: [</span><br><span class="line">        &#123; required: <span class="literal">true</span>, message: <span class="string">"请选择有效状态"</span>, trigger: <span class="string">"blur"</span> &#125;</span><br><span class="line">        &#123; min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur' &#125;</span><br><span class="line">    ],</span><br><span class="line">    startDate: [</span><br><span class="line">        &#123; required: <span class="literal">true</span>, message: <span class="string">"请选择开始时间"</span>, trigger: <span class="string">"blur"</span> &#125;</span><br><span class="line">        &#123; min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur' &#125;</span><br><span class="line">    ],</span><br><span class="line">    endDate: [</span><br><span class="line">        &#123; required: <span class="literal">true</span>, message: <span class="string">"请选择结束时间"</span>, trigger: <span class="string">"blur"</span> &#125;</span><br><span class="line">        &#123; min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur' &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为表单选项添加prop属性，prop等于的就是刚才rules对象里的对应值。这里要注意一点，每个表单选项里的v-model双向数据必须是xxx.xxx即对象形式的，不能直接写属性。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">&lt;el-form-item label=<span class="string">"预警等级"</span> prop=<span class="string">"levelType"</span>&gt;</span><br><span class="line">    &lt;el-select v-model=<span class="string">"info.levelType"</span> placeholder=<span class="string">"选择预警类型"</span>&gt;</span><br><span class="line">        &lt;el-option v-<span class="keyword">for</span>=<span class="string">"item in levelType"</span> :key=<span class="string">"item"</span> :label=<span class="string">"item"</span> :value=<span class="string">"item"</span>&gt;&lt;/el-option&gt;</span><br><span class="line">    &lt;/el-select&gt;</span><br><span class="line">&lt;/el-form-item&gt;</span><br><span class="line"></span><br><span class="line">&lt;el-form-item label=<span class="string">"有效状态"</span> prop=<span class="string">"warnState"</span>&gt;</span><br><span class="line">    &lt;el-select v-model=<span class="string">"info.warnState"</span> placeholder=<span class="string">"选择预警类型"</span>&gt;</span><br><span class="line">        &lt;el-option v-<span class="keyword">for</span>=<span class="string">"item in warnState"</span> :key=<span class="string">"item"</span> :label=<span class="string">"item"</span> :value=<span class="string">"item"</span>&gt;&lt;/el-option&gt;</span><br><span class="line">    &lt;/el-select&gt;</span><br><span class="line">&lt;/el-form-item&gt;</span><br><span class="line"></span><br><span class="line">&lt;el-form-item label=<span class="string">"开始时间"</span> prop=<span class="string">"startDate"</span>&gt;</span><br><span class="line">    &lt;el-date-picker v-model=<span class="string">"info.startDate"</span> type=<span class="string">"datetime"</span> placeholder=<span class="string">"选择开始时间"</span>&gt;&lt;/el-date-picker&gt;</span><br><span class="line">&lt;/el-form-item&gt;</span><br><span class="line"></span><br><span class="line">&lt;el-form-item label=<span class="string">"结束时间"</span> prop=<span class="string">"endDate"</span>&gt;</span><br><span class="line">    &lt;el-date-picker v-model=<span class="string">"info.endDate"</span> type=<span class="string">"datetime"</span> placeholder=<span class="string">"选择结束时间"</span>&gt;&lt;/el-date-picker&gt;</span><br><span class="line">&lt;/el-form-item&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一般来说我们点击确认的时候会验证全部表单，这里给我们的确认按钮绑定事件，并将前面的ref钩子传入函数</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">&lt;span slot=<span class="string">"footer"</span> class=<span class="string">"dialog-footer"</span>&gt;</span><br><span class="line">    &lt;el-button @click=<span class="string">"addVisible = false"</span>&gt;取 消&lt;/el-button&gt;</span><br><span class="line">    &lt;el-button type=<span class="string">"primary"</span> @click=<span class="string">"saveAdd('info')"</span>&gt;确 定&lt;/el-button&gt;</span><br><span class="line">&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>点击确认后，进行表单验证</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">saveAdd(info) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$refs[info].validate(valid =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">          <span class="comment">// 验证成功后要进行的操作</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.$message.info(<span class="string">"请将必填信息填写完整！"</span>);</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后还有一点，这里我的应用场景是新增信息，而新增信息框是一个弹出式的，可以关闭，那么我们还有最后一步，就是在关闭后清除所有错误提示，避免在用户输入错误表单提示后下一次点开错误提示还在那儿</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 关闭弹框清除表单验证的提示信息</span></span><br><span class="line">close()&#123;</span><br><span class="line">    this.$refs['info'].resetFields();</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2019/06/01/ES6特性之解构/" data-toggle="tooltip" data-placement="top"
+                           title="ES6特性之解构">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2019/05/26/this的使用与原理解析/" data-toggle="tooltip" data-placement="top"
+                           title="this的使用与原理解析">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用背景"><span class="toc-text">使用背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ElementUI表格"><span class="toc-text">ElementUI表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ElementUI表单验证"><span class="toc-text">ElementUI表单验证</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#ElementUI"
+                           title="ElementUI">ElementUI</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2022
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif">
+</body>
+
+</html>

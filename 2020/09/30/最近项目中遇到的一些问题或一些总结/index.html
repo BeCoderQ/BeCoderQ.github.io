@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://s3.bmp.ovh/imgs/2022/03/1f0227bacbd74e15.png">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        最近项目中遇到的一些问题或一些总结｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2020/09/30/最近项目中遇到的一些问题或一些总结/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>最近项目中遇到的一些问题或一些总结</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2020-09-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#总结"
+                           title="总结">总结</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            最近项目中遇到的一些问题或一些总结
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="uni-app的scroll-view组件触底概率不触发问题"><a href="#uni-app的scroll-view组件触底概率不触发问题" class="headerlink" title="uni-app的scroll-view组件触底概率不触发问题"></a>uni-app的scroll-view组件触底概率不触发问题</h2><p>前段时间用uni-app做移动端遇到一个问题，使用<code>scroll-view</code>标签<code>@scrolltolower</code>事件时，会有一定概率不触发触底事件，至于原因我没有去研究，不过暂时找到一个解决办法:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scroll-view</span> </span></span><br><span class="line"><span class="tag">		<span class="attr">:scroll-top</span>=<span class="string">"prevScrollTop"</span></span></span><br><span class="line"><span class="tag">		<span class="attr">class</span>=<span class="string">"load-more-list"</span> </span></span><br><span class="line"><span class="tag">		<span class="attr">scroll-y</span>=<span class="string">"true"</span> </span></span><br><span class="line"><span class="tag">		@<span class="attr">scrolltolower</span>=<span class="string">"reachBottom"</span></span></span><br><span class="line"><span class="tag">		@<span class="attr">scroll</span>=<span class="string">"onScroll"</span></span></span><br><span class="line"><span class="tag">		<span class="attr">v-on</span>=<span class="string">"$listeners"</span></span></span><br><span class="line"><span class="tag">		<span class="attr">:style</span>=<span class="string">"&#123; height: height || `calc(100vh - $&#123;_cache.statusHeight&#125;px - 44px` &#125;"</span></span></span><br><span class="line"><span class="tag">	&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">slot</span> <span class="attr">:list</span>=<span class="string">"renderList"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">loading-animation</span> </span></span><br><span class="line"><span class="tag">			<span class="attr">:no-more</span>=<span class="string">"noMore"</span> </span></span><br><span class="line"><span class="tag">			<span class="attr">:data</span>=<span class="string">"renderList"</span> </span></span><br><span class="line"><span class="tag">		/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">scroll-view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我有一个上拉加载更多组件，HTML部分大概是这样</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">'lodash'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      prevScrollTop: <span class="number">0</span>,</span><br><span class="line">      currentScrollTop: <span class="number">0</span>,</span><br><span class="line">      ...</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">  methods: &#123;</span><br><span class="line">    ...</span><br><span class="line">    _scroll: _.debounce(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.prevScrollTop = <span class="keyword">this</span>.currentScrollTop</span><br><span class="line">    &#125;, <span class="number">700</span>),</span><br><span class="line">    onScroll(&#123; <span class="attr">detail</span>: &#123; scrollTop &#125; &#125;) &#123;</span><br><span class="line">      <span class="keyword">this</span>._scroll()</span><br><span class="line">      <span class="keyword">this</span>.currentScrollTop = scrollTop</span><br><span class="line">    &#125;,</span><br><span class="line">    _onReachBottom: _.debounce(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.noMore) <span class="keyword">return</span></span><br><span class="line">      <span class="keyword">this</span>.pageNum++</span><br><span class="line">      <span class="keyword">this</span>.getData()</span><br><span class="line">    &#125;, <span class="number">500</span>),</span><br><span class="line">    reachBottom() &#123;</span><br><span class="line">      <span class="keyword">this</span>._onReachBottom()</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里只贴了关键代码，可以看到我除了绑定了<code>@scrolltolower</code>触底事件，还加了一个滚动事件<code>@scroll</code>、滚动距离属性<code>scroll-top</code>。除此之外还有两个变量，prevScrollTop与currentScrollTop，名字可能不太契合，大概意思就是在滚动后将当前滚动的距离赋值给<code>scroll-view</code>标签。</p>
+<h2 id="await的错误捕获"><a href="#await的错误捕获" class="headerlink" title="await的错误捕获"></a>await的错误捕获</h2><p>最近接手一个别人的写的项目遇到一个问题，请求接口时，当接口正常应答可以正常拿到数据，当接口报错了就拿不到任何东西，打开控制台一看，uncaught (in promise)。于是去看了下封装的请求库，发现了问题，因为封装的很乱，所以我就拿典型的错误举例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 库</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">req</span>(<span class="params">参数</span>) </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">	request(处理后的参数)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">参数</span>) </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span> &#123;</span><br><span class="line">      axios(参数)</span><br><span class="line">        .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;...; resolve(response.data)&#125;)</span><br><span class="line">    		.catch(<span class="function"><span class="params">error</span>=&gt;</span> &#123;...; reject(error)&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="keyword">this</span>.req(各种参数)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样咋一看好像没问题，不过有三个比较突出的问题:</p>
+<ul>
+<li>既然封装了 还使用了axios，那么就应该用拦截器，而不是直接用axios来封装</li>
+<li>req函数只是调用了request函数，没有做错误捕捉等处理</li>
+<li>使用async与await来同步化异步操作，但是返回的结果无法区分到底出没出错</li>
+</ul>
+<p>修改:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">req</span>(<span class="params">参数</span>) </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">let</span> res = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    res = <span class="keyword">await</span> <span class="keyword">this</span>.request(参数)</span><br><span class="line">    <span class="keyword">return</span> [<span class="literal">null</span>, res]</span><br><span class="line">  &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">    <span class="keyword">return</span> [err, res]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">参数</span>) </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span> &#123;</span><br><span class="line">      axios(参数)</span><br><span class="line">        .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;...; resolve(response.data)&#125;)</span><br><span class="line">    		.catch(<span class="function"><span class="params">error</span>=&gt;</span> &#123;...; reject(error)&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="keyword">this</span>.req(各种参数)</span><br><span class="line">  <span class="keyword">if</span>(err) <span class="comment">// 做接口错误后的相关事宜</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里修改后，用try catch捕获了错误，并且将代码风格改为了error-first，简单明了，让调用后更好区分。</p>
+<h2 id="TypeScript一些总结"><a href="#TypeScript一些总结" class="headerlink" title="TypeScript一些总结"></a>TypeScript一些总结</h2><p>最近使用了nuxt+ts，另外用ts封装了一个代理vuex的库，遇到了一些问题，总结一下</p>
+<h3 id="ts中常用的几种导入方式"><a href="#ts中常用的几种导入方式" class="headerlink" title="ts中常用的几种导入方式"></a>ts中常用的几种导入方式</h3><ul>
+<li><p><code>import something from &#39;something&#39;</code>与 <code>import { something } from &#39;library&#39;</code>同js中一样，最标准的AMD导入，这种方法导入的东西是带有类型校验的，当然，前提是有声明文件。</p>
+</li>
+<li><p><code>import * as $ from &#39;xxx&#39;</code>，这样的导入方式及是将目标文件中所有的<code>export</code>项存入<code>namespace</code>变量$中，调用时均以$.调用，同样有类型校验。</p>
+</li>
+<li><code>import something = require(&#39;something&#39;)</code>，这个调用方式与<code>const something = require(&#39;something&#39;)</code>的区别是前者除了导入模块外，还将它的类型导入了，当你使用ts时，前者导入的<code>something</code>会在使用时进行类型校验，后者则不会，因为ts将后者的类型定义为any。</li>
+</ul>
+<h3 id="类型断言"><a href="#类型断言" class="headerlink" title="类型断言"></a>类型断言</h3><p>类型断言并没有强制转换类型，而是让我们做一个选择，一个最简单的例子:</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">say</span>(<span class="params">value: <span class="built_in">string</span> | <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(value.length) <span class="keyword">return</span> value.length</span><br><span class="line">  <span class="keyword">return</span> value.toString().length</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里编译会出错，因为number类型并没有length属性，访问联合类型时，这个属性必须时两个类型的交集，也就是说length必须是两者都具有的属性才能编译通过。</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">say</span>(<span class="params">value: <span class="built_in">string</span> | <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>((&lt;<span class="built_in">string</span>&gt;value).length) <span class="keyword">return</span> (&lt;<span class="built_in">string</span>&gt;value).length</span><br><span class="line">  <span class="keyword">return</span> value.toString().length</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用data-set为伪类动态赋值"><a href="#使用data-set为伪类动态赋值" class="headerlink" title="使用data-set为伪类动态赋值"></a>使用data-set为伪类动态赋值</h2><p>之前做了一个页面，四个小模块，每个模块左上角是一个标题，当时并不想为没有什么复杂样式的标题专门写一个标签，因此想到了伪类。code:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"card violation-count"</span> <span class="attr">:data-title</span>=<span class="string">"title"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"item"</span> <span class="attr">v-for</span>=<span class="string">"meta in typeMeta"</span> <span class="attr">:key</span>=<span class="string">"meta.title"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">text</span>&gt;</span>&#123;&#123; meta.title &#125;&#125;<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span>&gt;</span>&#123;&#123; meta.count &#125;&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">	<span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line">    data() &#123;</span><br><span class="line"><span class="actionscript">    	<span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="actionscript">    		title: <span class="string">'动态的标题'</span></span></span><br><span class="line">  		&#125;</span><br><span class="line">  	&#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>css部分：</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.card</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="selector-tag">&amp;</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: attr(data-title);</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>没错，就这么简单。此外，我们还可以利用less、sass预编译器的循环功能来为多个伪类赋值。</p>
+<h2 id="在Vue中注销watch监听"><a href="#在Vue中注销watch监听" class="headerlink" title="在Vue中注销watch监听"></a>在Vue中注销watch监听</h2><p>最近做的这个项目数据源只有三个接口，这三个接口的数据会由一个根组件注入到下面的所有子模块中，并且会轮询访问。下面的子模块watch监听到数据变化后更新视图。然后有一个页面的需求是只需要一次监听，赋值，然后就不再监听，这个时候，我们就需要用的<code>$watch</code>了。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    list: &#123;</span><br><span class="line">      type: <span class="built_in">Array</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span>=&gt;</span> []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">const</span> destoryWatch = <span class="keyword">this</span>.$watch(<span class="string">'list'</span>, (newList, oldList)=&gt; &#123;</span><br><span class="line">      <span class="comment">// do something</span></span><br><span class="line">      destoryWatch()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>按照vue官网2.x的API所述，$watch监听后会返回一个取消观察函数，执行它之后监听函数将会被销毁。文档详情:<a href="https://cn.vuejs.org/v2/api/#vm-options" target="_blank" rel="noopener">https://cn.vuejs.org/v2/api/#vm-options</a></p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2020/09/30/基于Vue包装一个链式注销的全局事件总线/" data-toggle="tooltip" data-placement="top"
+                           title="基于Vue包装一个链式注销的全局事件总线">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2020/09/10/解析后端按位运算的枚举值/" data-toggle="tooltip" data-placement="top"
+                           title="解析后端按位运算的枚举值">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#uni-app的scroll-view组件触底概率不触发问题"><span class="toc-text">uni-app的scroll-view组件触底概率不触发问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#await的错误捕获"><span class="toc-text">await的错误捕获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript一些总结"><span class="toc-text">TypeScript一些总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ts中常用的几种导入方式"><span class="toc-text">ts中常用的几种导入方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型断言"><span class="toc-text">类型断言</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用data-set为伪类动态赋值"><span class="toc-text">使用data-set为伪类动态赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在Vue中注销watch监听"><span class="toc-text">在Vue中注销watch监听</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#总结"
+                           title="总结">总结</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2022
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif">
+</body>
+
+</html>

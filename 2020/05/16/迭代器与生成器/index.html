@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://s3.bmp.ovh/imgs/2022/03/1f0227bacbd74e15.png">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        ES6迭代器与生成器｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2020/05/16/迭代器与生成器/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>ES6迭代器与生成器</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2020-05-16
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#ES6"
+                           title="ES6">ES6</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Iterator"
+                           title="Iterator">Iterator</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Generator"
+                           title="Generator">Generator</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            ES6迭代器与生成器
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="迭代器-Iterator"><a href="#迭代器-Iterator" class="headerlink" title="迭代器(Iterator)"></a>迭代器(Iterator)</h2><p>迭代器是一种特殊的对象,特的结构如下<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123; <span class="attr">value</span>: <span class="string">'xxx'</span>, <span class="attr">done</span>: <span class="literal">false</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>value是下一个将要返回的值，done表示当前迭代是否完成，迭代器内部会保存一个指针，指向当前集合中值的位置，通过调用next()方法返回下一个值，当done为false后，每一次的next()返回的value都会为undefined。</p>
+<h2 id="生成器-Generator"><a href="#生成器-Generator" class="headerlink" title="生成器(Generator)"></a>生成器(Generator)</h2><p>生成器函数返回的是一个迭代器，外部通过next方法调用下一个yield。要创建一个生成器函数，可以有以下三种写法</p>
+<ul>
+<li><p>不带空格</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>*<span class="title">myGenerator</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不带空格</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">myGenerator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象字面量中</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    *myGenerator() &#123;</span><br><span class="line">        <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.myGenerator().next() <span class="comment">// &#123; value: 1, done: false &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>注意：生成器函数的yield关键字与return类似，不能穿透</strong><br>不能穿透是什么意思呢，看下面的例子<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">myGenerator</span>(<span class="params">items</span>) </span>&#123;</span><br><span class="line">    items.forEach(<span class="function"><span class="params">i</span>=&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> g = myGenerator([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">g.next() <span class="comment">// 抛出错误 Uncaught SyntaxError: Unexpected identifier</span></span><br></pre></td></tr></table></figure></p>
+<p>这也就是说yield不能再嵌套函数内使用，所以这里换成普通的for循环就能正常运行了。</p>
+<h3 id="给迭代器传递参数"><a href="#给迭代器传递参数" class="headerlink" title="给迭代器传递参数"></a>给迭代器传递参数</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">myGenerator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	<span class="keyword">let</span> first = <span class="keyword">yield</span> <span class="number">1</span> <span class="comment">// 无视传值</span></span><br><span class="line">    <span class="keyword">let</span> second = <span class="keyword">yield</span> first + <span class="number">2</span> <span class="comment">// 4 + 2</span></span><br><span class="line">    <span class="keyword">yield</span> second + <span class="number">3</span> <span class="comment">// 7 + 3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> it = myGenerator()</span><br><span class="line">it.next(<span class="number">2</span>) <span class="comment">// &#123;value: 1, done: false&#125;</span></span><br><span class="line">it.next(<span class="number">4</span>) <span class="comment">// &#123;value: 6, done: false&#125;</span></span><br><span class="line">it.next(<span class="number">7</span>) <span class="comment">// &#123;value: 10, done: false&#125;</span></span><br><span class="line">it.next() <span class="comment">// &#123;value: undefined, done: true&#125;</span></span><br></pre></td></tr></table></figure>
+<p>在生成器函数中yield本身不具有返回值，通过往next中传递参数使其有了返回值，但注意第一个next的参数会被忽略掉，因为next函数本身就是调用的上一次yield值。</p>
+<h3 id="委托生成器"><a href="#委托生成器" class="headerlink" title="委托生成器"></a>委托生成器</h3><p>实际就是将多个迭代器合成一个调用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">numberIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	<span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">  	<span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">  	<span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">stringIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	<span class="keyword">yield</span> <span class="string">'one'</span></span><br><span class="line">  	<span class="keyword">yield</span> <span class="string">'two'</span></span><br><span class="line">  	<span class="keyword">yield</span> <span class="string">'three'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">allIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	<span class="keyword">yield</span> *numberIterator()</span><br><span class="line">  	<span class="keyword">yield</span> *stringIterator()</span><br><span class="line">  	<span class="keyword">yield</span> <span class="string">'finish'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用就通过allIterator函数</span></span><br><span class="line"><span class="keyword">let</span> all = allIterator()</span><br><span class="line">all.next() <span class="comment">// &#123;value: 1, done: false&#125;</span></span><br><span class="line">all.next() <span class="comment">// &#123;value: 2, done: false&#125;</span></span><br><span class="line">all.next() <span class="comment">// &#123;value: 'one', done: false&#125;</span></span><br><span class="line">all.next() <span class="comment">// &#123;value: 'two', done: false&#125;</span></span><br><span class="line">all.next() <span class="comment">// &#123;value: 'finish', done: false&#125;</span></span><br><span class="line">all.next() <span class="comment">// &#123;value: undefined, done: true&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="for-of循环"><a href="#for-of循环" class="headerlink" title="for-of循环"></a>for-of循环</h2><p>ES6中加入了for-of循环，对于可迭代对象，使用for-of能遍历出他们的值(value),为什么必须是可迭代的对象呢，因为for-of内部会使用Symbol.iterator属性来迭代，内部其实就如同上面的生成器函数一样，使用next()方法来迭代。<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    arr: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> val <span class="keyword">of</span> obj.arr) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(val) <span class="comment">// 依次输出 1, 2, 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样使用for-of是可行的，但是如果我们直接将自建对象obj拿来用for-of，就会抛出异常:<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    arr: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(val <span class="keyword">of</span> obj) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(val) <span class="comment">// Uncaught TypeError: obj is not iterable</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>报错说obj是不可迭代的。</p>
+<h3 id="创建可迭代对象"><a href="#创建可迭代对象" class="headerlink" title="创建可迭代对象"></a>创建可迭代对象</h3><p>前面我们说了，for-of内部使用了Symbol.iterator来迭代对象，那么如果我们自己写一个迭代函数，就能够让自建函数使用for-of了：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    arr: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">    property: <span class="string">'属性'</span>,</span><br><span class="line">    *[<span class="built_in">Symbol</span>.iterator]() &#123;</span><br><span class="line">        <span class="comment">// 使用for-in遍历obj，把值yield出去</span></span><br><span class="line">         <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> <span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">yield</span> <span class="keyword">this</span>[key]</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(val <span class="keyword">of</span> obj) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(val) <span class="comment">// 依次输出 [1,2,3]   属性</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用过这个迭代器函数，实现了自建属性的for-of。实际上，在JavaScript中已经<strong>内置了三种迭代器</strong>，分别是<strong>Object.keys()，Object.values()，Object.entries()</strong>，分别对应了键-值-键值，它们都会以数组的形式输出对应的迭代器内容。</p>
+<h4 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h4><p>我们可以使用Symbol.iterator这个自带的函数来判断一个对象是否可迭代:<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">canIterate</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> obj[<span class="built_in">Symbol</span>.iterator] === <span class="string">'function'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用生成器完成异步任务"><a href="#使用生成器完成异步任务" class="headerlink" title="使用生成器完成异步任务"></a>使用生成器完成异步任务</h2><p>生成器最大的用武之地肯定就是在异步了，下面是一个最简单的实例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result = []</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">task</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> execuTask(<span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">yield</span> execuTask(<span class="number">2000</span>)</span><br><span class="line">    <span class="keyword">yield</span> execuTask(<span class="number">3000</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> t = task()</span><br><span class="line">t.next()</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">execuTask</span>(<span class="params">delay</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">      	<span class="built_in">console</span>.log(<span class="string">'延迟:'</span>, delay)</span><br><span class="line">        result.push(delay)</span><br><span class="line">        <span class="keyword">if</span>(result.length&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            t.next()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, delay)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个例子中的execuTask函数通过传入的延迟时间模拟异步操作，利用生成器在下一个next函数调用前函数会处于中断状态的特性，实现类似于Promise对象then方法的异步调用。执行结果是分别间隔1秒、3秒、6秒输出内容。</p>
+<p><img src="/BeCoderQ.github.io/2020/05/16/迭代器与生成器/yb.png" alt="输出内容"></p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2020/05/23/electron打包后文件路径问题-解决子进程文件报错/" data-toggle="tooltip" data-placement="top"
+                           title="electron打包后文件路径问题(解决子进程文件报错)">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2020/04/25/canvas实现手写签名并保存为图片/" data-toggle="tooltip" data-placement="top"
+                           title="canvas实现手写签名并保存为图片">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#迭代器-Iterator"><span class="toc-text">迭代器(Iterator)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成器-Generator"><span class="toc-text">生成器(Generator)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#给迭代器传递参数"><span class="toc-text">给迭代器传递参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#委托生成器"><span class="toc-text">委托生成器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for-of循环"><span class="toc-text">for-of循环</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建可迭代对象"><span class="toc-text">创建可迭代对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拓展"><span class="toc-text">拓展</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用生成器完成异步任务"><span class="toc-text">使用生成器完成异步任务</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#ES6"
+                           title="ES6">ES6</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Iterator"
+                           title="Iterator">Iterator</a>
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#Generator"
+                           title="Generator">Generator</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2022
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif">
+</body>
+
+</html>

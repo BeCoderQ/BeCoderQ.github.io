@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://s3.bmp.ovh/imgs/2022/03/1f0227bacbd74e15.png">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        tags｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/tags/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+<style>
+    .intro-header .site-heading {
+        margin: 50px;
+    }
+    
+    header.intro-header {
+        background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')
+    }
+    
+</style>
+
+<!-- Page Header -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading text-center">
+                    <h1>tags</h1>
+                    <span class="subheading">Hello,World</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- 标签云 -->
+            <div id='tag_cloud' class="tags">
+                
+                <a href="#递归" title="递归" rel="1">递归</a>
+                
+                <a href="#Proxy" title="Proxy" rel="2">Proxy</a>
+                
+                <a href="#Reflect" title="Reflect" rel="1">Reflect</a>
+                
+                <a href="#ES6" title="ES6" rel="3">ES6</a>
+                
+                <a href="#解构" title="解构" rel="1">解构</a>
+                
+                <a href="#Map对象" title="Map对象" rel="1">Map对象</a>
+                
+                <a href="#React" title="React" rel="1">React</a>
+                
+                <a href="#vue3" title="vue3" rel="3">vue3</a>
+                
+                <a href="#插件" title="插件" rel="1">插件</a>
+                
+                <a href="#electron" title="electron" rel="1">electron</a>
+                
+                <a href="#webpack" title="webpack" rel="2">webpack</a>
+                
+                <a href="#Typescript" title="Typescript" rel="1">Typescript</a>
+                
+                <a href="#canvas" title="canvas" rel="2">canvas</a>
+                
+                <a href="#手写签名" title="手写签名" rel="1">手写签名</a>
+                
+                <a href="#flutter" title="flutter" rel="2">flutter</a>
+                
+                <a href="#hbuilder" title="hbuilder" rel="1">hbuilder</a>
+                
+                <a href="#app" title="app" rel="1">app</a>
+                
+                <a href="#数组" title="数组" rel="1">数组</a>
+                
+                <a href="#深浅拷贝" title="深浅拷贝" rel="1">深浅拷贝</a>
+                
+                <a href="#数组清空" title="数组清空" rel="1">数组清空</a>
+                
+                <a href="#算法" title="算法" rel="1">算法</a>
+                
+                <a href="#二叉树" title="二叉树" rel="1">二叉树</a>
+                
+                <a href="#puppeteer" title="puppeteer" rel="1">puppeteer</a>
+                
+                <a href="#shell脚本" title="shell脚本" rel="1">shell脚本</a>
+                
+                <a href="#this" title="this" rel="1">this</a>
+                
+                <a href="#typescript" title="typescript" rel="5">typescript</a>
+                
+                <a href="#pont" title="pont" rel="1">pont</a>
+                
+                <a href="#uni-app" title="uni-app" rel="2">uni-app</a>
+                
+                <a href="#高德地图" title="高德地图" rel="2">高德地图</a>
+                
+                <a href="#vite" title="vite" rel="1">vite</a>
+                
+                <a href="#vue.cli3" title="vue.cli3" rel="1">vue.cli3</a>
+                
+                <a href="#vue.cli4" title="vue.cli4" rel="2">vue.cli4</a>
+                
+                <a href="#跨域" title="跨域" rel="1">跨域</a>
+                
+                <a href="#node" title="node" rel="1">node</a>
+                
+                <a href="#Vuex" title="Vuex" rel="1">Vuex</a>
+                
+                <a href="#海量点" title="海量点" rel="1">海量点</a>
+                
+                <a href="#vue" title="vue" rel="1">vue</a>
+                
+                <a href="#axios" title="axios" rel="2">axios</a>
+                
+                <a href="#dart" title="dart" rel="1">dart</a>
+                
+                <a href="#android" title="android" rel="1">android</a>
+                
+                <a href="#数据结构，链表" title="数据结构，链表" rel="1">数据结构，链表</a>
+                
+                <a href="#babel" title="babel" rel="1">babel</a>
+                
+                <a href="#NBA" title="NBA" rel="1">NBA</a>
+                
+                <a href="#篮球" title="篮球" rel="1">篮球</a>
+                
+                <a href="#图片压缩" title="图片压缩" rel="1">图片压缩</a>
+                
+                <a href="#bus" title="bus" rel="1">bus</a>
+                
+                <a href="#Vue" title="Vue" rel="2">Vue</a>
+                
+                <a href="#vuex" title="vuex" rel="2">vuex</a>
+                
+                <a href="#开源" title="开源" rel="1">开源</a>
+                
+                <a href="#装饰器" title="装饰器" rel="1">装饰器</a>
+                
+                <a href="#iterator" title="iterator" rel="1">iterator</a>
+                
+                <a href="#ElementUI" title="ElementUI" rel="1">ElementUI</a>
+                
+                <a href="#Vue3" title="Vue3" rel="1">Vue3</a>
+                
+                <a href="#Promise" title="Promise" rel="1">Promise</a>
+                
+                <a href="#异步" title="异步" rel="1">异步</a>
+                
+                <a href="#总结" title="总结" rel="2">总结</a>
+                
+                <a href="#操作符" title="操作符" rel="1">操作符</a>
+                
+                <a href="#计算机基础" title="计算机基础" rel="1">计算机基础</a>
+                
+                <a href="#二进制" title="二进制" rel="1">二进制</a>
+                
+                <a href="#MarkDown" title="MarkDown" rel="1">MarkDown</a>
+                
+                <a href="#Hexo" title="Hexo" rel="1">Hexo</a>
+                
+                <a href="#柯里化" title="柯里化" rel="1">柯里化</a>
+                
+                <a href="#currying" title="currying" rel="1">currying</a>
+                
+                <a href="#directive" title="directive" rel="1">directive</a>
+                
+                <a href="#位运算" title="位运算" rel="1">位运算</a>
+                
+                <a href="#JavaScript" title="JavaScript" rel="1">JavaScript</a>
+                
+                <a href="#重构" title="重构" rel="1">重构</a>
+                
+                <a href="#Iterator" title="Iterator" rel="1">Iterator</a>
+                
+                <a href="#Generator" title="Generator" rel="1">Generator</a>
+                
+            </div>
+
+            <!-- 标签列表 -->
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="递归">
+                    <span class="tag-text">递归</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/08/31/DOM元素渲染的几种优化方式/">
+                        <h2 class="post-title">
+                            DOM元素渲染的几种优化方式
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Proxy">
+                    <span class="tag-text">Proxy</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/08/20/ES6-Proxy与Reflect/">
+                        <h2 class="post-title">
+                            ES6-Proxy与Reflect
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/08/31/记一次后台权限与路由的重构/">
+                        <h2 class="post-title">
+                            记一次后台权限与路由的重构
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Reflect">
+                    <span class="tag-text">Reflect</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/08/20/ES6-Proxy与Reflect/">
+                        <h2 class="post-title">
+                            ES6-Proxy与Reflect
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="ES6">
+                    <span class="tag-text">ES6</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/06/01/ES6特性之解构/">
+                        <h2 class="post-title">
+                            ES6特性之解构
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/07/08/对于Symbol-iterator的理解/">
+                        <h2 class="post-title">
+                            对于Symbol.iterator的理解
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/05/16/迭代器与生成器/">
+                        <h2 class="post-title">
+                            ES6迭代器与生成器
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="解构">
+                    <span class="tag-text">解构</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/06/01/ES6特性之解构/">
+                        <h2 class="post-title">
+                            ES6特性之解构
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Map对象">
+                    <span class="tag-text">Map对象</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/01/07/Es6中Map对象基础/">
+                        <h2 class="post-title">
+                            Es6中Map对象基础
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="React">
+                    <span class="tag-text">React</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/10/27/React-Hook函数式编程学习笔记/">
+                        <h2 class="post-title">
+                            React Hook函数式编程问题笔记
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="vue3">
+                    <span class="tag-text">vue3</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/05/25/Vue2-x与Vue3-x插件式全局组件写法对别/">
+                        <h2 class="post-title">
+                            Vue2.x与Vue3.x插件式全局组件写法对别
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/01/01/typescript正确食用姿势之集成pont-engine白嫖后端/">
+                        <h2 class="post-title">
+                            typescript正确食用姿势之集成pont-engine白嫖后端
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/10/29/vite-vue3-vue-router4-0-vuex4-0-ts4-0搭建一个简单的项目架子/">
+                        <h2 class="post-title">
+                            vite+vue3+vue-router4.0+vuex4.0+ts4.0搭建一个简单的项目架子
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="插件">
+                    <span class="tag-text">插件</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/05/25/Vue2-x与Vue3-x插件式全局组件写法对别/">
+                        <h2 class="post-title">
+                            Vue2.x与Vue3.x插件式全局组件写法对别
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="electron">
+                    <span class="tag-text">electron</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/05/23/electron打包后文件路径问题-解决子进程文件报错/">
+                        <h2 class="post-title">
+                            electron打包后文件路径问题(解决子进程文件报错)
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="webpack">
+                    <span class="tag-text">webpack</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/05/23/electron打包后文件路径问题-解决子进程文件报错/">
+                        <h2 class="post-title">
+                            electron打包后文件路径问题(解决子进程文件报错)
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/09/15/vue-cli脚手架项目中require-context的使用/">
+                        <h2 class="post-title">
+                            vue.cli脚手架项目中require.context的使用
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Typescript">
+                    <span class="tag-text">Typescript</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/08/10/Typescript再体验-一些开发中的杂谈/">
+                        <h2 class="post-title">
+                            Typescript再体验---一些开发中的杂谈
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="canvas">
+                    <span class="tag-text">canvas</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/04/25/canvas实现手写签名并保存为图片/">
+                        <h2 class="post-title">
+                            canvas实现手写签名并保存为图片
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/04/07/在js中使用canvas压缩图片/">
+                        <h2 class="post-title">
+                            在js中使用canvas压缩图片
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="手写签名">
+                    <span class="tag-text">手写签名</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/04/25/canvas实现手写签名并保存为图片/">
+                        <h2 class="post-title">
+                            canvas实现手写签名并保存为图片
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="flutter">
+                    <span class="tag-text">flutter</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/07/11/flutter页面重绘问题解决方案/">
+                        <h2 class="post-title">
+                            flutter页面重绘问题解决方案
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/03/03/从零开始使用flutter开发一款本地阅读器/">
+                        <h2 class="post-title">
+                            从零开始使用flutter开发一款本地阅读器
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="hbuilder">
+                    <span class="tag-text">hbuilder</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/07/02/hbuilder打包vue项目遇到的布局以及图片路径问题坑/">
+                        <h2 class="post-title">
+                            hbuilder打包vue项目遇到的布局以及图片路径问题坑
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="app">
+                    <span class="tag-text">app</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/07/02/hbuilder打包vue项目遇到的布局以及图片路径问题坑/">
+                        <h2 class="post-title">
+                            hbuilder打包vue项目遇到的布局以及图片路径问题坑
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="数组">
+                    <span class="tag-text">数组</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/05/18/js数组的拷贝与清空/">
+                        <h2 class="post-title">
+                            js数组的拷贝与清空
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="深浅拷贝">
+                    <span class="tag-text">深浅拷贝</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/05/18/js数组的拷贝与清空/">
+                        <h2 class="post-title">
+                            js数组的拷贝与清空
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="数组清空">
+                    <span class="tag-text">数组清空</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/05/18/js数组的拷贝与清空/">
+                        <h2 class="post-title">
+                            js数组的拷贝与清空
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="算法">
+                    <span class="tag-text">算法</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/">
+                        <h2 class="post-title">
+                            leetcode算法之旅---二叉树
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="二叉树">
+                    <span class="tag-text">二叉树</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/">
+                        <h2 class="post-title">
+                            leetcode算法之旅---二叉树
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="puppeteer">
+                    <span class="tag-text">puppeteer</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/03/07/puppeteer爬虫工具的使用与踩坑/">
+                        <h2 class="post-title">
+                            puppeteer爬虫工具的使用与踩坑
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="shell脚本">
+                    <span class="tag-text">shell脚本</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/01/13/shell脚本-半-自动化部署项目-以及踩到的坑/">
+                        <h2 class="post-title">
+                            shell脚本(半)自动化部署项目,以及踩到的坑
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="this">
+                    <span class="tag-text">this</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/05/26/this的使用与原理解析/">
+                        <h2 class="post-title">
+                            this的使用与原理解析
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="typescript">
+                    <span class="tag-text">typescript</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/01/01/typescript正确食用姿势之集成pont-engine白嫖后端/">
+                        <h2 class="post-title">
+                            typescript正确食用姿势之集成pont-engine白嫖后端
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/10/29/vite-vue3-vue-router4-0-vuex4-0-ts4-0搭建一个简单的项目架子/">
+                        <h2 class="post-title">
+                            vite+vue3+vue-router4.0+vuex4.0+ts4.0搭建一个简单的项目架子
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/07/19/实现Vuex最精准的类型推断Beta版/">
+                        <h2 class="post-title">
+                            实现Vuex精准的类型推断Beta版
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/08/27/实用装饰器图（码）鉴/">
+                        <h2 class="post-title">
+                            业务中的装饰器图（码）鉴
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/06/02/记一次Vuex中commit类型校验的过程/">
+                        <h2 class="post-title">
+                            记一次Vuex中commit类型校验的过程
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="pont">
+                    <span class="tag-text">pont</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/01/01/typescript正确食用姿势之集成pont-engine白嫖后端/">
+                        <h2 class="post-title">
+                            typescript正确食用姿势之集成pont-engine白嫖后端
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="uni-app">
+                    <span class="tag-text">uni-app</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/07/17/uni-app中利用webview标签使用原生js高德地图/">
+                        <h2 class="post-title">
+                            uni-app中利用webview标签使用原生js高德地图
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/04/11/解决uni-app编译后自定义指令中绑定事件无效问题/">
+                        <h2 class="post-title">
+                            解决uni-app编译后自定义指令中绑定事件无效问题
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="高德地图">
+                    <span class="tag-text">高德地图</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/07/17/uni-app中利用webview标签使用原生js高德地图/">
+                        <h2 class="post-title">
+                            uni-app中利用webview标签使用原生js高德地图
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/07/11/解决高德地图3D模式下渲染marker卡顿问题/">
+                        <h2 class="post-title">
+                            解决高德地图3D模式下渲染marker卡顿问题
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="vite">
+                    <span class="tag-text">vite</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/10/29/vite-vue3-vue-router4-0-vuex4-0-ts4-0搭建一个简单的项目架子/">
+                        <h2 class="post-title">
+                            vite+vue3+vue-router4.0+vuex4.0+ts4.0搭建一个简单的项目架子
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="vue.cli3">
+                    <span class="tag-text">vue.cli3</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/06/10/vue-cli3-x打包上传服务器后首次加载太慢的坑/">
+                        <h2 class="post-title">
+                            vue.cli3.x打包上传服务器后首次加载太慢的坑
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="vue.cli4">
+                    <span class="tag-text">vue.cli4</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/05/27/vue-cli4版本下跨域代理配置与数据mock/">
+                        <h2 class="post-title">
+                            vue.cli4版本下跨域代理配置与数据mock
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/06/22/vue开发中的实用技巧/">
+                        <h2 class="post-title">
+                            vue开发中的实用技巧
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="跨域">
+                    <span class="tag-text">跨域</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/05/27/vue-cli4版本下跨域代理配置与数据mock/">
+                        <h2 class="post-title">
+                            vue.cli4版本下跨域代理配置与数据mock
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="node">
+                    <span class="tag-text">node</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/09/15/vue-cli脚手架项目中require-context的使用/">
+                        <h2 class="post-title">
+                            vue.cli脚手架项目中require.context的使用
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Vuex">
+                    <span class="tag-text">Vuex</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/11/25/vuex的封装以及其在项目中的使用场景/">
+                        <h2 class="post-title">
+                            vuex的封装以及其在项目中的使用场景
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="海量点">
+                    <span class="tag-text">海量点</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/07/02/vue中使用高德地图展示点信息以及海量点的使用/">
+                        <h2 class="post-title">
+                            vue中使用高德地图展示点信息以及海量点的使用
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="vue">
+                    <span class="tag-text">vue</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/06/22/vue开发中的实用技巧/">
+                        <h2 class="post-title">
+                            vue开发中的实用技巧
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="axios">
+                    <span class="tag-text">axios</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/02/21/二次封装axios/">
+                        <h2 class="post-title">
+                            二次封装axios
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/06/12/记一次解决axios请求status返回canceled的过程/">
+                        <h2 class="post-title">
+                            记一次解决axios请求status返回canceled的过程
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="dart">
+                    <span class="tag-text">dart</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/03/03/从零开始使用flutter开发一款本地阅读器/">
+                        <h2 class="post-title">
+                            从零开始使用flutter开发一款本地阅读器
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="android">
+                    <span class="tag-text">android</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/03/03/从零开始使用flutter开发一款本地阅读器/">
+                        <h2 class="post-title">
+                            从零开始使用flutter开发一款本地阅读器
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="数据结构，链表">
+                    <span class="tag-text">数据结构，链表</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/05/18/使用JavaScript实现单双向链表/">
+                        <h2 class="post-title">
+                            使用JavaScript实现单双向链表
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="babel">
+                    <span class="tag-text">babel</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/04/24/借助babel的AST解析，让老代码重获新生-转载/">
+                        <h2 class="post-title">
+                            借助babel的AST解析，让老代码重获新生(转载)
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="NBA">
+                    <span class="tag-text">NBA</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/05/04/历史级的季后赛/">
+                        <h2 class="post-title">
+                            历史级的季后赛
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="篮球">
+                    <span class="tag-text">篮球</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/05/04/历史级的季后赛/">
+                        <h2 class="post-title">
+                            历史级的季后赛
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="图片压缩">
+                    <span class="tag-text">图片压缩</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/04/07/在js中使用canvas压缩图片/">
+                        <h2 class="post-title">
+                            在js中使用canvas压缩图片
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="bus">
+                    <span class="tag-text">bus</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/09/30/基于Vue包装一个链式注销的全局事件总线/">
+                        <h2 class="post-title">
+                            基于Vue包装一个链式注销的全局事件总线
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Vue">
+                    <span class="tag-text">Vue</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/09/30/基于Vue包装一个链式注销的全局事件总线/">
+                        <h2 class="post-title">
+                            基于Vue包装一个链式注销的全局事件总线
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/08/31/记一次后台权限与路由的重构/">
+                        <h2 class="post-title">
+                            记一次后台权限与路由的重构
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="vuex">
+                    <span class="tag-text">vuex</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/07/19/实现Vuex最精准的类型推断Beta版/">
+                        <h2 class="post-title">
+                            实现Vuex精准的类型推断Beta版
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/06/02/记一次Vuex中commit类型校验的过程/">
+                        <h2 class="post-title">
+                            记一次Vuex中commit类型校验的过程
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="开源">
+                    <span class="tag-text">开源</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/07/19/实现Vuex最精准的类型推断Beta版/">
+                        <h2 class="post-title">
+                            实现Vuex精准的类型推断Beta版
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="装饰器">
+                    <span class="tag-text">装饰器</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2021/08/27/实用装饰器图（码）鉴/">
+                        <h2 class="post-title">
+                            业务中的装饰器图（码）鉴
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="iterator">
+                    <span class="tag-text">iterator</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/07/08/对于Symbol-iterator的理解/">
+                        <h2 class="post-title">
+                            对于Symbol.iterator的理解
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="ElementUI">
+                    <span class="tag-text">ElementUI</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/06/01/总结在ElementUI中的一些组件使用/">
+                        <h2 class="post-title">
+                            总结在ElementUI中的一些组件使用
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Vue3">
+                    <span class="tag-text">Vue3</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2022/01/05/我的vue3-x公司宣讲会文档/">
+                        <h2 class="post-title">
+                            我的vue3.x公司宣讲会文档
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Promise">
+                    <span class="tag-text">Promise</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/03/01/手写一个完整的Promise类/">
+                        <h2 class="post-title">
+                            手写一个完整的Promise类
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="异步">
+                    <span class="tag-text">异步</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/03/01/手写一个完整的Promise类/">
+                        <h2 class="post-title">
+                            手写一个完整的Promise类
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="总结">
+                    <span class="tag-text">总结</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/09/30/最近项目中遇到的一些问题或一些总结/">
+                        <h2 class="post-title">
+                            最近项目中遇到的一些问题或一些总结
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/07/31/记录一下最近vue项目开发中遇到的问题与解决过程/">
+                        <h2 class="post-title">
+                            记录一下最近vue项目开发中遇到的问题与解决过程
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="操作符">
+                    <span class="tag-text">操作符</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/03/18/操作符与二进制基础/">
+                        <h2 class="post-title">
+                            ~ | & ^操作符与二进制基础：原码反码补码
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="计算机基础">
+                    <span class="tag-text">计算机基础</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/03/18/操作符与二进制基础/">
+                        <h2 class="post-title">
+                            ~ | & ^操作符与二进制基础：原码反码补码
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="二进制">
+                    <span class="tag-text">二进制</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/03/18/操作符与二进制基础/">
+                        <h2 class="post-title">
+                            ~ | & ^操作符与二进制基础：原码反码补码
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="MarkDown">
+                    <span class="tag-text">MarkDown</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/05/03/第一篇文章/">
+                        <h2 class="post-title">
+                            博客的第一篇文章
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Hexo">
+                    <span class="tag-text">Hexo</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2019/05/03/第一篇文章/">
+                        <h2 class="post-title">
+                            博客的第一篇文章
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="柯里化">
+                    <span class="tag-text">柯里化</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/08/24/柯里化函数/">
+                        <h2 class="post-title">
+                            柯里化函数
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="currying">
+                    <span class="tag-text">currying</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/08/24/柯里化函数/">
+                        <h2 class="post-title">
+                            柯里化函数
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="directive">
+                    <span class="tag-text">directive</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/04/11/解决uni-app编译后自定义指令中绑定事件无效问题/">
+                        <h2 class="post-title">
+                            解决uni-app编译后自定义指令中绑定事件无效问题
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="位运算">
+                    <span class="tag-text">位运算</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/09/10/解析后端按位运算的枚举值/">
+                        <h2 class="post-title">
+                            解析后端按位运算的枚举值
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="JavaScript">
+                    <span class="tag-text">JavaScript</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/09/10/解析后端按位运算的枚举值/">
+                        <h2 class="post-title">
+                            解析后端按位运算的枚举值
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="重构">
+                    <span class="tag-text">重构</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/08/31/记一次后台权限与路由的重构/">
+                        <h2 class="post-title">
+                            记一次后台权限与路由的重构
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Iterator">
+                    <span class="tag-text">Iterator</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/05/16/迭代器与生成器/">
+                        <h2 class="post-title">
+                            ES6迭代器与生成器
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Generator">
+                    <span class="tag-text">Generator</span>
+                </span>
+                
+                <div class="post-preview">
+                    <a href="/BeCoderQ.github.io/2020/05/16/迭代器与生成器/">
+                        <h2 class="post-title">
+                            ES6迭代器与生成器
+                        </h2>
+                        
+                    </a>
+                </div>
+                <hr>
+                
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2022
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif">
+</body>
+
+</html>

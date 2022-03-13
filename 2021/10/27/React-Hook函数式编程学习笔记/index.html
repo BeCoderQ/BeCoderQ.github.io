@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://s3.bmp.ovh/imgs/2022/03/1f0227bacbd74e15.png">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        React Hook函数式编程问题笔记｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2021/10/27/React-Hook函数式编程学习笔记/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>React Hook函数式编程问题笔记</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2021-10-27
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#React"
+                           title="React">React</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            React Hook函数式编程问题笔记
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h2><p>在使用Hooks中的常用API前，先看一下以前Class版本的React生命周期图：</p>
+<p><img src="https://segmentfault.com/img/bVbeoGH?w=1200&amp;h=1300" alt="生命周期"></p>
+<h3 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h3><p>函数组件通过Hook引入了状态能力，它返回一个数组，第一个是state，第二个是setState函数，用来修改state值。</p>
+<h3 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h3><p>useEffect会在浏览器进行绘制后执行，传入第二个参数后会在传入依赖更改后执行。</p>
+<p>useEffect的第二个依赖追踪数组里面的值是直接进行<strong>===</strong>比较，因此如果是下面这种情况，即便item对象没有改变，但第二个useEffect在点击按钮后也会执行：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [time, setTime] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> item = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'渲染'</span>);</span><br><span class="line">  &#125;, [time]);</span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'执行了useEffect'</span>);</span><br><span class="line">  &#125;, [item])</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setTime(<span class="function"><span class="params">t</span> =&gt;</span> t + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;button onClick=&#123;handleClick&#125;&gt;重新渲染-&#123;time&#125;&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h3><p><code>useCallback</code>本质上是为函数添加了一层依赖检查，假设我们有一个输入框，输入框的<code>keyword</code>参数会拼接到请求函数url中，在更改了输入内容后将会发送请求。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SearchResults</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [keyword, setKeyword] = useState(<span class="string">'检索'</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// useCallback来包裹请求函数</span></span><br><span class="line">  <span class="keyword">const</span> fetchByKeyword = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> axios.get(<span class="string">'https://hn.algolia.com/api/v1/search?query='</span> + keyword)</span><br><span class="line">  &#125;, [keyword]);</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> res = fetchByKeyword();</span><br><span class="line">    <span class="comment">// ... Fetch data and do something ...</span></span><br><span class="line">  &#125;, [fetchByKeyword]); <span class="comment">// ✅ Effect deps are OK</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，当我们的<code>keyword</code>更改后，就会执行<code>fetchByKeyword</code>，这是我们把普通函数放到useEffect的依赖中无法实现的。</p>
+<h4 id="对比class组件的提升"><a href="#对比class组件的提升" class="headerlink" title="对比class组件的提升"></a>对比class组件的提升</h4><p>同样的场景，我们把请求与输入框放在父组件，展示放在子组件：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 父组件</span></span><br><span class="line"><span class="keyword">class</span> Parent <span class="keyword">extends</span> Component &#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    keyword: <span class="string">'react'</span></span><br><span class="line">  &#125;;</span><br><span class="line">  fetchData = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> url = <span class="string">'https://hn.algolia.com/api/v1/search?query='</span> + <span class="keyword">this</span>.state.keyword;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;Child fetchData=&#123;<span class="keyword">this</span>.fetchData&#125; /&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子组件</span></span><br><span class="line"><span class="keyword">class</span> Child <span class="keyword">extends</span> Component &#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    data: <span class="literal">null</span></span><br><span class="line">  &#125;;</span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="keyword">this</span>.props.fetchData();</span><br><span class="line">  &#125;</span><br><span class="line">  componentDidUpdate(prevProps) &#123;</span><br><span class="line">    <span class="comment">// 🔴 这个条件永远不为true</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.props.fetchData !== prevProps.fetchData) &#123;</span><br><span class="line">      <span class="keyword">this</span>.props.fetchData();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>fetchData</code>作为class内的属性，将不会随着状态改变而改变。</p>
+<p>要在class写法中解决这个问题，我们就不得不再传入<code>keyword</code>，因为只有这样才能再次触发<code>componentDidUpdate</code>钩子：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> Parent <span class="keyword">extends</span> Component &#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    keyword: <span class="string">'react'</span></span><br><span class="line">  &#125;;</span><br><span class="line">  fetchData = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> url = <span class="string">'https://hn.algolia.com/api/v1/search?query='</span> + <span class="keyword">this</span>.state.keyword;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;Child fetchData=&#123;<span class="keyword">this</span>.fetchData&#125; keyword=&#123;<span class="keyword">this</span>.state.keyword&#125; /&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Child <span class="keyword">extends</span> Component &#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    data: <span class="literal">null</span></span><br><span class="line">  &#125;;</span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="keyword">this</span>.props.fetchData();</span><br><span class="line">  &#125;</span><br><span class="line">  componentDidUpdate(prevProps) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.props.keyword !== prevProps.keyword) &#123;</span><br><span class="line">      <span class="keyword">this</span>.props.fetchData();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样存在的问题是，我们传入了子组件完全不需要的参数<code>keyword</code>。这也得出结论，<strong>在class组件中，函数属性本身并不是数据流的一部分</strong>。</p>
+<h3 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h3><p>这个hook让我们在组件树的任意分支上可以拿到Provider层提供的数据：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; createContext, useContext &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Context = createContext(<span class="string">"skyblue"</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> themeColor = useContext(Context);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">    &lt;Context.Provider value=&#123; <span class="string">"red"</span> &#125;&gt;</span><br><span class="line">      &lt;SonComp /&gt;</span><br><span class="line">    &lt;<span class="regexp">/Context.Provider&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SonComp</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> themeColor = useContext(Context);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 除此外 还可以使用Context.Consumer来拿到值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SonComp</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="comment">// value改变后Consumer会重新渲染</span></span><br><span class="line">    &lt;Context.Consumer&gt;</span><br><span class="line">      &#123;<span class="function"><span class="params">value</span> =&gt;</span> &lt;span&gt;&#123;value&#125;&lt;<span class="regexp">/span&gt;&#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Context.Consumer&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过一个通用的Context变量拿到Provide的值，对于全局要使用的可以将Context单独放到一个文件内export出来。</p>
+<p>在我们需要一个全局变量，且变量修改后要重新渲染时，可以使用<code>useContext</code>，比如以下场景：</p>
+<ul>
+<li>全局的主题配色</li>
+<li>应用的全局配置项</li>
+<li>用户的个人信息</li>
+<li>服务器的请求信息等</li>
+</ul>
+<h3 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h3><h3 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h3><p>useReducer可以帮我们把依赖和更新逻辑分离，假设我们有一个state依赖于定时器组件外部传入的props：</p>
+<p><code>&lt;Counter step={1} /&gt;</code></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params">&#123; step &#125;</span>) </span>&#123;  </span><br><span class="line">  <span class="keyword">const</span> [count, dispatch] = useReducer(reducer, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (action.type === <span class="string">'tick'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> state + step;    </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> id = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123; <span class="attr">type</span>: <span class="string">'tick'</span> &#125;);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> clearInterval(id);</span><br><span class="line">  &#125;, [dispatch]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;count&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们将reducer写在组件内部以读取props，然后reducer的dispatch可以作为依赖，实际也可以不用写，因为它是静态的，这保证了useEffect只会执行一次。而count的修改也是在reducer内部，这样我们就使用useReducer将依赖于更新逻辑分离了。</p>
+<h3 id="useRef"><a href="#useRef" class="headerlink" title="useRef"></a>useRef</h3><p>在函数组件每次渲染后，普通声明的变量会被重新初始化，因此想要在函数生命周期内让一个变量不被重新初始化时，我们可以使用useRef。另外，在useEffect中，我们拿到的永远是定义它的那次渲染中的props和state，如果需要最新的，也可以使用useRef。</p>
+<h2 id="一些疑问"><a href="#一些疑问" class="headerlink" title="一些疑问"></a>一些疑问</h2><p>直入主题，作为一个react初学者，在使用Hook中遇到一些问题：</p>
+<h3 id="我该在哪里写发送请求的代码？"><a href="#我该在哪里写发送请求的代码？" class="headerlink" title="我该在哪里写发送请求的代码？"></a>我该在哪里写发送请求的代码？</h3><p>因为没有了钩子函数，以往写在<code>componentDidMount</code>里的请求应该写在<code>useEffect</code>中。</p>
+<h3 id="useEffect的依赖问题"><a href="#useEffect的依赖问题" class="headerlink" title="useEffect的依赖问题"></a>useEffect的依赖问题</h3><p>假设我们要在组件挂载后展示一个计时递增的变量count，可能会这样写：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> id = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      setCount(count + <span class="number">1</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> clearInterval(id);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &lt;h1&gt;&#123;count&#125;&lt;<span class="regexp">/h1&gt;;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>因为要实现只在挂载后开启计时器，所以在第二个依赖参数中传入了[]。但这样运行出来的结果是，count只会递增一次，之后页面显示的结果一直是1。原因是我们传入了[]，一个表示空依赖的数组，因此useEffect只会执行一次，在第一次运行后，计时器中会执行<code>setCount(0 + 1)</code>，之后的每一秒都会执行<code>setCount(0 + 1)</code>。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一次渲染 count是0</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  useEffect(</span><br><span class="line">    <span class="comment">// 第一次渲染的effect</span></span><br><span class="line">    () =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> id = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        setCount(<span class="comment">/*count为0*/</span><span class="number">0</span> + <span class="number">1</span>); <span class="comment">// 永远是setCount(1)</span></span><br><span class="line">      &#125;, <span class="number">1000</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> clearInterval(id);</span><br><span class="line">    &#125;,</span><br><span class="line">    [] <span class="comment">// 将只执行一次</span></span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>空依赖，让useEffect只执行了一次，对于useEffect来说，内部的state就像是快照，在执行的时候state是多少，后续就算马上更改了state的值，并且内部设置了100000000秒的定时器state也不会变。</p>
+<h4 id="第一种解决方法"><a href="#第一种解决方法" class="headerlink" title="第一种解决方法"></a>第一种解决方法</h4><p>对于上面的问题，可以像下面这样写：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> id = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setCount(count + <span class="number">1</span>);</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> clearInterval(id);</span><br><span class="line">&#125;, [count]);</span><br></pre></td></tr></table></figure>
+<p>在下一次执行前清除上一次定时器，这样会让count结果如预期那样。不过这也并不完美，因为每次都会重新创建一个定时器，尽管我们会清除它。</p>
+<h4 id="第二种解决方法"><a href="#第二种解决方法" class="headerlink" title="第二种解决方法"></a>第二种解决方法</h4><p>对于上面重复创建定时器的问题，实际还是因为传入了依赖<code>count</code>，因为在useEffect中出现了<code>count</code>变量。优化实际就是去掉依赖，那么就要将useEffect中的<code>count</code>去掉：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> id = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setCount(<span class="function"><span class="params">c</span> =&gt;</span> c + <span class="number">1</span>);</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> clearInterval(id);</span><br><span class="line">&#125;, []);</span><br></pre></td></tr></table></figure>
+<p>将setCount改为回调形式更改值，这样就避免了依赖问题。</p>
+<h3 id="useEffect里，如何避免组件卸载后修改state中的值"><a href="#useEffect里，如何避免组件卸载后修改state中的值" class="headerlink" title="useEffect里，如何避免组件卸载后修改state中的值"></a>useEffect里，如何避免组件卸载后修改state中的值</h3><p>实际上可以在useEffect中返回一个回调函数：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> [url, setUrl] = useState(initialUrl);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [state, dispatch] = useReducer(dataFetchReducer, &#123;</span><br><span class="line">  isLoading: <span class="literal">false</span>,</span><br><span class="line">  isError: <span class="literal">false</span>,</span><br><span class="line">  data: initialData,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> didCancel = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> fetchData = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    dispatch(&#123; <span class="keyword">type</span>: <span class="string">'FETCH_INIT'</span> &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> result = <span class="keyword">await</span> axios(url);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (!didCancel) &#123;</span><br><span class="line">        dispatch(&#123; <span class="keyword">type</span>: <span class="string">'FETCH_SUCCESS'</span>, payload: result.data &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!didCancel) &#123;</span><br><span class="line">        dispatch(&#123; <span class="keyword">type</span>: <span class="string">'FETCH_FAILURE'</span> &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  fetchData();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    didCancel = <span class="literal">true</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;, [url]);</span><br></pre></td></tr></table></figure>
+<p>比如这里，这样操作后就不会去修改state，并且不会在发送多余的请求。</p>
+<h3 id="在setState的后面打印更改后的值，值还是之前的？"><a href="#在setState的后面打印更改后的值，值还是之前的？" class="headerlink" title="在setState的后面打印更改后的值，值还是之前的？"></a>在setState的后面打印更改后的值，值还是之前的？</h3><p>这一现象是因为React Hooks中的<strong>Capture Value</strong>特性：我个人理解这个特性非常类似视频图像处理中的帧数捕捉，可以看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import React, &#123; useState, useCallback &#125; from &quot;react&quot;;</span><br><span class="line">import ReactDOM from &quot;react-dom&quot;;</span><br><span class="line"> </span><br><span class="line">function Example() &#123;</span><br><span class="line">  const [count, setCount] = useState(0);</span><br><span class="line"></span><br><span class="line">  const handleAlertClick = useCallback(()=&gt;&#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      alert(&apos;You clicked on: &apos; + count);</span><br><span class="line">    &#125;, 3000)</span><br><span class="line">  &#125;, [count]);</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;You clicked &#123;count&#125; times&lt;/p&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;</span><br><span class="line">        增加</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;handleAlertClick&#125;&gt;</span><br><span class="line">        显示</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里点击了显示按钮后，再在3秒内点击数次增加按钮，3秒后弹出的count值仍然为初始时的0，在这里似乎不符合我们的预期。但react这样的做法在下一个例子中我们可以找到原因：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import React, &#123; useState, useEffect &#125; from &quot;react&quot;;</span><br><span class="line">import ReactDOM from &quot;react-dom&quot;;</span><br><span class="line"> </span><br><span class="line">function Example() &#123;</span><br><span class="line">  const [count, setCount] = useState(0);</span><br><span class="line">  </span><br><span class="line">  useEffect(()=&gt;&#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      alert(&apos;count: &apos; + count);</span><br><span class="line">    &#125;, 3000)</span><br><span class="line">  &#125;, [count]);</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;You clicked &#123;count&#125; times&lt;/p&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;</span><br><span class="line">        增加</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; setCount(count - 1)&#125;&gt;</span><br><span class="line">        减少</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里把<code>useCallback</code>换成<code>useEffect</code>，然后我们在3秒内点击一次增加再点击一次减少，如果没有<strong>Capture Value</strong>特性，3秒后弹出的两次alert中count的值都将为0，这完全没体现出我们点击操作的过程，即先增加，后减少，这也是为什么我上面说把<strong>Capture Value</strong>特性看作视频图像帧数捕捉，这个特性下，每次更改的值都如同视频中的一帧，我们可以在变更的过程中看到每一次变更的结果。</p>
+<h3 id="useEffect缺少依赖（React-Hook-useEffect-has-a-missing-dependency）？"><a href="#useEffect缺少依赖（React-Hook-useEffect-has-a-missing-dependency）？" class="headerlink" title="useEffect缺少依赖（React Hook useEffect has a missing dependency）？"></a>useEffect缺少依赖（React Hook useEffect has a missing dependency）？</h3><p>eslint的锅，实际业务上不可能声明的state都放进useEffect的依赖追踪数组里面，因此干脆删掉了这个eslint插件。</p>
+<h3 id="React异常：Can’t-perform-a-React-state-update-on-an-unmounted-component"><a href="#React异常：Can’t-perform-a-React-state-update-on-an-unmounted-component" class="headerlink" title="React异常：Can’t perform a React state update on an unmounted component"></a>React异常：Can’t perform a React state update on an unmounted component</h3><p>这个警告是我们在组件销毁后更新了state中的数据后抛出的，只需要在组件销毁前将state置空即可：</p>
+<p><a href="https://imgtu.com/i/TXsPBQ" target="_blank" rel="noopener"><img src="https://s4.ax1x.com/2022/01/05/TXsPBQ.png" alt="TXsPBQ.png"></a></p>
+<p>### </p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2022/01/05/我的vue3-x公司宣讲会文档/" data-toggle="tooltip" data-placement="top"
+                           title="我的vue3.x公司宣讲会文档">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2021/09/09/leetcode算法之旅-二叉树/" data-toggle="tooltip" data-placement="top"
+                           title="leetcode算法之旅---二叉树">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#常用API"><span class="toc-text">常用API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#useState"><span class="toc-text">useState</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useEffect"><span class="toc-text">useEffect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useCallback"><span class="toc-text">useCallback</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对比class组件的提升"><span class="toc-text">对比class组件的提升</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useContext"><span class="toc-text">useContext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useMemo"><span class="toc-text">useMemo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useReducer"><span class="toc-text">useReducer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useRef"><span class="toc-text">useRef</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些疑问"><span class="toc-text">一些疑问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#我该在哪里写发送请求的代码？"><span class="toc-text">我该在哪里写发送请求的代码？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useEffect的依赖问题"><span class="toc-text">useEffect的依赖问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一种解决方法"><span class="toc-text">第一种解决方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二种解决方法"><span class="toc-text">第二种解决方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useEffect里，如何避免组件卸载后修改state中的值"><span class="toc-text">useEffect里，如何避免组件卸载后修改state中的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在setState的后面打印更改后的值，值还是之前的？"><span class="toc-text">在setState的后面打印更改后的值，值还是之前的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useEffect缺少依赖（React-Hook-useEffect-has-a-missing-dependency）？"><span class="toc-text">useEffect缺少依赖（React Hook useEffect has a missing dependency）？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React异常：Can’t-perform-a-React-state-update-on-an-unmounted-component"><span class="toc-text">React异常：Can’t perform a React state update on an unmounted component</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#React"
+                           title="React">React</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2022
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif">
+</body>
+
+</html>

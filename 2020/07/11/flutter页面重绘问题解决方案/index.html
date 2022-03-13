@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://s3.bmp.ovh/imgs/2022/03/1f0227bacbd74e15.png">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        flutter页面重绘问题解决方案｜Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/2020/07/11/flutter页面重绘问题解决方案/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>flutter页面重绘问题解决方案</h1>
+                    
+                    <span class="meta">
+                         作者 Chow
+                        <span>
+                          日期 2020-07-11
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#flutter"
+                           title="flutter">flutter</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            flutter页面重绘问题解决方案
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="IndexedStack"><a href="#IndexedStack" class="headerlink" title="IndexedStack"></a>IndexedStack</h2><p>IndexedStack组件继承自Stack，两个参数</p>
+<ul>
+<li>Index: 当前显示的组件列表中的的第几个</li>
+<li>children: 渲染页面的组件列表</li>
+</ul>
+<p>使用:</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_MyHomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">MyHomePage</span>&gt; </span>&#123;</span><br><span class="line">   <span class="built_in">int</span> currentIndex;</span><br><span class="line">   <span class="built_in">List</span>&lt;Widget&gt; pages = [Pages1(), Pages2(), Pages3()];</span><br><span class="line">   ...</span><br><span class="line">   ...</span><br><span class="line">   ...</span><br><span class="line">   <span class="meta">@override</span></span><br><span class="line">   Widget build(BuildContext context) &#123;</span><br><span class="line">   <span class="keyword">return</span> Scaffold(</span><br><span class="line">     appBar: AppBar(</span><br><span class="line">       title: Text(<span class="string">'demo'</span>),</span><br><span class="line">     ),</span><br><span class="line">     bottomNavigationBar: BottomNavigationBar(</span><br><span class="line">       items: items, currentIndex: currentIndex, onTap: onTap),</span><br><span class="line">     body: IndexedStack(</span><br><span class="line">       index: currentIndex,</span><br><span class="line">       children: pages</span><br><span class="line">     )</span><br><span class="line">   );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这在方法配置最简单，但是一进入程序就会直接将pages列表中引用的所有组件都初始化，这样一个是性能消耗问题，另外如果某个页面是有进入动画的，那么在初始化时动画也会被执行，之后再点击去就没有动画了。</p>
+<h2 id="Offstage"><a href="#Offstage" class="headerlink" title="Offstage"></a>Offstage</h2><p>此方法实际是配置隐藏组件，也是两个参数:</p>
+<ul>
+<li><p>Offstage: 设置组件<strong>隐藏</strong>的条件</p>
+</li>
+<li><p>child: 组件</p>
+</li>
+</ul>
+<p>使用：</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TabBar</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  State&lt;StatefulWidget&gt; createState() =&gt; _TabBarState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_TabBarState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">TabBar</span>&gt; </span>&#123;</span><br><span class="line">  <span class="comment">// 在此定义当前tab的索引</span></span><br><span class="line">  <span class="built_in">int</span> currentIndex = <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      title: <span class="string">"wave"</span>,</span><br><span class="line">      theme: ThemeData(</span><br><span class="line">        primaryColor: Colors.white</span><br><span class="line">      ),</span><br><span class="line">      home: Scaffold(</span><br><span class="line">        appBar: PreferredSize(</span><br><span class="line">          child: (AppBar(title: Text(<span class="string">"标题"</span>), leading: Icon(Icons.list, color: Colors.black), centerTitle: <span class="keyword">true</span>)),</span><br><span class="line">          preferredSize: Size.fromHeight(<span class="number">50</span>)</span><br><span class="line">        ),</span><br><span class="line">        body: Stack(</span><br><span class="line">          children: &lt;Widget&gt;[</span><br><span class="line">            Offstage(</span><br><span class="line">              offstage: currentIndex != <span class="number">0</span>,</span><br><span class="line">              child: FollowPage(),</span><br><span class="line">            ),</span><br><span class="line">            Offstage(</span><br><span class="line">              offstage: currentIndex != <span class="number">1</span>,</span><br><span class="line">              child: NextPage(),</span><br><span class="line">            ),</span><br><span class="line">            Offstage(</span><br><span class="line">              offstage: currentIndex != <span class="number">2</span>,</span><br><span class="line">              child: MinePage(),</span><br><span class="line">            )</span><br><span class="line">          ]</span><br><span class="line">        ),</span><br><span class="line">        ...</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Offstage组件问题和IndexedStack一样，初始就会将所有空间都渲染了，只是会根据规则隐藏部分。对于有动画的部分使用此空间会导致动画无效。</p>
+<h2 id="AutomaticKeepAliveClientMixin"><a href="#AutomaticKeepAliveClientMixin" class="headerlink" title="AutomaticKeepAliveClientMixin"></a>AutomaticKeepAliveClientMixin</h2><p>AutomaticKeepAliveClientMixin是一个Mixin混入类，使用它能够实现上面两个方法无法完成的效果:</p>
+<ul>
+<li>缓存页面，但不会一开始就把所有页面都渲染。</li>
+<li>只有第一次进入页面时才会渲染页面，触发initState等钩子函数。</li>
+</ul>
+<p>也就是说使用混入类AutomaticKeepAliveClientMixin达成的效果就像我们使用Vue中的页面缓存技术一样，接下来看一下使用方法:</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'components/wb-list.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FollowPage</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  State&lt;StatefulWidget&gt; createState() =&gt; FollowPageState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FollowPageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">FollowPage</span>&gt; <span class="title">with</span> <span class="title">AutomaticKeepAliveClientMixin</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 在外层定义滚动controller 以便在此控制页面返回顶部</span></span><br><span class="line">  ScrollController _scrollController = ScrollController();</span><br><span class="line">	<span class="keyword">final</span> GlobalKey&lt;WBListState&gt; _wbListKey = <span class="keyword">new</span> GlobalKey&lt;WBListState&gt;();</span><br><span class="line">	</span><br><span class="line">  <span class="comment">// 重写AutomaticKeepAliveClientMixin的wantKeepAlive的getter，此属性默认是false</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">bool</span> <span class="keyword">get</span> wantKeepAlive =&gt; <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> initState() &#123;</span><br><span class="line">    <span class="keyword">super</span>.initState();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="comment">// 在重写的build方法内一定要注意调用父类的build方法！</span></span><br><span class="line">    <span class="keyword">super</span>.build(context);</span><br><span class="line">    <span class="keyword">return</span> Column(</span><br><span class="line">      children: &lt;Widget&gt;[</span><br><span class="line">        Flexible(</span><br><span class="line">          child: WBList(</span><br><span class="line">            fetchData: wbList,</span><br><span class="line">            scrollController: _scrollController,</span><br><span class="line">          ),</span><br><span class="line">        )</span><br><span class="line">      ],</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总结一下使用AutomaticKeepAliveClientMixin需要注意几点：</p>
+<ul>
+<li><p>重写wanKeepAlive的getter，并返回true</p>
+</li>
+<li><p>在build函数内调用父类的build方法。</p>
+</li>
+<li><p>需要注意，如果你使用类似BottomNavigationBar这种使用底栏进行页面切换，并且切换的页面使用import导入，那么AutomaticKeepAliveClientMixin不能写在BottomNavigationBar所在的父页面！务必进入每个导入的页面为他们书写以上代码。</p>
+</li>
+</ul>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/BeCoderQ.github.io/2020/07/17/uni-app中利用webview标签使用原生js高德地图/" data-toggle="tooltip" data-placement="top"
+                           title="uni-app中利用webview标签使用原生js高德地图">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/BeCoderQ.github.io/2020/06/22/vue开发中的实用技巧/" data-toggle="tooltip" data-placement="top"
+                           title="vue开发中的实用技巧">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IndexedStack"><span class="toc-text">IndexedStack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Offstage"><span class="toc-text">Offstage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AutomaticKeepAliveClientMixin"><span class="toc-text">AutomaticKeepAliveClientMixin</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/BeCoderQ.github.io/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/BeCoderQ.github.io/tags/#flutter"
+                           title="flutter">flutter</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2022
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif">
+</body>
+
+</html>

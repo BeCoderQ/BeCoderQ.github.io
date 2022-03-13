@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="周琦茗在 Github 上的个人博客">
+    <meta name="keyword" content="周琦茗">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://s3.bmp.ovh/imgs/2022/03/1f0227bacbd74e15.png">
+    <link rel="alternate" type="application/atom+xml" title="ChowMe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Chow&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://localhost:4000/BeCoderQ.github.io/archives/page/2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/BeCoderQ.github.io/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('//o7bkkhiex.bkt.clouddn.com/lion-blur-bg.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/BeCoderQ.github.io/">
+                <span class="brand-logo">
+                    ChowMe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/BeCoderQ.github.io/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/categories/">categories</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/BeCoderQ.github.io/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+
+<!-- Page Header -->
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 visible-xs-block visible-sm-block">
+    <div class="row">
+        <header class="intro-header">
+            <div class="container">
+                <div class="site-heading text-center">
+                    <div class="about-me">
+                        <!--移动端头部显示-->
+                        <img src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif"/>
+                        <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
+                        <p>在前端的路上</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+</div>
+<!-- Main Content -->
+<div class="container custom-haojen-container">
+    <!-- Post Container -->
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
+            <!-- Main Content -->
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')">
+    <a href="/BeCoderQ.github.io/2021/04/24/借助babel的AST解析，让老代码重获新生-转载/">
+        <h2 class="post-title">
+            借助babel的AST解析，让老代码重获新生(转载)
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2021-04-24
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                问题在最近的工作中，接手了一个古老的项目，其中的 JS 代码是一整坨的面条代码，约 3000 行的代码全写在一个文件里，维护起来着实让人头疼。
+
+想不通为啥之前维护项目的同学能够忍受这么难以维护的代码……既然现在这个锅被我拿下了，怎么着也不能容忍如此丑陋的代码继续存在着，必须把它优化一下。
+横竖..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')">
+    <a href="/BeCoderQ.github.io/2021/03/03/从零开始使用flutter开发一款本地阅读器/">
+        <h2 class="post-title">
+            从零开始使用flutter开发一款本地阅读器
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2021-03-03
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                杂谈在写这篇博客的时候这个app实际开发时长已经零零碎碎有半个多月了，都是利用下班以及周末的时间开发，确实遇到了非常非常多的问题，还包括一些到现在(21年3月3日)还未解决的疑难杂症，虽然没人看，不过后期会持续更新。
+用到的库dependencies:  dio: ^3.0.9  shared_..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')">
+    <a href="/BeCoderQ.github.io/2021/01/01/typescript正确食用姿势之集成pont-engine白嫖后端/">
+        <h2 class="post-title">
+            typescript正确食用姿势之集成pont-engine白嫖后端
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2021-01-01
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                项目环境介绍公司项目全线上了vue3，因此前端框架还是vue3，脚手架由vite改回了vue.cli4，原因还是部分库的兼容性问题➕打包后的一些大大小小的问题。主要的技术栈如下
+
+Vue 3.x
+
+Typescript 4.0.5
+
+Vuex 4.x
+
+VueRouter 4.x
+
+端到端测试工..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')">
+    <a href="/BeCoderQ.github.io/2020/10/29/vite-vue3-vue-router4-0-vuex4-0-ts4-0搭建一个简单的项目架子/">
+        <h2 class="post-title">
+            vite+vue3+vue-router4.0+vuex4.0+ts4.0搭建一个简单的项目架子
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-10-29
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                vite按照github的文档所说，vite是基于原生的ES Module导入打包，同样是支持分块打包、热重载、摇树优化等功能，但比起webpack的打包速度会有巨大的提升，并且不会随着项目的增大而变慢。
+安装# 初始化vite脚手架npm init vite-app &lt;项目名称..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')">
+    <a href="/BeCoderQ.github.io/2020/09/30/基于Vue包装一个链式注销的全局事件总线/">
+        <h2 class="post-title">
+            基于Vue包装一个链式注销的全局事件总线
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-09-30
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                需求公司的某个项目组件封装得不是很好，到处都在用全局事件总线，并且@on注册后还从来都不注销，虽然项目不大不存在爆栈的问题，但是这不是一个好习惯，因此决定写一个工厂函数来让注销事件简单一点。
+目标效果最后实现的效果大概是这样:
+export default &#123;  mounted() &..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')">
+    <a href="/BeCoderQ.github.io/2020/09/30/最近项目中遇到的一些问题或一些总结/">
+        <h2 class="post-title">
+            最近项目中遇到的一些问题或一些总结
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-09-30
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                uni-app的scroll-view组件触底概率不触发问题前段时间用uni-app做移动端遇到一个问题，使用scroll-view标签@scrolltolower事件时，会有一定概率不触发触底事件，至于原因我没有去研究，不过暂时找到一个解决办法:
+&lt;template&gt;  &lt;..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')">
+    <a href="/BeCoderQ.github.io/2020/09/10/解析后端按位运算的枚举值/">
+        <h2 class="post-title">
+            解析后端按位运算的枚举值
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-09-10
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                位运算枚举值位运算的枚举值大概是下面的样子:
+const dictionary = &#123;  1: '枚举值one',  2: '枚举值two',  4: '枚举值three',  8: '枚举值four',  16: '枚举值five',&#125;
+而很多时候枚举值会有叠加，比如该枚举..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+<div class="post-preview "
+     style="background-image: url('https://s3.bmp.ovh/imgs/2022/01/c7d7cb65a170cd10.jpg')">
+    <a href="/BeCoderQ.github.io/2020/08/31/记一次后台权限与路由的重构/">
+        <h2 class="post-title">
+            记一次后台权限与路由的重构
+        </h2>
+        <p class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> 2020-08-31
+        </p>
+        
+        <div class="post-content-preview">
+            <p>
+                为什么要重构老实说重构我一直觉得是一件费力不讨好的事儿，但是这次的后台项目路由那块确实太乱了，复制粘贴以前项目的，非常生硬，这也导致权限的验证非常麻烦，因此趁着还没上线，花了大半天给改完了。
+重构的思路这个后台管理是有两级菜单的，如下图
+
+可以看到有两级菜单，顶层的菜单控制切换模块，并带动左侧的..
+            </p>
+        </div>
+    </a>
+
+</div>
+
+<hr>
+
+
+
+
+<!-- 翻页 pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/BeCoderQ.github.io/archives/">&larr; Newer Posts</a>
+    </li>
+    
+    
+    <li class="next">
+        <a href="/BeCoderQ.github.io/archives/page/3/">Older Posts &rarr;</a>
+    </li>
+    
+</ul>
+
+
+        </div>
+        <!-- Sidebar Container -->
+        <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+
+            <!-- About Me -->
+            <section class="visible-md visible-lg" style="padding: 0 18px">
+                <div class="short-about">
+                    <!--侧边栏头像-->
+                    
+                    <img src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif"/>
+                    
+                    <h5><a href="/BeCoderQ.github.io/about/">Chow</a></h5>
+                    
+                    <p>在前端的路上</p>
+                    
+                    <hr>
+                    <!-- SNS Link 社交 -->
+                    <ul class="list-inline">
+                        
+                        
+                        <li>
+                            <a target="_blank" href="https://twitter.com/zyyzg">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                        </span>
+                            </a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                        </span>
+                            </a>
+                        </li>
+                        
+
+                        
+                        <li>
+                            <a target="_blank" href="http://weibo.com/St7Paul-">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                        </span>
+                            </a>
+                        </li>
+                        
+
+                        
+
+                        
+                        <li>
+                            <a target="_blank" href="https://github.com/becoderq">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                            </a>
+                        </li>
+                        
+
+                        
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Featured Tags  标签 -->
+            
+            <section>
+                <div class="tags">
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#Proxy" title="Proxy"
+                       rel="2">Proxy</a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#ES6" title="ES6"
+                       rel="3">ES6</a>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#vue3" title="vue3"
+                       rel="3">vue3</a>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#webpack" title="webpack"
+                       rel="2">webpack</a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#canvas" title="canvas"
+                       rel="2">canvas</a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#flutter" title="flutter"
+                       rel="2">flutter</a>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#typescript" title="typescript"
+                       rel="5">typescript</a>
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#uni-app" title="uni-app"
+                       rel="2">uni-app</a>
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#高德地图" title="高德地图"
+                       rel="2">高德地图</a>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#vue.cli4" title="vue.cli4"
+                       rel="2">vue.cli4</a>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#axios" title="axios"
+                       rel="2">axios</a>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#Vue" title="Vue"
+                       rel="2">Vue</a>
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#vuex" title="vuex"
+                       rel="2">vuex</a>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <a href="/BeCoderQ.github.io/tags/#总结" title="总结"
+                       rel="2">总结</a>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </section>
+            
+
+            
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/zyyzg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/zhouqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/St7Paul-">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/becoderq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; ChowMe 2022
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/BeCoderQ.github.io/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/BeCoderQ.github.io/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/BeCoderQ.github.io/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://localhost:4000/BeCoderQ.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = 'ac1ba4c0c5c675cde36fb506beabca37';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://s3.bmp.ovh/imgs/2022/03/28127cf467601df7.gif">
+</body>
+
+</html>

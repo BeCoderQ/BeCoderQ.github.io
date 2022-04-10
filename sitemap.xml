@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://localhost:4000/2022/03/10/%E6%97%A0%E7%97%9B%E5%A4%84%E7%90%86async-await%E7%9A%84%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%91%8A%E5%88%AB%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E4%B8%80%E4%B8%AAtry-catch/</loc>
+    
+    <lastmod>2022-04-10T09:50:06.187Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://localhost:4000/2021/10/27/React-Hook%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2022-02-21T01:03:01.000Z</lastmod>
